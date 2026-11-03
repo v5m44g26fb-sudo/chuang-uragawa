@@ -227,7 +227,108 @@ input,textarea{font-size:16px!important}
 *{transition-duration:.01ms!important}
 }
 
-/* ===== v2.1: 通話画面の下切れ対策（短い画面でも全要素が収まる） ===== */
+/* ===== v3: 2021年実物寄せ ===== */
+.sb-r{display:flex;align-items:center;gap:6px}
+.sb-5g{font-size:11px;font-weight:700;color:#eef4ff}
+.chuang-logo{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.cl-a{font-size:15px;background:linear-gradient(120deg,#22d3ee,#a78bfa,#f472b6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cl-t{font-size:21px;font-weight:900;letter-spacing:.14em;background:linear-gradient(100deg,#67e8f9,#c4b5fd 55%,#f9a8d4);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cl-e{font-size:10px;font-weight:800;letter-spacing:.3em;color:#e0e7ff;opacity:.85}
+.appicon[data-app="twitter"] .ic{background:linear-gradient(150deg,#1d6fb8,#144e85)}
+/* WeChat 2021 風（トーク画面） */
+#phone[data-screen="screen-chat"] header.app-head,#phone[data-screen="screen-chatlist"] header.app-head{background:rgba(237,237,237,.94);border-bottom-color:#dcdcdc}
+#phone[data-screen="screen-chat"] header.app-head h1,#phone[data-screen="screen-chatlist"] header.app-head h1{color:#191919}
+#phone[data-screen="screen-chat"] header.app-head .sub,#phone[data-screen="screen-chatlist"] header.app-head .sub{color:#888}
+#phone[data-screen="screen-chat"] .backbtn,#phone[data-screen="screen-chatlist"] .backbtn{color:#191919}
+#screen-chatlist{background:#ededed}
+#chat-list .thread{background:#fff;border-bottom:1px solid #e8e8e8}
+#chat-list .thread:active{background:#f2f2f2}
+#chat-list .thread .nm{color:#191919}
+#chat-list .thread .pv{color:#8a8a8a}
+#chat-list .thread .tm{color:#b2b2b2}
+#screen-chatlist .av,#screen-chatlist .av-init,#screen-chat .av,#screen-chat .av-init{border-radius:10px}
+#screen-chat{background:#ededed}
+#screen-chat .bubble{background:#fff;color:#191919;border:1px solid rgba(0,0,0,.05)}
+#screen-chat .msgrow.me .bubble{background:#95ec69;color:#191919}
+#screen-chat .msgname{color:#8a8a8a}
+#screen-chat .sysmsg{background:transparent;border:none;color:#a6a6a6;box-shadow:none}
+#screen-chat .voice-bub .play{background:#07c160;color:#fff}
+#screen-chat .msgrow.me .voice-bub .play{background:rgba(0,0,0,.16);color:#191919}
+#chat-inputbar{background:#f6f6f6;border-top:1px solid #dcdcdc}
+#chat-text{background:#fff;border-color:#e3e3e3;color:#191919}
+#chat-send{background:#07c160;color:#fff;box-shadow:none}
+#chat-choices .choice-list button{background:#fff;color:#191919;border-color:#d9d9d9;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+/* Weibo 2021 風 */
+#phone[data-screen="screen-weibo"] header.app-head{background:rgba(255,255,255,.96);border-bottom-color:#e6e6e6}
+#phone[data-screen="screen-weibo"] header.app-head h1{color:#333}
+#phone[data-screen="screen-weibo"] header.app-head .sub{color:#939393}
+#phone[data-screen="screen-weibo"] .backbtn{color:#333}
+#screen-weibo{background:#f1f2f5}
+.wb-tabs{display:flex;gap:22px;background:#fff;padding:12px 18px 0;font-size:13.5px;color:#636363;border-bottom:1px solid #e6e6e6;margin-bottom:10px}
+.wb-tabs .on{color:#ff8200;font-weight:800;border-bottom:2.5px solid #ff8200;padding-bottom:9px}
+.wb-tabs span{padding-bottom:9px}
+#screen-weibo .post{background:#fff;border:none;border-radius:0;margin:0 0 10px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+#screen-weibo .post .pn{color:#333}
+#screen-weibo .post .pn .vbadge{display:inline-block;background:#ff8200;color:#fff;font-size:9px;font-weight:800;border-radius:50%;width:13px;height:13px;line-height:13px;text-align:center;margin-left:4px;vertical-align:2px;font-style:normal}
+#screen-weibo .post .pt{color:#939393}
+#screen-weibo .post .pb{color:#333}
+#screen-weibo .post .pb .tag{color:#eb7350;font-weight:600}
+#screen-weibo .post .pf{color:#939393;border-top-color:rgba(0,0,0,.06)}
+#screen-weibo .av-init{background:#fde8d7;color:#ff8200}
+/* Twitter 2021 風 */
+#phone[data-screen="screen-twitter"] header.app-head{background:rgba(255,255,255,.96);border-bottom-color:#eff3f4}
+#phone[data-screen="screen-twitter"] header.app-head h1{color:#0f1419}
+#phone[data-screen="screen-twitter"] header.app-head .sub{color:#536471}
+#phone[data-screen="screen-twitter"] .backbtn{color:#1d9bf0}
+#screen-twitter{background:#fff}
+.tweet{display:flex;gap:10px;padding:12px 14px;border-bottom:1px solid #eff3f4;background:#fff}
+.tweet .tav{width:46px;height:46px;border-radius:50%;background:#cfd9de;color:#536471;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;flex:none}
+.tweet .tn{font-weight:800;font-size:14.5px;color:#0f1419}
+.tweet .th{color:#536471;font-size:13px;font-weight:400}
+.tweet .tb{font-size:14.5px;line-height:1.55;margin-top:2px;white-space:pre-wrap;color:#0f1419}
+.tweet .tb .tag{color:#1d9bf0}
+.tweet .ta{display:flex;gap:32px;margin-top:9px;color:#536471;font-size:12.5px}
+/* 腾讯视频カード */
+.tx-player{border-radius:12px;overflow:hidden;background:#0b0b10;border:1px solid rgba(255,255,255,.12);margin:4px 0 12px;text-align:left}
+.tx-thumb{position:relative;aspect-ratio:16/9;background:linear-gradient(150deg,#1e293b,#0f172a 45%,#312e81);display:flex;align-items:center;justify-content:center}
+.tx-thumb::after{content:"";position:absolute;inset:0;background:radial-gradient(600px 200px at 20% 0%,rgba(34,211,238,.25),transparent 60%),radial-gradient(500px 220px at 90% 100%,rgba(244,114,182,.22),transparent 60%)}
+.tx-play{position:relative;z-index:2;width:54px;height:54px;border-radius:50%;background:rgba(255,102,0,.95);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 6px 20px rgba(255,102,0,.45)}
+.tx-logo{position:absolute;left:10px;top:8px;z-index:2;font-size:12px;font-weight:900;color:#ff7a1a;letter-spacing:.06em}
+.tx-bar{padding:9px 12px 10px;background:#111118}
+.tx-title{font-size:13.5px;font-weight:800;color:#f4f4f5}
+.tx-sub{font-size:11px;color:#a1a1aa;margin-top:2px}
+/* Instagram 2021 風（手紙カード） */
+.ig-card{background:#fff;color:#262626;border-radius:10px;overflow:hidden;border:1px solid #dbdbdb;text-align:left;margin:6px 0 4px}
+.ig-head{display:flex;align-items:center;gap:9px;padding:9px 11px}
+.ig-ring{width:34px;height:34px;border-radius:50%;padding:2px;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf);flex:none}
+.ig-ring img{width:100%;height:100%;border-radius:50%;border:2px solid #fff;object-fit:cover;display:block}
+.ig-name{font-size:13px;font-weight:700;color:#262626}
+.ig-loc{font-size:11px;color:#8e8e8e}
+.ig-letter{background-color:#fdf8ec;padding:18px 16px 20px;color:#3f3a2e;font-size:13.5px;line-height:2.05;background-image:repeating-linear-gradient(transparent,transparent 27px,rgba(120,100,60,.14) 27px,rgba(120,100,60,.14) 28px)}
+.ig-act{display:flex;gap:14px;padding:9px 11px 2px;font-size:17px;color:#262626}
+.ig-likes{padding:2px 11px;font-size:12.5px;font-weight:700;color:#262626}
+.ig-cap{padding:0 11px 12px;font-size:12.5px;line-height:1.55;color:#262626}
+/* メンバー90人 */
+.mem-search{width:calc(100% - 32px);margin:2px 16px 10px;background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--txt);font-size:16px;padding:10px 12px;font-family:inherit;outline:none}
+.m90-row{display:flex;align-items:center;gap:11px;background:var(--panel);border:1px solid var(--line-soft);border-radius:14px;padding:9px 12px;margin:0 16px 8px;cursor:pointer;text-align:left;width:calc(100% - 32px);font-family:inherit;color:var(--txt)}
+.m90-row .m90-av{width:44px;height:44px;border-radius:10px;object-fit:cover;flex:none;background:#1e293b}
+.m90-row .m90-ini{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#155e75,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;color:#fff;flex:none}
+.m90-row .m90-nm{font-size:14.5px;font-weight:800}
+.m90-row .m90-sb{font-size:11px;color:var(--sub);margin-top:1px}
+.m90-row .m90-rk{margin-left:auto;font-size:11px;font-weight:800;color:#fbbf24;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.35);padding:3px 8px;border-radius:999px;white-space:nowrap}
+.traj{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 4px}
+.traj .tj{font-size:11px;font-weight:700;background:var(--panel2);border:1px solid var(--line-soft);border-radius:999px;padding:3px 9px;color:var(--txt)}
+.traj .tj b{color:var(--accent)}
+/* 順位表タブ・決勝 */
+.rank-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 16px 4px}
+.rank-tabs button{font-family:inherit;font-size:12px;font-weight:800;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);color:var(--sub);cursor:pointer;min-height:36px}
+.rank-tabs button.on{background:linear-gradient(135deg,#0ea5e9,#8b5cf6);color:#fff;border-color:transparent}
+.rank-zone{font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--accent);margin:14px 16px 2px}
+.rank-row.debut .rk{color:#4ade80}
+.rank-row.debut{border-color:rgba(74,222,128,.35)}
+
+
+/* ===== v3.1: 通話画面の下切れ対策（短い画面でも全要素が収まる） ===== */
 #screen-call.active{display:flex;flex-direction:column;min-height:100%}
 #call-av-wrap{padding:clamp(14px,5vh,64px) 0 6px}
 #call-av-wrap .av,#call-av-wrap .av-init{width:clamp(80px,17vh,116px);height:clamp(80px,17vh,116px);font-size:clamp(32px,7vh,46px)}
@@ -242,11 +343,23 @@ input,textarea{font-size:16px!important}
 #call-sub{font-size:14.5px;line-height:1.8}
 }
 
+
+/* ===== v3追加: 2021年実物寄せ（通話ボタン列／放送テロップ／WeChat入力欄） ===== */
+#call-keys{display:flex;justify-content:center;gap:9px;margin-top:clamp(10px,2.2vh,20px);pointer-events:none;flex:0 0 auto}
+#call-keys span{width:clamp(40px,6.4vh,54px);height:clamp(40px,6.4vh,54px);border-radius:50%;background:rgba(255,255,255,.14);color:#dfe9f5;font-size:8.5px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.25;padding:2px}
+@media (max-height:600px){#call-keys{display:none}}
+.telop{display:flex;align-items:center;gap:9px;background:linear-gradient(90deg,#141414,#2b2b2b);border-bottom:3px solid #f5c518;border-radius:8px;padding:8px 12px;margin-bottom:14px;box-shadow:var(--shadow)}
+.telop .live{background:#e53247;color:#fff;font-size:10px;font-weight:800;border-radius:4px;padding:2.5px 7px;letter-spacing:.12em;animation:liveBlink 1.6s ease-in-out infinite}
+@keyframes liveBlink{0%,100%{opacity:1}50%{opacity:.45}}
+.telop .tt{color:#fff;font-size:13.5px;font-weight:700;letter-spacing:.05em}
+.telop .ts{color:#f5c518;font-size:11px;margin-left:auto;white-space:nowrap}
+.wx-ic{width:34px;height:34px;border:1.5px solid #b9b9b9;border-radius:50%;color:#7a7a7a;display:flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 auto;background:transparent}
+
 </style>
 </head>
 <body>
 <div id="phone">
-<div id="sb"><span id="sb-time">19:00</span><span>CHUANG 2021 · 三亜</span><span>📶 🔋</span></div>
+<div id="sb"><span id="sb-time">19:00</span><span class="sb-r"><svg width="17" height="11" viewBox="0 0 17 11" aria-hidden="true"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#fff"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#fff"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#fff" opacity=".45"/></svg><span class="sb-5g">5G</span><svg width="25" height="12" viewBox="0 0 25 12" aria-hidden="true"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" fill="none" stroke="#fff" opacity=".5"/><rect x="2" y="2" width="15" height="8" rx="2" fill="#fff"/><path d="M23 4v4c1-.3 1.6-1 1.6-2S24 4.3 23 4z" fill="#fff" opacity=".5"/></svg></span></div>
 <header class="app-head" id="app-head" style="display:none">
 <button class="backbtn" id="head-back">‹</button>
 <div style="flex:1;min-width:0"><h1 id="head-title">ホーム</h1><div class="sub" id="head-sub"></div></div>
@@ -255,6 +368,7 @@ input,textarea{font-size:16px!important}
 <!-- HOME -->
 <section class="screen active" id="screen-home">
 <div id="home-hero">
+<div class="chuang-logo"><span class="cl-a">▲</span><span class="cl-t">创造营2021</span><span class="cl-e">CHUANG 2021</span></div>
 <div class="date" id="home-date">2021年2月 · 中国・三亜</div>
 <h2 id="home-title">担当をデビューさせる件</h2>
 <p id="home-desc">日本人学員サポートスタッフとして『創造営2021』の収録に帯同中。担当は、あの井汲大翔。2年ぶりの再会から、もう一度「デビューさせる」戦いが始まる。</p>
@@ -281,7 +395,9 @@ input,textarea{font-size:16px!important}
 <div id="chat-body"></div>
 <div id="chat-choices"></div>
 <div id="chat-inputbar">
+<span class="wx-ic">☺</span>
 <input id="chat-text" type="text" placeholder="メッセージを入力" autocomplete="off">
+<span class="wx-ic">＋</span>
 <button id="chat-send">送信</button>
 </div>
 </section>
@@ -289,6 +405,8 @@ input,textarea{font-size:16px!important}
 <section class="screen" id="screen-weibo"><div id="weibo-list"></div></section>
 <!-- NEWS -->
 <section class="screen" id="screen-news"><div id="news-list"></div></section>
+<!-- TWITTER -->
+<section class="screen" id="screen-twitter"><div id="twitter-list"></div></section>
 <!-- SUPPORT -->
 <section class="screen" id="screen-support"><div id="support-body"></div></section>
 <!-- RANK -->
@@ -304,6 +422,7 @@ input,textarea{font-size:16px!important}
 <div id="call-status">通話中…</div>
 <div id="call-sub"></div>
 <div class="choice-list" id="call-choices"></div>
+<div id="call-keys"><span>消音</span><span>キーパッド</span><span>スピーカー</span><span>FaceTime</span><span>追加</span><span>連絡先</span></div>
 <button id="call-end">📞</button>
 </section>
 <!-- SETTINGS -->
@@ -394,7 +513,16 @@ zhoushen:{name:"周深",sub:"ジョウ・シェン",grp:"メンター",from:"中
 nannan:{name:"周震南",sub:"ジョウ・ジェンナン",grp:"メンター",from:"中国",cls:"—",sk:{vo:78,da:88,ra:90,vi:80},pop:93,mentor:1,
  prof:"R1SEのセンター経験者。同じサバイバル出身として、学員の心理を踏まえた言葉をかける。",rel:"先輩メンター。"},
 nene:{name:"鄭乃馨",sub:"ジェン・ナイシン｜Nene",grp:"メンター｜国際学員助教",from:"タイ",cls:"—",sk:{vo:80,da:78,ra:50,vi:90},pop:94,mentor:1,
- prof:"海外練習生メンター／国際学員助教。外国人学員の生活面・言語面のサポート役。",rel:"なおと同じく外国人学員を支える立場の先輩。"}
+ prof:"海外練習生メンター／国際学員助教。外国人学員の生活面・言語面のサポート役。",rel:"なおと同じく外国人学員を支える立場の先輩。"},
+xiexingyang:{name:"謝興陽",sub:"シェ・シンヤン",grp:"壞水娛樂",from:"中国・浙江 杭州",cls:"F → B → C → B",sk:{vo:70,da:76,ra:60,vi:80},pop:74,
+ prof:"2000年生まれ。二公「遊楽園」チームのメンバー。俳優としても活動する明るい性格で、現場票147票を集めた。",
+ rel:"二公で大翔と同チーム。ムードメーカー。"},
+yugengyin:{name:"俞更寅",sub:"ユー・ゴンイン",grp:"個人学員",from:"中国・広東 汕尾",cls:"A → B → A → B",sk:{vo:78,da:80,ra:58,vi:78},pop:76,
+ prof:"1996年生まれ。元SWINの実力派。三公「衛星XL」で大翔と同チームになり、決勝まで進出した。",
+ rel:"三公のチームメイト。経験豊富な頼れる兄貴分。"},
+rongyao:{name:"栄耀",sub:"ロン・ヤオ",grp:"締壹娛樂",from:"中国・新疆",cls:"C → F → C",sk:{vo:66,da:74,ra:56,vi:76},pop:58,
+ prof:"2000年生まれのダンサー。三公「衛星XL」のメンバーで、現場票101票。",
+ rel:"三公で大翔と同チームになった同世代。"}
 };
 const FACT_RANK = [
 [1,"liuyu",21308912],[2,"santa",19576309],[3,"rikimaru",18446706],[4,"mika",17639804],[5,"keyu",16906210],
@@ -404,22 +532,30 @@ const FACT_RANK = [
 ];
 const EXTRA_NAMES = {"__ren":"任胤蓬","__oscar":"奥斯卡","__gan":"甘望星","__wu":"吳宇恒","__jinglong":"井朧","__han":"韓佩泉","__zhangxinyao":"張欣堯"};
 const HIROTO_BASE_VOTES = 6895112;
+/* ===== 全学員データ（90人）: 出典 Wikipedia（日・中）『創造営2021』『创造营2021节目列表』（順位・票数・分班・プロフィール） ===== */
+const MEMBERS90 = [{"id": "liuyu", "name": "劉宇", "yomi": "リウ・ユー", "region": "中国", "from": "安徽省 宣城市", "grp": "嗶喲嗶喲", "born": "2000-08-24", "age": 20, "cls": "A→A→A→A→A→A", "r": [1, 4, 1, 1], "res": "INTO1としてデビュー（最終1位）", "note": "", "cast": "liuyu"}, {"id": "santa", "name": "賛多", "yomi": "サンタ", "region": "日本", "from": "愛知県 名古屋市", "grp": "Avex Warps", "born": "1998-03-11", "age": 22, "cls": "A→C→A→A→A→A", "r": [2, 2, 2, 2], "res": "INTO1としてデビュー（最終2位）", "note": "WARPs UP のメンバー", "cast": "santa"}, {"id": "rikimaru", "name": "力丸", "yomi": "リキマル", "region": "日本", "from": "兵庫県 伊丹市", "grp": "Avex Warps", "born": "1993-11-02", "age": 27, "cls": "A→A→A→A→A→A", "r": [3, 3, 4, 3], "res": "INTO1としてデビュー（最終3位）", "note": "WARPs UP のメンバー", "cast": "rikimaru"}, {"id": "mika", "name": "米卡（ミカ）", "yomi": "ミカ", "region": "アメリカ", "from": "ハワイ州", "grp": "Avex", "born": "1998-12-21", "age": 22, "cls": "F→B→A→A→A→A", "r": [4, 6, 3, 4], "res": "INTO1としてデビュー（最終4位）", "note": "INTERSECTION のメンバー", "cast": "mika"}, {"id": "nine", "name": "高卿塵 （ナイン）", "yomi": "ガオ・チンチェン｜Nine", "region": "タイ", "from": "バンコク", "grp": "洞察娯楽", "born": "1999-07-11", "age": 21, "cls": "B→C→B→B→B→A", "r": [16, 14, 7, 5], "res": "INTO1としてデビュー（最終5位）", "note": "Ordinary x Quake のメンバー", "cast": "nine"}, {"id": "linmo", "name": "林墨", "yomi": "リン・モー", "region": "中国", "from": "重慶市", "grp": "原際畫", "born": "2002-01-06", "age": 19, "cls": "A→B→A→A→A→A", "r": [6, 8, 9, 6], "res": "INTO1としてデビュー（最終6位）", "note": "易安音楽社のメンバー", "cast": "linmo"}, {"id": "boyuan", "name": "伯遠", "yomi": "ボー・ユエン", "region": "中国", "from": "貴州省 貴陽市", "grp": "白色系", "born": "1993-02-11", "age": 28, "cls": "A→B→A→B→A→B", "r": [18, 9, 12, 7], "res": "INTO1としてデビュー（最終7位）", "note": "ZERO-Gのメンバー 「青春有你」に参加", "cast": "boyuan"}, {"id": "jiayuan", "name": "張嘉元", "yomi": "ジャン・ジアユエン", "region": "中国", "from": "遼寧省 営口市", "grp": "哇唧唧哇娯楽文化", "born": "2003-01-08", "age": 18, "cls": "C→B→C→A→A→A", "r": [7, 10, 11, 8], "res": "INTO1としてデビュー（最終8位）", "note": "「明日之子」に参加", "cast": "jiayuan"}, {"id": "patrick", "name": "尹浩宇 （パトリック）", "yomi": "イン・ハオユー｜Patrick", "region": "タイ／ドイツ", "from": "ザールラント州", "grp": "洞察娯楽", "born": "2003-10-20", "age": 17, "cls": "F→C→A→A→A→A", "r": [9, 7, 5, 9], "res": "INTO1としてデビュー（最終9位）", "note": "「ザ・ギフテッド・グラデュエーション」に出演", "cast": "patrick"}, {"id": "keyu", "name": "周柯宇", "yomi": "ジョウ・クーユー", "region": "アメリカ", "from": "アメリカ合衆国", "grp": "嘉行新悦", "born": "2002-05-17", "age": 18, "cls": "F→C→C→A→A→A", "r": [5, 1, 8, 10], "res": "INTO1としてデビュー（最終10位）", "note": "BESTのメンバー", "cast": "keyu"}, {"id": "ak", "name": "劉彰", "yomi": "リウ・ジャン｜AK", "region": "中国", "from": "広東省 珠海市", "grp": "W8VES", "born": "1999-12-18", "age": 21, "cls": "F→B→B→B→B→B", "r": [13, 15, 13, 11], "res": "INTO1としてデビュー（最終11位）", "note": "", "cast": "ak"}, {"id": "caelan", "name": "慶怜（ケイレン）", "yomi": "ケイレン｜Caelan", "region": "キューバ", "from": "キューバ", "grp": "Avex", "born": "2001-04-12", "age": 19, "cls": "B→C→B→A→B→A", "r": [8, 13, 6, 12], "res": "決勝進出（最終12位）", "note": "INTERSECTION のメンバー", "cast": "caelan"}, {"id": "oscar", "name": "奥斯卡（オスカー）", "yomi": "オスカー", "region": "ブラジル", "from": "ブラジル", "grp": "喜歓季節", "born": "1998-07-30", "age": 22, "cls": "A→C→B→A→A→B", "r": [11, 5, 17, 13], "res": "決勝進出（最終13位）", "note": "「少年之名」に出演 元 CUBEエンターテインメント 練習生", "cast": null}, {"id": "ganwangxing", "name": "甘望星", "yomi": "ガン・ワンシン", "region": "中国", "from": "湖南省", "grp": "聿瀟伝媒", "born": "2000-07-17", "age": 20, "cls": "C→C→C→B→A→B", "r": [12, 11, 15, 14], "res": "決勝進出（最終14位）", "note": "", "cast": null}, {"id": "hiroto", "name": "井汲大翔", "yomi": "いくみ ひろと", "region": "日本", "from": "大阪府", "grp": "RBW", "born": "2002-08-23", "age": 18, "cls": "B→A→B→B→B→B", "r": [17, 12, 14, 15], "res": "決勝進出（最終15位）", "note": "「PRODUCE 101 JAPAN」に参加", "cast": "hiroto"}, {"id": "xingte", "name": "張星特", "yomi": "ジャン・シントー", "region": "中国", "from": "浙江省 温州市", "grp": "微粒文化", "born": "2003-02-11", "age": 18, "cls": "B→B→B→B→B→B", "r": [21, 18, 16, 16], "res": "決勝進出（最終16位）", "note": "", "cast": "xingte"}, {"id": "lelush", "name": "利路修（リルーシュ）", "yomi": "リルーシュ｜Lelush", "region": "ロシア", "from": "ウラジオストク", "grp": "King Holdings", "born": "1994-01-23", "age": 27, "cls": "F→B→F→B→B→A", "r": [29, 21, 10, 17], "res": "決勝進出（最終17位）", "note": "", "cast": "lelush"}, {"id": "wuyuheng", "name": "呉宇恒", "yomi": "ウー・ユーホン", "region": "中国", "from": "四川省 成都市", "grp": "普林賽斯", "born": "1996-09-11", "age": 24, "cls": "C→A→A→B→B→B", "r": [14, 16, 19, 18], "res": "決勝進出（最終18位）", "note": "「明日之子」に参加", "cast": null}, {"id": "renyinpeng", "name": "任胤蓬", "yomi": "レン・インポン", "region": "中国", "from": "重慶市", "grp": "哇唧唧哇娯楽文化", "born": "1999-09-12", "age": 21, "cls": "C→A→F→A→B→B", "r": [10, 17, 22, 19], "res": "決勝進出（最終19位）", "note": "「明日之子」に参加", "cast": null}, {"id": "zhangxinyao", "name": "張欣堯", "yomi": "ジャン・シンヤオ", "region": "中国", "from": "内モンゴル自治区 赤峰市", "grp": "無憂伝媒", "born": "1994-11-21", "age": 26, "cls": "C→B→B→B→B→B", "r": [20, 20, 20, 20], "res": "決勝進出（最終20位）", "note": "", "cast": null}, {"id": "yugengyin", "name": "兪更寅", "yomi": "ユー・ゴンイン", "region": "中国", "from": "広東省 汕尾市", "grp": "個人学員", "born": "1996-04-28", "age": 24, "cls": "A→B→A→B→B→B", "r": [22, 22, 23, 21], "res": "決勝進出（最終21位）", "note": "SWINの元メンバー 「星動亜洲」に参加", "cast": "yugengyin"}, {"id": "fusichao", "name": "付思超", "yomi": "フー・スーチャオ", "region": "中国", "from": "北京市", "grp": "哇唧唧哇娯楽文化", "born": "1999-11-11", "age": 21, "cls": "C→B→F→B→B→B", "r": [24, 19, 21, 22], "res": "決勝進出（最終22位）", "note": "「明日之子」に参加", "cast": null}, {"id": "huyetao", "name": "胡燁韜", "yomi": "フー・イェタオ", "region": "中国", "from": "江蘇省", "grp": "MISTAR", "born": "2000-09-22", "age": 20, "cls": "A→A→A→B→B→B", "r": [25, 32, 25, 23], "res": "決勝進出（最終23位）", "note": "", "cast": "huyetao"}, {"id": "hanyuda", "name": "羽生田挙武", "yomi": "はにゅうだ あむ", "region": "日本", "from": "東京都", "grp": "天王星娯楽", "born": "1997-11-26", "age": 23, "cls": "B→F→B→B→B→B", "r": [27, 24, 24, 24], "res": "決勝進出（最終24位）", "note": "ジャニーズJr. の元メンバー", "cast": null}, {"id": "xuebayi", "name": "薛八一", "yomi": "シュエ・バーイー", "region": "中国", "from": "山西省", "grp": "浩瀚娯楽", "born": "1999-08-01", "age": 21, "cls": "C→B→F→B→B→B", "r": [28, 29, 18, 25], "res": "決勝進出（最終25位）", "note": "「ストレンジャー〜上海の芥川龍之介〜」に出演", "cast": null}, {"id": "jinglong", "name": "井朧", "yomi": "ジン・ロン", "region": "中国", "from": "遼寧省 瀋陽市", "grp": "個人学員", "born": "1997-07-07", "age": 23, "cls": "B→C→B→B→B", "r": [15, 33, 26, null], "res": "第3回順位発表で脱落（最終26位）", "note": "", "cast": null}, {"id": "zenghanjiang", "name": "曾涵江", "yomi": "ゾン・ハンジャン", "region": "中国", "from": "四川省", "grp": "木加互娯", "born": "2000-05-23", "age": 20, "cls": "B→B→F→C→B", "r": [37, 26, 27, null], "res": "第3回順位発表で脱落（最終27位）", "note": "", "cast": null}, {"id": "xiexingyang", "name": "謝興陽", "yomi": "シエ・シンヤン", "region": "中国", "from": "浙江省 杭州市", "grp": "壊水娯楽", "born": "1999-07-22", "age": 21, "cls": "F→B→C→B→B", "r": [30, 23, 28, null], "res": "第3回順位発表で脱落（最終28位）", "note": "「少年江湖物語」に出演 「歓迎光臨高中生」に出演", "cast": "xiexingyang"}, {"id": "wuhai", "name": "呉海", "yomi": "ウー・ハイ", "region": "中国", "from": "重慶市", "grp": "河馬影業", "born": "1997-11-17", "age": 23, "cls": "B→B→B→C→B", "r": [43, 28, 29, null], "res": "第3回順位発表で脱落（最終29位）", "note": "「一站到底」に参加", "cast": null}, {"id": "heyifan", "name": "何屹繁", "yomi": "ホー・イーファン", "region": "中国", "from": "四川省 宜賓市", "grp": "浩鑫娯楽", "born": "1998-08-22", "age": 22, "cls": "C→F→C→B→B", "r": [31, 25, 30, null], "res": "第3回順位発表で脱落（最終30位）", "note": "SWINの元メンバー 「星動亜洲」に参加 「以団之名」に参加", "cast": null}, {"id": "weiziyue", "name": "魏子越", "yomi": "ウェイ・ズーユエ", "region": "中国", "from": "湖北省", "grp": "萌揚文化", "born": "1998-08-25", "age": 22, "cls": "C→A→C→C→B", "r": [46, 27, 31, null], "res": "第3回順位発表で脱落（最終31位）", "note": "「PRODUCE X 101」に参加 「以団之名」に参加", "cast": null}, {"id": "zhangteng", "name": "張騰", "yomi": "ジャン・トン", "region": "中国", "from": "河北省 秦皇島市", "grp": "個人学員", "born": "1999-07-22", "age": 21, "cls": "C→B→F→B→B", "r": [26, 30, 32, null], "res": "第3回順位発表で脱落（最終32位）", "note": "", "cast": "zhangteng"}, {"id": "rongyao", "name": "栄耀", "yomi": "ロン・ヤオ", "region": "中国", "from": "新疆ウイグル自治区", "grp": "締壹娯楽", "born": "2000-06-22", "age": 20, "cls": "C→F→C→C→B", "r": [40, 31, 33, null], "res": "第3回順位発表で脱落（最終33位）", "note": "", "cast": "rongyao"}, {"id": "guishangqi", "name": "貴尚奇", "yomi": "グイ・シャンチー", "region": "中国", "from": "四川省", "grp": "程夢文化", "born": "1996-11-01", "age": 24, "cls": "F→F→C→C", "r": [50, 34, null, null], "res": "第2回順位発表で脱落（最終34位）", "note": "JULY LABのメンバー", "cast": null}, {"id": "uehara", "name": "上原一翔", "yomi": "うえはら いちか", "region": "日本", "from": "東京都", "grp": "DAEWON MEDIA", "born": "1992-10-28", "age": 28, "cls": "B→F→F→C", "r": [44, 35, null, null], "res": "第2回順位発表で脱落（最終35位）", "note": "「BOYS PLANET」に参加", "cast": null}, {"id": "nuoyan", "name": "諾言（郭桂鑫）", "yomi": "ヌオイェン", "region": "中国", "from": "広東省 汕頭市", "grp": "eStar電競倶楽部", "born": "1999-12-03", "age": 21, "cls": "C→C→F→C", "r": [39, 36, null, null], "res": "第2回順位発表で脱落（最終36位）", "note": "", "cast": null}, {"id": "luoyan", "name": "羅言", "yomi": "ルオ・イェン", "region": "中国", "from": "重慶市", "grp": "JYPエンターテインメント", "born": "2003-03-21", "age": 17, "cls": "B→A→C→C", "r": [38, 37, null, null], "res": "第2回順位発表で脱落（最終37位）", "note": "", "cast": null}, {"id": "satoeisho", "name": "佐藤永翔", "yomi": "さとう えいしょう", "region": "日本", "from": "神奈川県", "grp": "スターダストプロモーション", "born": "2003-11-04", "age": 17, "cls": "C→F→F→C", "r": [49, 38, null, null], "res": "第2回順位発表で脱落（最終38位）", "note": "", "cast": null}, {"id": "yehaoran", "name": "葉皓然", "yomi": "イエ・ハオラン", "region": "中国", "from": "浙江省", "grp": "晨小曦伝媒", "born": "1999-08-14", "age": 21, "cls": "C→F→F→C", "r": [36, 39, null, null], "res": "第2回順位発表で脱落（最終39位）", "note": "", "cast": null}, {"id": "hanpeiquan", "name": "韓佩泉", "yomi": "ハン・ペイチュエン", "region": "中国", "from": "黒竜江省 大慶市", "grp": "個人学員", "born": "2000-02-27", "age": 20, "cls": "A→F→F→B", "r": [19, 40, null, null], "res": "第2回順位発表で脱落（最終40位）", "note": "「厲害了我滴星」に参加", "cast": null}, {"id": "ludinghao", "name": "陸定昊", "yomi": "ルー・ディンハオ", "region": "中国", "from": "上海市", "grp": "個人学員", "born": "1995-07-27", "age": 25, "cls": "F→B→F→B", "r": [33, 41, null, null], "res": "第2回順位発表で脱落（最終41位）", "note": "「偶像練習生」に参加 「歓迎光臨高中生」に出演", "cast": null}, {"id": "shaomingming", "name": "邵明明", "yomi": "シャオ・ミンミン", "region": "中国", "from": "上海市", "grp": "星芒互娯", "born": "1997-10-25", "age": 23, "cls": "C→F→F→B", "r": [23, 42, null, null], "res": "第2回順位発表で脱落（最終42位）", "note": "「名偵探学院」に出演 「一年級・大学季」に出演 「密室大逃脱大神版」に出演", "cast": null}, {"id": "liluoer", "name": "李洛爾", "yomi": "リー・ルオアー", "region": "中国", "from": "北京市", "grp": "橙子映像", "born": "2001-12-19", "age": 19, "cls": "B→A→C→C", "r": [35, 43, null, null], "res": "第2回順位発表で脱落（最終43位）", "note": "", "cast": null}, {"id": "yuyang", "name": "于洋", "yomi": "ユー・ヤン", "region": "中国", "from": "河北省", "grp": "喜歓季節", "born": "1999-09-19", "age": 21, "cls": "A→C→B→C", "r": [41, 44, null, null], "res": "第2回順位発表で脱落（最終44位）", "note": "", "cast": null}, {"id": "wangxiaochen", "name": "王孝辰", "yomi": "ワン・シアオチェン", "region": "中国", "from": "湖北省", "grp": "哇偶文化", "born": "1998-01-07", "age": 23, "cls": "F→B→B→C", "r": [52, 45, null, null], "res": "第2回順位発表で脱落（最終45位）", "note": "「創造営2019」に参加", "cast": null}, {"id": "quboyu", "name": "屈柏宇", "yomi": "チュー・ボーユー", "region": "中国", "from": "四川省", "grp": "新華貝易", "born": "2001-06-18", "age": 19, "cls": "F→F→F→C", "r": [54, 46, null, null], "res": "第2回順位発表で脱落（最終46位）", "note": "YES!CAMPのメンバー 「少年之名」に参加 「街頭音浪」に参加", "cast": null}, {"id": "jiangdunhao", "name": "蔣敦豪", "yomi": "ジャン・ドゥンハオ", "region": "中国", "from": "新疆ウイグル自治区", "grp": "海西伝媒", "born": "1995-05-21", "age": 25, "cls": "F→F→B→C", "r": [53, 47, null, null], "res": "第2回順位発表で脱落（最終47位）", "note": "「中国新歌声」に参加 「一起楽隊吧」に参加", "cast": null}, {"id": "daishaodong", "name": "代少冬", "yomi": "ダイ・シャオドン", "region": "中国", "from": "遼寧省 営口市", "grp": "SDT娯楽", "born": "1997-12-30", "age": 23, "cls": "B→F→B→C", "r": [34, 48, null, null], "res": "第2回順位発表で脱落（最終48位）", "note": "「創造営2019」に参加", "cast": null}, {"id": "huangkun", "name": "黄鯤", "yomi": "ホアン・クン", "region": "中国", "from": "福建省", "grp": "微粒文化", "born": "1995-12-10", "age": 25, "cls": "C→F→C→C", "r": [42, 49, null, null], "res": "第2回順位発表で脱落（最終49位）", "note": "「明日之子」に参加", "cast": null}, {"id": "ichinose", "name": "一之瀬飛鳥", "yomi": "いちのせ あすか", "region": "日本", "from": "神奈川県 横浜市", "grp": "声曜文化", "born": "1995-07-21", "age": 25, "cls": "F→F→F→B", "r": [32, 50, null, null], "res": "第2回順位発表で脱落（最終50位）", "note": "「非正式会談」に出演", "cast": null}, {"id": "hezhenyu", "name": "何圳煜", "yomi": "ホー・ジェンユー", "region": "香港", "from": "香港", "grp": "微粒文化", "born": "1999-12-15", "age": 21, "cls": "B→C→B→C", "r": [47, 51, null, null], "res": "第2回順位発表で脱落（最終51位）", "note": "", "cast": null}, {"id": "xushaolan", "name": "徐紹嵐", "yomi": "シュー・シャオラン", "region": "中国", "from": "重慶市", "grp": "斉鼓文化", "born": "2003-04-15", "age": 17, "cls": "B→A→C→C", "r": [48, 52, null, null], "res": "第2回順位発表で脱落（最終52位）", "note": "ECAT翼少年のメンバー", "cast": null}, {"id": "heyijun", "name": "何懿峻", "yomi": "ホー・イージュン", "region": "中国", "from": "浙江省", "grp": "嘉行新悦", "born": "2000-11-06", "age": 20, "cls": "F→B→F→C", "r": [55, 53, null, null], "res": "第2回順位発表で脱落（最終53位）", "note": "「少年之名」に参加", "cast": null}, {"id": "zhangzhang", "name": "張璋", "yomi": "ジャン・ジャン", "region": "中国", "from": "安徽省", "grp": "喜歓季節", "born": "1999-08-02", "age": 21, "cls": "F→B→C→C", "r": [51, 54, null, null], "res": "第2回順位発表で脱落（最終54位）", "note": "", "cast": null}, {"id": "fanzhener", "name": "范臻爾", "yomi": "ファン・ジェンアー", "region": "中国", "from": "山東省", "grp": "虔来娯楽", "born": "1996-11-06", "age": 24, "cls": "C→C→C→C", "r": [45, 55, null, null], "res": "第2回順位発表で脱落（最終55位）", "note": "ZERO-Gの元メンバー", "cast": null}, {"id": "david", "name": "大衛（デイビッド）", "yomi": "ダビド｜大衛", "region": "ロシア", "from": "ウラジカフカス", "grp": "個人学員", "born": "1993-01-09", "age": 28, "cls": "C→B→F", "r": [56, null, null, null], "res": "第1回順位発表で脱落（最終56位）", "note": "", "cast": null}, {"id": "lizekun", "name": "李沢坤", "yomi": "リー・ゾークン", "region": "中国", "from": "山東省", "grp": "程夢文化", "born": "2000-11-28", "age": 20, "cls": "F→B→F", "r": [57, null, null, null], "res": "第1回順位発表で脱落（最終57位）", "note": "JULY LABのメンバー", "cast": null}, {"id": "linyuxiu", "name": "林煜修", "yomi": "リン・ユーシウ", "region": "台湾", "from": "台湾", "grp": "龍韜娯楽", "born": "1999-10-26", "age": 21, "cls": "F→B→F", "r": [58, null, null, null], "res": "第1回順位発表で脱落（最終58位）", "note": "元 YUE HUA Entertainment 練習生 「以団之名」に参加", "cast": null}, {"id": "lijiahao", "name": "李家豪", "yomi": "リー・ジアハオ", "region": "中国", "from": "重慶市", "grp": "程夢文化", "born": "1997-12-20", "age": 23, "cls": "C→F→C", "r": [59, null, null, null], "res": "第1回順位発表で脱落（最終59位）", "note": "JULY LABのメンバー", "cast": null}, {"id": "tsuzuki", "name": "都筑雄哉", "yomi": "つづき ゆうや", "region": "日本", "from": "愛知県 名古屋市", "grp": "個人学員", "born": "1999-09-06", "age": 21, "cls": "C→C→F", "r": [60, null, null, null], "res": "第1回順位発表で脱落（最終60位）", "note": "#HASHTAGの元メンバー", "cast": null}, {"id": "liutanghui", "name": "劉唐輝", "yomi": "リウ・タンホイ", "region": "中国", "from": "重慶市", "grp": "個人学員", "born": "2000-07-20", "age": 20, "cls": "F→B→F", "r": [61, null, null, null], "res": "第1回順位発表で脱落（最終61位）", "note": "「少年之名」に参加", "cast": null}, {"id": "yihan", "name": "懌涵（張書涵）", "yomi": "イーハン", "region": "中国", "from": "北京市 朝陽区", "grp": "原際畫", "born": "2002-08-20", "age": 18, "cls": "C→A→F", "r": [62, null, null, null], "res": "第1回順位発表で脱落（最終62位）", "note": "元 BC TEENS練習生", "cast": null}, {"id": "kiuchi", "name": "喜内優心", "yomi": "きうち ゆうしん", "region": "日本", "from": "千葉県", "grp": "King Artist", "born": "2001-01-22", "age": 20, "cls": "F→B→C", "r": [63, null, null, null], "res": "第1回順位発表で脱落（最終63位）", "note": "", "cast": null}, {"id": "lijiaxiang", "name": "李嘉祥", "yomi": "リー・ジアシアン", "region": "中国", "from": "遼寧省 大連市", "grp": "夢娯魅姫", "born": "1997-02-17", "age": 24, "cls": "A→C→C", "r": [64, null, null, null], "res": "第1回順位発表で脱落（最終64位）", "note": "", "cast": null}, {"id": "laiyaoxiang", "name": "頼耀翔", "yomi": "ライ・ヤオシアン", "region": "台湾", "from": "台湾", "grp": "壹聆伝媒", "born": "1997-05-14", "age": 23, "cls": "F→F→A", "r": [65, null, null, null], "res": "第1回順位発表で脱落（最終65位）", "note": "AODのメンバー", "cast": null}, {"id": "caozuo", "name": "曹左", "yomi": "ツァオ・ズオ", "region": "中国", "from": "重慶市", "grp": "喜歓季節", "born": "1996-11-08", "age": 24, "cls": "F→B→B", "r": [66, null, null, null], "res": "第1回順位発表で脱落（最終66位）", "note": "", "cast": null}, {"id": "lingxiao", "name": "凌簫", "yomi": "リン・シアオ", "region": "中国", "from": "新疆ウイグル自治区", "grp": "個人学員", "born": "1998-08-26", "age": 22, "cls": "C→C→F", "r": [67, null, null, null], "res": "第1回順位発表で脱落（最終67位）", "note": "", "cast": null}, {"id": "lipeiyang", "name": "李沛洋", "yomi": "リー・ペイヤン", "region": "中国", "from": "河南省", "grp": "嘉尚伝媒", "born": "1997-07-05", "age": 23, "cls": "F→B→F", "r": [68, null, null, null], "res": "第1回順位発表で脱落（最終68位）", "note": "", "cast": null}, {"id": "lizhengting", "name": "李政庭", "yomi": "リー・ジョンティン", "region": "中国", "from": "重慶市", "grp": "STF", "born": "2001-01-01", "age": 20, "cls": "F→F→C", "r": [69, null, null, null], "res": "第1回順位発表で脱落（最終69位）", "note": "", "cast": null}, {"id": "kadowaki", "name": "門脇慎剛", "yomi": "かどわき しんごう", "region": "日本", "from": "大阪府", "grp": "賀喜娯楽", "born": "1994-07-08", "age": 26, "cls": "B→B→B", "r": [70, null, null, null], "res": "第1回順位発表で脱落（最終70位）", "note": "劇団4ドル50セント の劇団員 monSterのメンバー", "cast": null}, {"id": "hayashimame", "name": "林豆（リンドウ）", "yomi": "はやし まめ", "region": "日本", "from": "神奈川県 厚木市", "grp": "英模文化", "born": "1996-12-06", "age": 24, "cls": "F→F→F", "r": [71, null, null, null], "res": "第1回順位発表で脱落（最終71位）", "note": "", "cast": null}, {"id": "harabe", "name": "原部凌", "yomi": "はらべ りょう", "region": "日本", "from": "福岡県", "grp": "個人学員", "born": "2003-07-21", "age": 17, "cls": "B→B→B", "r": [72, null, null, null], "res": "第1回順位発表で脱落（最終72位）", "note": "CRAZY BUTのメンバー", "cast": null}, {"id": "junjie", "name": "陳俊潔", "yomi": "チェン・ジュンジェ", "region": "中国", "from": "新疆ウイグル自治区", "grp": "嘉尚伝媒", "born": "2000-11-08", "age": 20, "cls": "C→B→F", "r": [73, null, null, null], "res": "第1回順位発表で脱落（最終73位）", "note": "", "cast": "junjie"}, {"id": "xiaolihuan", "name": "肖力桓", "yomi": "シアオ・リーホアン", "region": "中国", "from": "浙江省", "grp": "北極熊文化", "born": "1999-08-23", "age": 21, "cls": "C→B→C", "r": [74, null, null, null], "res": "第1回順位発表で脱落（最終74位）", "note": "", "cast": null}, {"id": "liuyandongji", "name": "劉厳冬季", "yomi": "リウ・イェンドンジー", "region": "中国", "from": "四川省", "grp": "喜歓季節", "born": "2000-02-15", "age": 21, "cls": "C→F→F", "r": [75, null, null, null], "res": "第1回順位発表で脱落（最終75位）", "note": "", "cast": null}, {"id": "zhengmingxin", "name": "鄭明鑫", "yomi": "ジェン・ミンシン", "region": "中国", "from": "河南省 鄭州市", "grp": "嘉尚伝媒", "born": "2003-02-06", "age": 18, "cls": "F→B→F", "r": [76, null, null, null], "res": "第1回順位発表で脱落（最終76位）", "note": "", "cast": null}, {"id": "liucong", "name": "劉聰", "yomi": "リウ・ツォン", "region": "中国", "from": "広東省", "grp": "新華貝易", "born": "2001-09-29", "age": 19, "cls": "C→F→F", "r": [77, null, null, null], "res": "第1回順位発表で脱落（最終77位）", "note": "YESCAMPのメンバー「少年之名」に参加", "cast": null}, {"id": "taguchi", "name": "田口馨也", "yomi": "たぐち けいや", "region": "日本", "from": "茨城県", "grp": "RBW", "born": "2003-01-20", "age": 18, "cls": "F→B→F", "r": [78, null, null, null], "res": "第1回順位発表で脱落（最終78位）", "note": "「PRODUCE 101 JAPAN」に参加", "cast": "taguchi"}, {"id": "guliulin", "name": "谷柳霖", "yomi": "グー・リウリン", "region": "中国", "from": "河南省", "grp": "超燃星球", "born": "2000-04-05", "age": 20, "cls": "B→C→B", "r": [79, null, null, null], "res": "第1回順位発表で脱落（最終79位）", "note": "", "cast": null}, {"id": "weiyujie", "name": "韋語節", "yomi": "ウェイ・ユージエ", "region": "中国", "from": "重慶市", "grp": "黒金娯楽", "born": "2002-08-01", "age": 18, "cls": "F→B→C", "r": [80, null, null, null], "res": "第1回順位発表で脱落（最終80位）", "note": "", "cast": null}, {"id": "andy", "name": "安迪（アンディ）", "yomi": "アンディ", "region": "ウクライナ", "from": "ザポリージャ州", "grp": "石声伝媒", "born": "1993-05-23", "age": 27, "cls": "B→F→B", "r": [81, null, null, null], "res": "第1回順位発表で脱落（最終81位）", "note": "", "cast": null}, {"id": "akezhuli", "name": "阿克朱力", "yomi": "アクジュリ", "region": "中国", "from": "新疆ウイグル自治区", "grp": "超燃星球", "born": "2002-02-23", "age": 18, "cls": "F→B→F", "r": [82, null, null, null], "res": "第1回順位発表で脱落（最終82位）", "note": "", "cast": null}, {"id": "qianzhengyu", "name": "銭政宇", "yomi": "チエン・ジョンユー", "region": "中国", "from": "黒竜江省 哈爾浜市", "grp": "嘉行新悦", "born": "2002-10-07", "age": 18, "cls": "F→B→F", "r": [83, null, null, null], "res": "第1回順位発表で脱落（最終83位）", "note": "", "cast": null}, {"id": "luke", "name": "盧克（ルーク）", "yomi": "ルーク", "region": "アメリカ", "from": "ワシントン州 シアトル", "grp": "OST伝媒", "born": "1995-06-28", "age": 25, "cls": "C→F→C", "r": [84, null, null, null], "res": "第1回順位発表で脱落（最終84位）", "note": "", "cast": null}, {"id": "chenruifeng", "name": "陳瑞豊", "yomi": "チェン・ルイフォン", "region": "中国", "from": "重慶市", "grp": "個人学員", "born": "1994-11-21", "age": 26, "cls": "C→C→F", "r": [85, null, null, null], "res": "第1回順位発表で脱落（最終85位）", "note": "", "cast": null}, {"id": "litailong", "name": "李泰龍", "yomi": "リー・タイロン", "region": "中国", "from": "河南省 鄭州市", "grp": "超燃星球", "born": "2000-04-12", "age": 20, "cls": "C→F→F", "r": [86, null, null, null], "res": "第1回順位発表で脱落（最終86位）", "note": "", "cast": null}, {"id": "sumida", "name": "隅田隼平", "yomi": "すみだ じゅんぺい", "region": "日本", "from": "東京都", "grp": "RBW", "born": "1996-10-25", "age": 24, "cls": "F→F→B", "r": [87, null, null, null], "res": "第1回順位発表で脱落（最終87位）", "note": "", "cast": "sumida"}, {"id": "xushengzi", "name": "徐聖茲", "yomi": "シュー・ションズー", "region": "中国", "from": "浙江省", "grp": "嘉行新悦", "born": "1999-12-18", "age": 21, "cls": "B→F→B", "r": [88, null, null, null], "res": "第1回順位発表で脱落（最終88位）", "note": "", "cast": null}, {"id": "wangzehao", "name": "王沢浩", "yomi": "ワン・ゾーハオ", "region": "中国", "from": "湖南省 長沙市", "grp": "相星力文化", "born": "1999-03-19", "age": 21, "cls": "B→C→C", "r": [89, null, null, null], "res": "第1回順位発表で脱落（最終89位）", "note": "", "cast": null}, {"id": "kazuma", "name": "和馬（カズマ）", "yomi": "かずま｜Kazuma", "region": "アメリカ", "from": "ニューヨーク州", "grp": "avex", "born": "2000-05-15", "age": 20, "cls": "C→C→F", "r": [null, null, null, null], "res": "期間中に退赛（途中離脱）", "note": "INTERSECTION のメンバー 「オオカミちゃんには騙されない」に出演", "cast": null}];
+const ANNOUNCE = {"r1":[["liuyu",21308912],["santa",19576309],["rikimaru",18446706],["mika",17639804],["keyu",16906210],["linmo",13990221],["jiayuan",12624851],["caelan",11909999],["patrick",10463315],["renyinpeng",10034180],["oscar",10007720],["ganwangxing",9794669],["ak",9565832],["wuyuheng",9412096],["jinglong",8974409],["nine",8441438],["hiroto",6895112],["boyuan",6375096],["hanpeiquan",6354663],["zhangxinyao",5667546],["xingte",5310719],["yugengyin",4889952],["shaomingming",4377584],["fusichao",4277208],["huyetao",4212453],["zhangteng",4135523],["hanyuda",4008131],["xuebayi",3915599],["lelush",3869738],["xiexingyang",3776073],["heyifan",3550158],["ichinose",3456699],["ludinghao",3194874],["daishaodong",3107098],["liluoer",3046557],["yehaoran",2974918],["zenghanjiang",2872735],["luoyan",2972334],["nuoyan",2837783],["rongyao",2805829],["yuyang",2612301],["huangkun",2534130],["wuhai",2527470],["uehara",2324875],["fanzhener",2284339],["weiziyue",2203940],["hezhenyu",2199639],["xushaolan",2126282],["satoeisho",2050957],["guishangqi",1971780],["zhangzhang",1956108],["wangxiaochen",1888192],["jiangdunhao",1847270],["quboyu",1835885],["heyijun",1714910],["david",1671088],["lizekun",1644677],["linyuxiu",1614903],["lijiahao",1602130],["tsuzuki",1511462],["liutanghui",1418497],["yihan",1400284],["kiuchi",1371731],["lijiaxiang",1338664],["laiyaoxiang",1197864],["caozuo",1176833],["lingxiao",1162165],["lipeiyang",1157439],["lizhengting",921464],["kadowaki",863603],["hayashimame",831206],["harabe",764508],["junjie",660450],["xiaolihuan",626781],["liuyandongji",599028],["zhengmingxin",506811],["liucong",465141],["taguchi",415243],["guliulin",366659],["weiyujie",312079],["andy",260851],["akezhuli",252359],["qianzhengyu",235726],["luke",233686],["chenruifeng",221348],["litailong",162391],["sumida",159288],["xushengzi",152563],["wangzehao",124907]],"r2":[["keyu",15266078],["santa",14773950],["rikimaru",14538347],["liuyu",14433893],["oscar",12336864],["mika",12155973],["patrick",11241829],["linmo",10806994],["boyuan",10075053],["jiayuan",9477805],["ganwangxing",9459262],["hiroto",8856294],["caelan",8698240],["nine",8443364],["ak",7940871],["wuyuheng",7659034],["renyinpeng",6581482],["xingte",6416020],["fusichao",6360061],["zhangxinyao",6265651],["lelush",6070507],["yugengyin",5842246],["xiexingyang",5453873],["hanyuda",5271024],["heyifan",4994831],["zenghanjiang",4523109],["weiziyue",4213924],["wuhai",4160952],["xuebayi",4157566],["zhangteng",4117521],["rongyao",4066917],["huyetao",3631076],["jinglong",3616730],["guishangqi",3334614],["uehara",3193118],["nuoyan",3167884],["luoyan",2918977],["satoeisho",2918810],["yehaoran",2841539],["hanpeiquan",2536229],["ludinghao",2332588],["shaomingming",2233856],["liluoer",1854769],["yuyang",1676054],["wangxiaochen",1407021],["quboyu",1061346],["jiangdunhao",895160],["daishaodong",793684],["huangkun",525002],["ichinose",455850],["hezhenyu",311194],["xushaolan",286303],["heyijun",263894],["zhangzhang",119878],["fanzhener",54262]],"r3":[["liuyu",11836817],["santa",7435270],["mika",6977253],["rikimaru",6503416],["patrick",5330748],["caelan",5067520],["nine",4475569],["keyu",4435889],["linmo",4334075],["lelush",4019170],["jiayuan",3816761],["boyuan",3812396],["ak",3493794],["hiroto",3441630],["ganwangxing",2999737],["xingte",2950003],["oscar",2854135],["xuebayi",2439967],["wuyuheng",2000953],["zhangxinyao",1856888],["fusichao",1801192],["renyinpeng",1768968],["yugengyin",1786773],["hanyuda",1585282],["huyetao",1532797],["jinglong",1480501],["zenghanjiang",1013975],["xiexingyang",1011332],["wuhai",961192],["heyifan",918424],["weiziyue",434028],["zhangteng",403085],["rongyao",116313]],"fin":[["liuyu",25959880],["santa",16611343],["rikimaru",16591943],["mika",16255569],["nine",13898339],["linmo",13700082],["boyuan",13651294],["jiayuan",13612487],["patrick",13359428],["keyu",13279532],["ak",13274812],["caelan",12819271],["oscar",12230067],["ganwangxing",7469378],["hiroto",5477202],["xingte",2572435],["lelush",1960253],["wuyuheng",1829783],["renyinpeng",1802420],["zhangxinyao",1560064],["yugengyin",1421946],["fusichao",893191],["huyetao",823603],["hanyuda",441526],["xuebayi",163088]]};
 const TRACKS = {
  hip:{src:"assets/music/hip.mp3",title:"HIP -Japanese ver.-",sub:"MAMAMOO｜初評級ステージ（公式プレビュー30秒）"},
  loverboy:{src:"assets/music/loverboy88.mp3",title:"Lover Boy 88（纯享版）",sub:"進步男孩兒｜第一次公演（公式プレビュー30秒）"},
  theme:{src:"assets/music/theme.mp3",title:"我們一起闖（Chuang To-Gather, Go!）",sub:"創造営2021主題曲（公式プレビュー30秒）"},
+ therefore:{src:"assets/music/therefore.mp3",title:"Therefore I Am",sub:"Billie Eilish｜第二次公演（公式プレビュー30秒）"},
+ weixing:{src:"assets/music/weixing.mp3",title:"衛星XL（纯享版）",sub:"慶憐・胡燁韜・井汲大翔・俞更寅・栄耀 ft. Amber｜第三次公演（公式プレビュー30秒）"},
+ dingyi:{src:"assets/music/dingyi.mp3",title:"定義（纯享版）",sub:"決勝グループ曲｜伯遠・甘望星・胡燁韜・井汲大翔・任胤蓬・俞更寅・羽生田挙武・張欣堯・張星特（公式プレビュー30秒）"},
  tension:{src:"assets/music/bgm-tension.mp3",title:"The Descent",sub:"順位発表BGM｜Kevin MacLeod (CC-BY)",loop:true}
 };
 const VOICES = {
  line1:{src:"new-voices/line1-reunion.mp3",label:"0:04",text:"……なおさん？　なんでここにおるん……いや、夢ちゃうよな"},
- line2:{src:"new-voices/line2-loverboy.mp3",label:"0:05",text:"チームで1位、取れました。……今度は、最後まで行きます"}
+ line2:{src:"new-voices/line2-loverboy.mp3",label:"0:05",text:"チームで1位、取れました。……今度は、最後まで行きます"},
+ line3:{src:"new-voices/line3-finaleve.mp3",label:"0:13",text:"明日で決まりますね。……ここまで一緒に来てくれて、ありがとうございます"},
+ line4:{src:"new-voices/line4-startline.mp3",label:"0:03",text:"やっと、スタートラインです。……見ててください"}
 };
 </script>
 <script>
 /* ================= SNS CONTENT ================= */
 const WEIBO = {
 w1:{user:"創造営2021公式",time:"2月17日",body:"#創造営2021# 学員が続々と三亜に集結！今年は20カ国以上から90人が参加。日本人学員は最多の17人です。#ChuangToGatherGo#",like:"12.4万"},
-w2:{user:"鹅厂追星日记",time:"2月20日",body:"RBW JBOYZの井汲大翔くん、本名の中国語読みが「Jǐng Jí Dà Xiáng」で“吉祥”と同音らしく、もう「#吉祥弟弟#」って呼ばれてる。入営早々に愛称がつくのは強い。",like:"3.8万"},
+w2:{user:"鹅厂追星日记",time:"2月20日",body:"RBW JBOYZの井汲大翔くん、本名の中国語読みが「Jǐng Jí Dà Xiáng」で“吉祥”と同音らしく、もう「#吉祥弟弟#」って呼ばれてる。入営早々に愛称がつくのは強い。[打call]",like:"3.8万"},
 w3:{user:"創造営2021公式",time:"2月27日",body:"#創造営2021初舞台# RBW JBOYZ「HIP -Japanese ver.-」！井汲大翔は個人撑腰値89票でB班に。追加ステージ「CALL CALL CALL！」のダンスも話題です。",like:"9.6万"},
 w4:{user:"岛民小薯条",time:"2月27日",body:"吉祥弟弟の加試、表情管理がすごくない？可愛い顔してバチバチに踊るの、反差（ギャップ）がすごい。周深先生も笑顔だった。",like:"2.1万"},
 w5:{user:"創造営2021公式",time:"3月6日",body:"#創造営2021第一次公演# 「Lover Boy 88」進步男孩兒が勝利！井汲大翔は現場個人票117票でチーム内1位＝撑腰王。中国語ラップも披露しました。",like:"15.2万"},
@@ -427,14 +563,39 @@ w6:{user:"选秀显微镜",time:"3月6日",body:"一公の撑腰王・井汲大�
 w7:{user:"鹅岛气象站",time:"3月13日",body:"主題曲考核、井汲大翔はB班に降級。でも二創の「如獅添翼」（伯遠・井汲大翔ら）の獅子舞アレンジ、創造営らしい国際感で好きだった。",like:"1.7万"},
 w8:{user:"下班倒计时（利路修bot）",time:"3月14日",body:"今日の利路修「まだ帰れないの？」発言まとめ。人気だけがうなぎ上りで本人が一番困惑しているの、創造営2021の七不思議。",like:"28.9万"},
 w9:{user:"創造営2021公式",time:"3月20日",body:"#創造営2021第一次順位発表# 井汲大翔の順位が発表されました。RBW JBOYZでは唯一の残留。田口馨也（78位）・隅田隼平（87位）はここで離営となります。たくさんの応援ありがとうございました。",like:"11.3万"},
-w10:{user:"岛民小薯条",time:"3月20日",body:"JBOYZの別れの場面で泣いた。吉祥弟弟だけが残るの、嬉しいけど寂しい。弟弟、2人の分まで行ってくれ。",like:"5.2万"}
+w10:{user:"岛民小薯条",time:"3月20日",body:"JBOYZの別れの場面で泣いた。吉祥弟弟だけが残るの、嬉しいけど寂しい。弟弟、2人の分まで行ってくれ。",like:"5.2万"},
+w11:{user:"創造営2021公式",time:"3月27日",body:"#創造営2021第二次公演# 位置測評のチーム分けが発表！井汲大翔は舞蹈（ダンス）位置を選択。張嘉元センター「欢迎来到我们的游乐园」で「Therefore I Am」に挑みます。",like:"8.7万"},
+w12:{user:"創造営2021公式",time:"4月3日",body:"#創造営2021第二次公演# 「遊楽園」チームは合計735票。井汲大翔は163票でチーム2位！「峰頂」組への攻擂（挑戦）は768票にあと33票届きませんでしたが、完成度の高いステージでした。",like:"10.6万"},
+w13:{user:"创造营2021公式",time:"4月10日",body:"#創造営2021第二次順位発表# 55人から33人へ。井汲大翔は自己最高位を更新し、残留を決めました。RBW JBOYZ最後の1人として、第三次公演へ進みます。",like:"13.9万"},
+w14:{user:"岛民小薯条",time:"4月10日",body:"吉祥弟弟、自己最高位おめでとう！一公の撑腰王からずっと安定してるの、努力の証拠だと思う。次は決勝の景色を見せて。",like:"4.9万"},
+w15:{user:"創造営2021公式",time:"4月17日",body:"#創造営2021第三次公演# 主題考核「衛星XL」！慶憐センター、胡燁韜・井汲大翔・俞更寅・栄耀の「六六六星球」に、助陣學姐Amberが合流しました。",like:"12.8万"},
+w16:{user:"选秀显微镜",time:"4月17日",body:"衛星XL、平均126.8票。胡燁韜148・慶憐142の壁は厚いけど、井汲大翔108票は外国人学員として立派。Amber学姐との相性も良かった。",like:"3.3万"},
+w17:{user:"創造営2021公式",time:"4月21日",body:"#創造営2021第三次順位発表# 決勝に進む25人が決定！成団夜は4月24日。最後の戦いが始まります。",like:"16.1万"},
+w18:{user:"鹅厂追星日记",time:"4月24日",body:"今夜、#創造営2021成団夜# 。25人から11人がINTO1に。井汲大翔はグループ曲「定義」と個人展示「Fun」で最後のステージへ。吉祥弟弟の運命やいかに。",like:"9.4万"}
 };
 const NEWS = {
 n1:{src:"創造営ニュース",time:"2021年2月17日",h:"『創造営2021』三亜で収録開始　テーマは「国際化」、日本人学員は最多17人",b:"テンセントビデオの国際男団オーディション『創造営2021』が中国・三亜で収録を開始した。全90人のうち約25%が外国人学員で、日本人は最多の17人。メンターは鄧超、寧静、劉逸雲（Amber）、周深、周震南、鄭乃馨（Nene）。上位11人が期間限定グループ「INTO1」としてデビューする。"},
 n2:{src:"日中エンタメ通信",time:"2021年2月28日",h:"日プ出身・井汲大翔、創造営の初舞台で89票「弟弟」愛称も話題に",b:"『PRODUCE 101 JAPAN』（2019）出身の井汲大翔が、RBW JBOYZとして田口馨也・隅田隼平と出場。MAMAMOO「HIP -Japanese ver.-」で個人89票を集めB班に。追加ステージのダンスも好評で、本名の中国語読みに由来する愛称「吉祥弟弟」が中国のSNSで広がっている。"},
 n3:{src:"創造営ニュース",time:"2021年3月7日",h:"第一次公演、井汲大翔が「撑腰王」に　中国語ラップも披露しA班昇級",b:"第一次公演で井汲大翔は「Lover Boy 88」（林墨センターの進步男孩兒）に出演。現場個人票117票でチーム内1位の「撑腰王」となり、対戦相手の「Radio」組に勝利。公演後の再分班でA班への昇級を決めた。中国語ラップの披露も日本側ファンメディアで特記されている。"},
 n4:{src:"鹅島トレンド",time:"2021年3月15日",h:"「帰りたい」利路修がバズり続ける理由　創造営2021の人気の多様化",b:"ロシア出身の利路修（Lelush）は「早く帰りたい」という本音がSNSで拡散され、実力派とは別軸の人気が拡大中。実力・ビジュアル・物語性・キャラクター――人気の出方が多様化しているのが今季の特徴だ。井汲大翔の「吉祥弟弟」人気も、実力と愛されキャラの両立として注目されている。"},
-n5:{src:"創造営ニュース",time:"2021年3月20日",h:"第1回順位発表：劉宇が1位、井汲大翔は残留　JBOYZは1人に",b:"第1回順位発表で1位は劉宇（21,308,912票）。井汲大翔は残留を決めた一方、同じRBW JBOYZの田口馨也（78位）・隅田隼平（87位）は離営となった。残り55人で第二次公演へ進む。"}
+n5:{src:"創造営ニュース",time:"2021年3月20日",h:"第1回順位発表：劉宇が1位、井汲大翔は残留　JBOYZは1人に",b:"第1回順位発表で1位は劉宇（21,308,912票）。井汲大翔は残留を決めた一方、同じRBW JBOYZの田口馨也（78位）・隅田隼平（87位）は離営となった。残り55人で第二次公演へ進む。"},
+n6:{src:"創造営ニュース",time:"2021年3月28日",h:"第二次公演は「位置測評」　井汲大翔は舞蹈位置で「Therefore I Am」へ",b:"第二次公演は声楽・舞蹈・創作の専門性を競う「位置測評」。井汲大翔は舞蹈位置を選び、張嘉元（センター）・謝興陽・張騰・利路修と「欢迎来到我们的游乐园」チームでBillie Eilish「Therefore I Am」に挑む。上位チームには「峰頂」組への攻擂（挑戦）の権利が与えられる。"},
+n7:{src:"創造営ニュース",time:"2021年4月4日",h:"二公：遊楽園チーム735票、攻擂はあと33票届かず　井汲大翔163票",b:"第二次公演で「遊楽園」チームは合計735票を獲得。個人票は張嘉元165票（撑腰王）、井汲大翔163票、謝興陽147票、利路修142票、張騰118票。「峰頂」組の768票には33票届かず攻擂はならなかったが、チームの完成度は高い評価を受けた。"},
+n8:{src:"創造営ニュース",time:"2021年4月11日",h:"第2回順位発表：井汲大翔が自己最高位を更新　33人が三公へ",b:"第2回順位発表で井汲大翔は自己最高位を更新し残留（史実では12位・8,856,294票）。55人から33人に絞られ、第三次公演「主題考核」へと進む。同じ日本組の贊多・力丸らも順当に残留した。"},
+n9:{src:"創造営ニュース",time:"2021年4月18日",h:"三公「衛星XL」　慶憐センター、Amberが助陣學姐で合流",b:"第三次公演のオリジナル曲「衛星XL」は、慶憐（センター）・胡燁韜・井汲大翔・俞更寅・栄耀の「六六六星球」に、助陣學姐としてAmber（劉逸雲）が合流。現場票は胡燁韜148票、慶憐142票、俞更寅135票、井汲大翔108票、栄耀101票だった。"},
+n10:{src:"創造営ニュース",time:"2021年4月25日",h:"成団夜：INTO1が誕生　創造営2021が閉幕",b:"4月24日の成団夜で、25人の決勝進出者から11人のデビューメンバーが決定し、期間限定グループ「INTO1」が誕生した。井汲大翔はグループ曲「定義」と個人展示「Fun」で最後のステージを務めた。2月から約2か月にわたった三亜での戦いは幕を閉じた。"},
+n11:{src:"モデルプレス風まとめ",time:"2021年4月27日",h:"井汲大翔、中国ファンへの直筆の手紙が話題「本当に中国に来て良かった」",b:"井汲大翔がInstagramに直筆の手紙を公開した。中国語でしたためられた手紙には、創始人（ファン）への感謝と「本当に中国に来て良かった」という言葉が綴られ、中国・日本双方のファンの間で大きな反響を呼んでいる。（※手紙の文面は実際の投稿の主旨に基づく要約）"}
+};
+const TWITTER = {
+tw1:{user:"ひろと応援アカウント",handle:"hiroto_ouen",time:"2月27日",body:"創造営の大翔くん、愛称がもう「吉祥弟弟（縁起のいい弟）」になってるの強すぎる…本名の中国語読みが吉祥と同音だかららしい #創造営2021 #井汲大翔",rt:"312",fav:"1,204"},
+tw2:{user:"サバイバル実況",handle:"survival_jikkyo",time:"3月6日",body:"一公で大翔くん撑腰王（チーム内1位）！！117票！中国語ラップまで決めてA班昇級って、日プ36位の子が…泣ける #創造営2021",rt:"486",fav:"2,031"},
+tw3:{user:"ひろと応援アカウント",handle:"hiroto_ouen",time:"4月3日",body:"二公「Therefore I Am」大翔くん163票でチーム2位！あと33票で攻擂だったの悔しいけど、ダンス位置でセンター嘉元と競り合ったのすごい #井汲大翔",rt:"203",fav:"986"},
+tw4:{user:"サバイバル実況",handle:"survival_jikkyo",time:"4月10日",body:"第2回順位発表、大翔くん自己最高位で残留！！JBOYZ最後の1人、背負うものが大きいのに強い…三公も全力で応援する #創造営2021 #吉祥弟弟",rt:"358",fav:"1,542"},
+tw5:{user:"三亜の観察日記",handle:"sanya_diary",time:"4月17日",body:"衛星XLよかった…Amber学姐と慶憐・胡燁韜と並んで踊る大翔くん、108票。決勝まであと少し、最後まで見届けたい",rt:"141",fav:"764"},
+tw6:{user:"ひろと応援アカウント",handle:"hiroto_ouen",time:"4月23日",body:"明日は成団夜。大翔くんが三亜で過ごした2か月、日本からずっと見てた。定義とFun、最後のステージ全力で楽しんで！結果がどうでも誇りです #井汲大翔 #創造営2021成団夜",rt:"529",fav:"2,388"},
+tw7:{user:"サバイバル実況",handle:"survival_jikkyo",time:"4月24日",body:"成団夜の「定義」、大翔くんのパートで鳥肌立った。Funのソロダンスも含めて、今日の彼は間違いなくスターだった",rt:"402",fav:"1,977"},
+tw8:{user:"三亜の観察日記",handle:"sanya_diary",time:"4月26日",body:"INTO1始動！大翔くんのこれからが楽しみすぎる。日本人メンバーとして中国で活動する姿、ずっと追うって決めた",rt:"264",fav:"1,308"},
+tw9:{user:"ひろと応援アカウント",handle:"hiroto_ouen",time:"5月下旬",body:"大翔くん1st写真集『灼熱』届いた！創造営の人気を受けての発売、本当にすごい。年末にはロート製薬のアンバサダーも決まったみたいで、物語は続いてるんだなって思う",rt:"318",fav:"1,476"}
 };
 /* ================= STORY STEPS ================= */
 const M = (f,t,cn)=>({f,t,cn});
@@ -692,7 +853,346 @@ pages:[
 彼の背中を見送りながら、なおは思う。
 ここから先は、もっと厳しい。でも、今度こそ最後まで一緒に戦う。`],
 addWeibo:["w9","w10"],addNews:["n5"]},
-{type:"fin",badge:"第1部 完",title:"第1部 完",desc:"物語は第2部へ――"}
+{type:"fin",badge:"第1部 完",title:"第1部 完",desc:"物語は第2部へ――"},
+/* ================= 第2部 ================= */
+{type:"scene",badge:"第2部・第7章",title:"位置測評、二公の組分け",desc:"舞蹈位置で「Therefore I Am」へ",
+loc:"合宿棟 · 第二次公演チーム分け",
+pages:[
+`第1回順位発表が終わり、残ったのは55人。
+第二次公演は「位置測評」。声楽（ボーカル）・舞蹈（ダンス）・創作（オリジナル）の3つの“位置”から専門を選び、その道の強者同士で競い合う。
+大翔が選んだのは、もちろん<span class="who">舞蹈位置</span>だった。`,
+`大翔のチームは、Billie Eilish「Therefore I Am」。
+チーム名は「欢迎来到我们的游乐园（遊園地へようこそ）」。
+メンバーは――センターの<span class="who">張嘉元</span>、<span class="who">謝興陽</span>、<span class="who">張騰</span>、<span class="who">利路修</span>、そして大翔。
+<span class="who">張嘉元</span>「センター、任されたからには絶対いいステージにする」
+一公で110票を取った同い年が、今度は真ん中に立つ。`,
+`そして利路修。「早く帰りたい」でバズり続け、順位も高いままの異色の存在が、同じチームになった。
+<span class="who">利路修</span>「……僕は早く終わらせたいだけなんだけど」
+<span class="who">大翔</span>「（小声）あの人気で、そのテンションなん、ほんま不思議や」
+人気の形は一つじゃない。でも、ステージの完成度は票に直結する。`],
+choices:[
+{label:"「舞蹈位置の強豪揃い。振付の精度で勝負しよう」",fx:{score:4,mental:2},note:"本番への集中が高まった"},
+{label:"「利路修の話題性も含めて“チームの物語”を作ろう」",fx:{pop:5,trust:2},note:"チーム全体の注目度が上がった"}
+],addWeibo:["w11"],addNews:["n6"],addTwitter:["tw1","tw2"]},
+{type:"talk",thread:"yuleyuan",badge:"トーク",title:"遊楽園チーム結成",desc:"Therefore I Am の5人",
+msgs:[
+M("jiayuan","Therefore I Am、センター任された。みんな頼むな！"),
+M("xiexingyang","遊園地チーム、名前負けしないようにしないとね"),
+M("lelush","……僕は、早く終わらせたい（下班）"),
+M("hiroto","リルーシュ、人気はすごいのに……"),
+M("zhangteng","彼の人気は本物だよ。ステージでは手を抜かないし"),
+M("me","攻擂（挑戦）の仕組みを確認します。通常ステージで高票を取ったチームが、「峰頂」組に挑戦できます"),
+M("jiayuan","今の最高は「峰頂」の768票。超えに行くぞ")
+],
+choices:[
+{label:"「嘉元のセンターを全員で支える形にしよう」",fx:{trust:4,score:3},reply:[M("jiayuan","ありがとう！　絶対決める")],note:"チームの結束が強まった"},
+{label:"大翔のダンスブレイクを提案する",fx:{score:4,pop:2},reply:[M("hiroto","そこ、俺の見せ場にするわ")],note:"本番の見せ場ができた"}
+]},
+{type:"scene",badge:"第7章",title:"練習室の夜",desc:"利路修の問いかけ",
+loc:"練習室 · 夜",
+pages:[
+`練習の日々。張嘉元のギターの音色から始まる導入、5人の隊形移動、ダンスブレイク。
+なおは利路修の中国語パートの発音指導も担当した。
+<span class="who">利路修</span>「スタッフさん、僕の中国語、変？」
+<span class="who">なお</span>「大丈夫、伝わってます。むしろ味になってる」
+彼の「帰りたい」も含めて、チームの色になっていく。`,
+`ある夜、休憩中の利路修が大翔に聞いた。
+<span class="who">利路修</span>「大翔は、なんでそんなに頑張れるの？　僕は、正直しんどいのに」
+<span class="who">大翔</span>「……約束したから。2年前、果たせへんかった約束があるねん」
+利路修はしばらく黙って、それから小さく頷いた。
+<span class="who">利路修</span>「……そっか。じゃあ、僕ももうちょっとだけ、付き合うよ」`,
+`攻擂の目標は「峰頂」組の768票。
+あと一歩の完成度が、本番の票を分ける。練習室の明かりは、今日も遅くまで消えなかった。`],
+choices:[
+{label:"夜の自主練に最後まで付き合う",fx:{score:5,trust:3},note:"完成度と信頼が上がった"},
+{label:"「本番のメンタルも実力のうち」と早く休ませる",fx:{mental:5,score:2},note:"コンディションが整った"}
+]},
+{type:"support",phase:3,badge:"裏側の仕事",title:"サポート作戦室（3）",desc:"第二次公演と第2回順位発表に向けて"},
+{type:"stage",badge:"第8章",title:"第二次公演",desc:"「Therefore I Am」攻擂なるか",music:"therefore",
+loc:"公演会場 · 第二次公演（位置測評）",
+pages:[
+`<div class="tx-player"><div class="tx-thumb"><span class="tx-logo">腾讯视频</span><span class="tx-play">▶</span></div><div class="tx-bar"><div class="tx-title">创造营2021 第6期下｜第二次公演・位置測評</div><div class="tx-sub">腾讯视频 · 2021年4月3日配信 · 再生数 2.1億回</div></div></div>第二次公演、「欢迎来到我们的游乐园」。
+Billie Eilish「Therefore I Am」――ダークでクールな世界観に、5人のダンスが噛み合う。
+（♪ 音楽が流れます：Therefore I Am）
+張嘉元のセンターが光り、大翔のダンスブレイクで会場が一段と湧いた。`,
+`現場投票の結果――
+<span class="who">張嘉元：165票（撑腰王）</span>
+<span class="who">井汲大翔：163票</span>
+謝興陽：147票／利路修：142票／張騰：118票
+チーム合計は<span class="who">735票</span>。`,
+`そして攻擂（挑戦）の行方――
+「峰頂」組の768票には、<span class="who">あと33票</span>届かなかった。
+<span class="who">大翔</span>「あと33票……くそ、近いのに」
+<span class="who">張嘉元</span>「でも俺たち、出し切ったよな」
+悔しさはある。それでも、舞蹈位置の強豪チームとして名前を刻んだ一戦だった。`],
+choices:[
+{label:"「163票はチーム2位。胸を張れる数字だよ」",fx:{mental:4,trust:3},note:"悔しさを受け止めた"},
+{label:"「あと33票」の内訳を一緒に分析する",fx:{score:4},note:"次への課題が見えた"}
+],addWeibo:["w12"],addNews:["n7"],addTwitter:["tw3"]},
+{type:"talk",thread:"hiroto",badge:"トーク",title:"ひろと｜二公の夜",desc:"163票と、あと33票",
+msgs:[
+M("hiroto","終わった。163票……嘉元に2票差で負けた"),
+M("me","でも攻擂まであと33票のところまで行ったよ"),
+M("hiroto","悔しいな。……でも、ステージ自体は今までで一番楽しかったかもしれん"),
+M("hiroto","利路修がさ、終わったあと『大翔、かっこよかった』って。あの人に言われると、なんか嬉しいな"),
+M("hiroto","次は第2回発表。55人から33人や")
+],
+choices:[
+{label:"「自己最高位を狙おう。票は積み上がってる」",fx:{score:3,mental:2},reply:[M("hiroto","うん。……狙うわ")],note:"気持ちが前に向いた"},
+{label:"「今日はゆっくり休んで。本当によく頑張った」",fx:{trust:5},reply:[M("hiroto","ありがとう、なおさん。……おやすみ")],note:"信頼度が上がった"}
+]},
+{type:"talk",thread:"nihon",badge:"トーク",title:"日本組・後半戦",desc:"ライバルの台頭",
+msgs:[
+M("santa","二公おつかれ！　大翔の163票、見たよ"),
+M("rikimaru","ダンスで取った票だな。ブレイク、良かった"),
+M("mika","高卿塵（Nine）がすごい勢いで上がってきてる。後半の主役かもな"),
+M("hiroto","Nineとはタイプが近いって、スタッフさんにも言われました……"),
+M("me","比べる材料にはなるけど、振り回されないで。大翔には大翔の物語があります"),
+M("hiroto","……うん。分かってる")
+],
+choices:[
+{label:"Nineの発信の仕方を研究して取り入れる",fx:{pop:5,score:2},reply:[M("mika","研究熱心だな。いいと思う")],note:"発信の幅が広がった"},
+{label:"日本組で週1の情報共有の場を作る",fx:{trust:3,mental:3},reply:[M("santa","助かる。みんなで残ろうな")],note:"日本組の結束が強まった"}
+]},
+{type:"call",badge:"第9章",title:"第2回発表・前夜の電話",desc:"55人から33人へ",
+script:[
+{who:"hiroto",text:"もしもし、なおさん。……明日、第2回発表やな"},
+{who:"me",text:"55人から33人。狭き門だね"},
+{who:"hiroto",text:"二公、ほんまに楽しかった。だからこそ、もっと先のステージに立ちたいねん"},
+{who:"me",text:"大丈夫。票は裏切らないよ"},
+{who:"hiroto",text:"……うん。明日、いい報告ができたらいいな。おやすみ、なおさん"}
+]},
+{type:"rank2",badge:"第9章",title:"第2回順位発表",desc:"33人への関門",music:"tension"},
+{type:"scene",badge:"第9章",title:"自己最高の先へ",desc:"発表後の控室",
+loc:"発表後 · 控室",
+pages:[
+`第2回順位発表が終わった。
+<span class="who">慶憐</span>「大翔、おめでとう。後半戦もよろしく」
+<span class="who">伯遠</span>「ここから先は、本当の勝負だ。気を抜くなよ」
+<span class="who">大翔</span>「はい。……まだ、行けます」
+JBOYZ最後の1人として、背負うものは増えた。それでも足取りは軽かった。`,
+`Weiboでは「吉祥弟弟、自己最高位を更新」の話題が広がり、日本のファンからも声が届いた。
+2年前の36位という数字は、もう彼の現在地じゃない。
+次は第三次公演「主題考核」――オリジナル曲のステージが待っている。`],
+choices:[
+{label:"浮かれず、三公の準備をすぐ始める",fx:{score:4},note:"気持ちが引き締まった"},
+{label:"今夜だけは素直に喜ぶ",fx:{mental:5,trust:2},note:"いい緊張感に変わった"}
+],addWeibo:["w13","w14"],addNews:["n8"],addTwitter:["tw4"]},
+{type:"scene",badge:"第10章",title:"三公・主題考核の組分け",desc:"オリジナル曲「衛星XL」",
+loc:"合宿棟 · 第三次公演チーム分け",
+pages:[
+`残り33人。第三次公演は「主題考核」。
+用意された5つのオリジナル曲から、創始人（ファン）の投票と本人の希望でチームが決まる。センターも、ファン投票で選ばれる。`,
+`大翔のチームは、オリジナル曲<span class="who">「衛星XL」</span>。
+メンバーは――センターの<span class="who">慶憐</span>、<span class="who">胡燁韜</span>、<span class="who">俞更寅</span>、<span class="who">栄耀</span>、そして大翔。
+チーム名は「六六六星球（最高の星）」。
+実力者揃いの、ハイレベルな組になった。`,
+`さらに、このチームには「助陣學姐（ゲストの先輩）」が合流する。
+メンターの<span class="who">Amber（劉逸雲）</span>だ。
+<span class="who">Amber</span>「この曲は“宇宙”がテーマ。みんなで最高の星を作ろう」
+<span class="who">慶憐</span>「学姐と一緒にステージに立てるなんて、光栄だ」
+<span class="who">大翔</span>「（小声で）……すごい組になったな」`],
+choices:[
+{label:"Amberの指導を最大限活かす通訳・調整に回る",fx:{score:4,trust:2},note:"チームの理解が深まった"},
+{label:"慶憐センターの世界観づくりを支える",fx:{pop:4,mental:2},note:"チームの空気がまとまった"}
+]},
+{type:"talk",thread:"weixing",badge:"トーク",title:"六六六星球",desc:"衛星XLチーム",
+msgs:[
+M("caelan","衛星XL、センター任された。みんなでいいもの作ろう"),
+M("huyetao","この曲、ダンスの世界観が大事。衣装含めて作り込みたい"),
+M("yugengyin","経験者として言うけど、Amber学姐のアドバイスは的確だよ"),
+M("rongyao","大翔、同い年同士がんばろうな"),
+M("hiroto","よろしくお願いします。……絶対いいステージにします")
+],
+choices:[
+{label:"全員の見せ場が立つ構成を提案する",fx:{score:4,pop:2},reply:[M("caelan","いいね、その方向でいこう")],note:"チームの完成度が上がりそうだ"},
+{label:"Amberの言葉を全員に正確に通訳する",fx:{trust:4,score:2},reply:[M("yugengyin","助かる。橋渡しがいるチームは強い")],note:"信頼が広がった"}
+]},
+{type:"support",phase:4,badge:"裏側の仕事",title:"サポート作戦室（4）",desc:"第三次公演と第3回順位発表に向けて"},
+{type:"stage",badge:"第11章",title:"第三次公演",desc:"「衛星XL」ft. Amber",music:"weixing",
+loc:"公演会場 · 第三次公演（主題考核）",
+pages:[
+`<div class="tx-player"><div class="tx-thumb"><span class="tx-logo">腾讯视频</span><span class="tx-play">▶</span></div><div class="tx-bar"><div class="tx-title">创造营2021 第8期｜第三次公演・主題考核「衛星XL」</div><div class="tx-sub">腾讯视频 · 2021年4月17日配信 · 助陣學姐 Amber</div></div></div>第三次公演。「衛星XL」――宇宙をテーマにした、幻想的で力強いステージ。
+（♪ 音楽が流れます：衛星XL）
+Amberを迎えた「六六六星球」の5人は、世界観の作り込みで今季屈指の完成度を見せた。`,
+`現場投票の結果――
+<span class="who">胡燁韜：148票／慶憐：142票／俞更寅：135票</span>
+<span class="who">井汲大翔：108票</span>
+栄耀：101票
+チーム平均は126.8票。今季の三公でもトップクラスの水準だった。`,
+`<span class="who">Amber</span>「大翔の表現、すごく良かったよ」
+<span class="who">大翔</span>「個人では4位……。でも、このチームで立てたことが財産です」
+悔しさと手応えの両方を抱えて、次は第3回順位発表。残れるのは25人だけ。`],
+choices:[
+{label:"映像の拡散を手配し「爪痕」を残す",fx:{pop:5,score:2},note:"ステージの評判が広がった"},
+{label:"悔しさを第3回発表への集中に変える",fx:{mental:4,score:3},note:"気持ちが引き締まった"}
+],addWeibo:["w15","w16"],addTwitter:["tw5"]},
+{type:"talk",thread:"hiroto",badge:"トーク",title:"ひろと｜三公の夜",desc:"108票の受け止め",
+msgs:[
+M("hiroto","108票。正直、もっと行きたかった"),
+M("me","平均126.8票のチームで、完成度は今季トップクラスだよ"),
+M("hiroto","胡燁韜さんと慶憐が強すぎる……でも、同じチームで戦えたのはよかった"),
+M("hiroto","次は第3回発表。25人しか残れへん")
+],
+choices:[
+{label:"決勝の景色を具体的にイメージしよう",fx:{mental:4,score:3},reply:[M("hiroto","……うん、イメージする。決勝のステージ")],note:"目標が具体的になった"},
+{label:"「大丈夫、ここまで来たんだから」",fx:{trust:5},reply:[M("hiroto","ありがとう。……信じてる")],note:"信頼度が上がった"}
+]},
+{type:"rank3",badge:"第12章",title:"第3回順位発表",desc:"決勝へは25人",music:"tension"},
+{type:"scene",badge:"第13章",title:"決勝まで1週間",desc:"「定義」チームと、ソロ「Fun」",
+loc:"合宿棟 · 決勝準備期間",
+pages:[
+`決勝進出、25人。成団夜は<span class="who">2021年4月24日</span>。
+最後の1週間が始まった。
+<span class="who">大翔</span>「ここまで来た。……あとは、全部出すだけや」`,
+`決勝のグループ曲は2曲に分かれる。大翔は<span class="who">「定義」</span>チーム。
+メンバーは伯遠、甘望星、胡燁韜、任胤蓬、俞更寅、羽生田挙武、張欣堯、張星特、そして大翔の9人。
+<span class="who">伯遠</span>「最後のステージだ。全員で“定義”しよう、自分たちのことを」
+三公で一緒だった俞更寅と胡燁韜もいる、心強い布陣だ。`,
+`そして個人展示（ソロステージ）。大翔が選んだのは、ダンスナンバー<span class="who">「Fun」</span>。
+2年前の坡州、半年前の自分――全部を超えていくための、1曲。
+<span class="who">大翔</span>「最後の最後、俺のダンスで全部見せます」`],
+choices:[
+{label:"「定義」チームの連携を深める時間を作る",fx:{score:4,trust:2},note:"チームの呼吸が合ってきた"},
+{label:"ソロ「Fun」の構成を一緒に練る",fx:{score:5},note:"個人展示の完成度が上がりそうだ"}
+],addWeibo:["w17"]},
+{type:"support",phase:5,badge:"裏側の仕事",title:"サポート作戦室（最終）",desc:"決勝・成団夜に向けて、総力戦の配分を決めよう"},
+{type:"call",badge:"第14章",title:"決勝前夜の通話",desc:"2021年4月23日・夜",
+script:[
+{who:"hiroto",text:"もしもし、なおさん。……明日やな、成団夜"},
+{who:"me",text:"うん。2月から、長かったね"},
+{who:"hiroto",text:"三亜に来てからずっと、なおさんがおってくれた"},
+{who:"hiroto",v:"line3",text:"明日で決まりますね。……ここまで一緒に来てくれて、ありがとうございます"},
+{who:"me",text:"結果がどうなっても、明日は笑って迎えよう"},
+{who:"hiroto",text:"……うん、約束する。明日、ステージで全部出すわ"}
+],addTwitter:["tw6"]},
+{type:"stage",badge:"第14章",title:"成団夜・決勝ステージ",desc:"「定義」と「Fun」",music:"dingyi",
+loc:"決勝会場 · 成団夜（2021年4月24日）",
+pages:[
+`<div class="tx-player"><div class="tx-thumb"><span class="tx-logo">腾讯视频</span><span class="tx-play">▶</span></div><div class="tx-bar"><div class="tx-title">创造营2021 成团夜｜決勝・総決選LIVE</div><div class="tx-sub">腾讯视频 · 2021年4月24日 生配信</div></div></div>2021年4月24日、成団夜。
+会場は熱気に包まれ、25人の学員が最後のステージに立つ。
+オープニングでは一公の「Lover Boy 88」が再演され、大翔もステージに戻った。あの117票の記憶が、会場を温める。`,
+`グループ曲<span class="who">「定義」</span>。
+（♪ 音楽が流れます：定義）
+9人のパフォーマンス。大翔のパートで、会場が大きく湧いた。
+「自分たちを定義するのは、自分たち自身」――その言葉通りのステージだった。`,
+`そして個人展示<span class="who">「Fun」</span>。
+ダンスで魅せるソロ。2年前の坡州で見た少年はもういない。
+キレと表現力を兼ね備えた一人のアーティストが、そこにいた。
+<span class="who">大翔</span>「（息を整えて）……ありがとうございました！」
+あとは、結果を待つだけだ。`],
+addWeibo:["w18"],addNews:["n10"],addTwitter:["tw7"]},
+{type:"finalrank",badge:"第14章",title:"成団夜・結果発表",desc:"INTO1の11人が決まる",music:"tension"},
+{type:"scene",badge:"成団夜",title:"名前が呼ばれた夜",desc:"INTO1として",
+loc:"成団夜 · 控室",
+pages:[
+`発表が終わった。控室は、涙と笑顔と抱擁で溢れている。
+INTO1の11人。その中に、井汲大翔がいる。
+<span class="who">大翔</span>「（目を赤くして）……なおさん。俺、デビューするんやな」
+<span class="who">なお</span>「うん。……うん！」
+言葉が、それ以上出てこなかった。`,
+`<span class="who">伯遠</span>「大翔、おめでとう」
+<span class="who">張嘉元</span>「約束通りだな」
+<span class="who">慶憐</span>「（あと一歩で届かず、それでも笑って）……大翔、よかった」
+仲間たちに囲まれて、彼は何度も頭を下げた。
+2年前の夏に果たせなかった約束が、今、果たされた。`],
+},
+{type:"talk",thread:"hiroto",badge:"トーク",title:"ひろと｜成団夜のあとで",desc:"INTO1の井汲大翔",
+msgs:[
+M("hiroto","まだ実感ない。……夢見てるみたいや"),
+V("hiroto","line4"),
+M("me","夢じゃないよ。INTO1の井汲大翔だよ"),
+M("hiroto","2年前の約束、やっと果たせた。……いや、ここからが始まりやな"),
+M("hiroto","なおさん。これからも、近くで見ててください"),
+SYS("約束は果たされた。そして物語は、新しい章に入っていく。")
+],
+choices:[
+{label:"「これからも、担当として支えるよ」",fx:{trust:6},reply:[M("hiroto","……うん。よろしくお願いします")],note:"新しい約束が生まれた"},
+{label:"「今日は仲間と喜んで。おめでとう」",fx:{mental:4},reply:[M("hiroto","ありがとう。……ほんまに、ありがとう")],note:"喜びを分かち合った"}
+]},
+{type:"scene",badge:"後日談",title:"INTO1、始動",desc:"新しい日々と、次の約束",
+loc:"成団夜の翌日以降 · 三亜",
+pages:[
+`翌日からの日々は、目まぐるしかった。
+INTO1としての初仕事、宿舍での新しい生活、メディア対応の連続。
+日本人メンバーとしての注目も集まり、大翔の名前は中国と日本の両方で大きく報じられた。`,
+`忙しい日々の合間、短い休憩時間。
+なおと二人、寮の近くの海辺を歩く。三亜の海は、2月に見たときより明るく見えた。
+<span class="who">大翔</span>「なおさん、聞いてもいい？　……俺、ちゃんとやれてるかな」`,
+`<span class="who">なお</span>「やれてるよ。胸を張って」
+彼は笑って、それから少しだけ真剣な顔で手を伸ばした。
+<span class="who">大翔</span>「次の約束、決めていい？　俺がもっと大きなステージに立つところを、見ててな」
+軽く握った手は、すぐに離れた。それが今の二人の距離。
+――でも、確かに一歩、近づいていた。`],
+addTwitter:["tw8"]},
+{type:"grandfin",badge:"完",title:"完結",desc:""},
+{type:"scene",badge:"成団夜",title:"呼ばれなかった名前",desc:"11人の発表のあとで",
+loc:"成団夜 · 控室",
+pages:[
+`成団夜。11人の名前が、すべて呼ばれた。
+井汲大翔の名前は、なかった。
+会場の熱気の向こうで、彼は静かに拍手をしていた。
+<span class="who">大翔</span>「…………っ」
+言葉にならない声が、少しだけ漏れた。`,
+`12位だった慶憐と、言葉少なに肩を叩き合う。
+あと一歩。ほんの少しの差で、届かなかった。
+<span class="who">慶憐</span>「大翔……悔しいな」
+<span class="who">大翔</span>「うん。でも、ステージは全部出せた。それだけは、ほんまや」`,
+`控室で一人、衣装を畳む。
+2年前の36位の日とは違う。今日の悔しさは、「あと少し」の悔しさだ。
+その差を埋めるものが何なのか、彼も、なおも、もう知っている。`],
+},
+{type:"scene",badge:"後日談",title:"手紙",desc:"Instagramに投稿された直筆の手紙",
+loc:"成団夜の数日後",
+pages:[
+`数日後、大翔はInstagramに一枚の写真を投稿した。
+直筆の手紙。中国語でしたためられた、創始人（ファン）への感謝の手紙だった。`,
+`<div class="ig-card"><div class="ig-head"><div class="ig-ring"><img src="assets/cast/hiroto.jpg" alt=""></div><div><div class="ig-name">ikumi_hiroto</div><div class="ig-loc">三亜 · Sanya</div></div></div><div class="ig-letter">亲爱的创始人们，谢谢你们。<br>この数か月、本当にありがとうございました。<br>本当に中国に来て良かったです。<br>中国で出会った全ての人、応援してくれた全ての人に、心から感謝します。<br>たくさんの夢と希望をくれて、ありがとうございました。<br>これからも、もっと素敵な井汲大翔をお見せします。<br>――井汲大翔</div><div class="ig-act"><span>♡</span><span>💬</span><span>➤</span></div><div class="ig-likes">いいね！ 86,214件</div><div class="ig-cap"><b>ikumi_hiroto</b> 谢谢你们，我爱你们。#創造営2021 #Chuang2021<br><span style="color:#8e8e8e;font-size:11px">※手紙の文面は、実際の投稿の主旨に基づく要約です</span></div></div>`,
+`この手紙は日本のメディアでも報じられた。
+「本当に中国に来て良かった」――その一文に、三亜での2か月すべてが詰まっていた。
+結果はどうあれ、彼がこの国で得たものは、順位よりもずっと大きかった。`],
+addNews:["n11"]},
+{type:"talk",thread:"hiroto",badge:"トーク",title:"ひろと｜帰国後の連絡",desc:"新しいスタートライン",
+msgs:[
+M("hiroto","日本に着いた。……なんか、まだ三亜の夢を見そうや"),
+V("hiroto","line4"),
+M("me","手紙、読んだよ。中国のファンからもたくさん反応が来てる"),
+M("hiroto","うん。……終わりじゃなくて、始まりやと思ってる")
+],
+choices:[
+{label:"「次のステージ、必ずあるよ」",fx:{trust:5},reply:[M("hiroto","うん。……その言葉、信じて進むわ")],note:"前を向く力になった"},
+{label:"「まずは少し休んで。走り続けてきたんだから」",fx:{mental:4},reply:[M("hiroto","……ありがとう。なおさんも、休んでな")],note:"互いを労った"}
+]},
+{type:"scene",badge:"後日談",title:"写真集『灼熱』",desc:"物語は続いていく",
+loc:"2021年5月 · 日本",
+pages:[
+`2021年5月。大翔の1st写真集<span class="who">『灼熱』</span>が発売された。
+創造営2021での人気を受けての、異例のスピード刊行だった。
+中国のファンからの注文も多く、「吉祥弟弟」の物語は国境を越えて続いていく。`,
+`そして年末には、ロート製薬のブランドアンバサダー就任の知らせも届いた。
+創造営での日々は、確かに未来につながっていた。
+順位表の数字だけでは測れないものを、彼はこの春に手に入れたのだ。`,
+`ある日、なおのもとに小包が届いた。写真集と、短いメモ。
+「次は、もっと大きな約束をしよう」
+――2年前の夏から続く物語は、まだ終わらない。
+次のステージで、また会おう。`],
+addTwitter:["tw9"]},
+{type:"grandfin",badge:"完",title:"完結",desc:""},
+{type:"scene",badge:"第12章",title:"33人の夜",desc:"第3回順位発表のあとで",jumpTo:45,
+loc:"発表後 · 合宿棟",
+pages:[
+`第3回順位発表。大翔の名前は、決勝に進む25人の中に呼ばれなかった。
+<span class="who">慶憐</span>「大翔……」
+<span class="who">胡燁韜</span>「……また、どこかのステージで」
+静かに抱き合って、別れた。言葉は、それだけで十分だった。`,
+`荷物をまとめる夜。
+田口と隅田の分まで――いや、今度は自分の分も、背負いきれなかった。
+<span class="who">大翔</span>「（小さく）……ここまでか」
+それでも、この三亜で得たものは大きかった。実力も、仲間も、中国中のファンの声も。`,
+`バスに乗り込む前、彼は振り返って合宿棟を見上げた。
+<span class="who">大翔</span>「……ありがとう、三亜」
+物語は、ここで一区切り。でも、彼の挑戦はまだ終わらない。`]
+}
 ];
 const SUPPORT_MENUS = [
 {id:"lang",n:"通訳・語学サポート",d:"練習や収録に帯同し、言葉の壁を取り除く。ステージの完成度に効く。",w:2},
@@ -705,7 +1205,9 @@ const THREADS = {
 hiroto:{title:"井汲大翔",sub:"担当学員｜RBW JBOYZ",members:["hiroto"]},
 jboyz:{title:"RBW JBOYZ",sub:"田口馨也・隅田隼平・井汲大翔",members:["hiroto","taguchi","sumida"]},
 nihon:{title:"日本組・語学組",sub:"贊多・力丸・米卡・井汲大翔",members:["santa","rikimaru","mika","hiroto"]},
-loverboy:{title:"進步男孩兒",sub:"Lover Boy 88チーム",members:["linmo","jiayuan","zhangteng","xingte","junjie","hiroto"]}
+loverboy:{title:"進步男孩兒",sub:"Lover Boy 88チーム",members:["linmo","jiayuan","zhangteng","xingte","junjie","hiroto"]},
+yuleyuan:{title:"遊楽園チーム",sub:"欢迎来到我们的游乐园｜Therefore I Am",members:["jiayuan","xiexingyang","zhangteng","lelush","hiroto"]},
+weixing:{title:"六六六星球",sub:"衛星XLチーム",members:["caelan","huyetao","yugengyin","rongyao","hiroto"]}
 };
 </script>
 <script>
@@ -715,9 +1217,14 @@ const SAVE_KEY="chuang-uragawa-save-v1", SET_KEY="chuang-uragawa-settings";
 let settings = JSON.parse(localStorage.getItem(SET_KEY)||'{"sound":true,"vol":0.8}');
 const VOICE_OK = {};
 let S = null;
-function freshState(){return {step:0,trust:10,mental:30,pop:35,score:0,sup:{},chats:{hiroto:[],jboyz:[],nihon:[],loverboy:[]},weibo:[],news:[],seenWeibo:[],seenNews:[],rankResult:null,finished:false,freeReplies:0,stepApplied:false};}
+function freshState(){return {step:0,trust:10,mental:30,pop:35,score:0,sup:{},chats:{hiroto:[],jboyz:[],nihon:[],loverboy:[],yuleyuan:[],weixing:[]},weibo:[],news:[],twitter:[],seenWeibo:[],seenNews:[],seenTwitter:[],rankResult:null,rank2Result:null,rank3Result:null,finalResult:null,ending:null,part1Done:false,pendingJump:null,finished:false,freeReplies:0,stepApplied:false};}
 function save(){localStorage.setItem(SAVE_KEY,JSON.stringify(S));}
-function load(){try{const d=localStorage.getItem(SAVE_KEY); if(d){S=Object.assign(freshState(),JSON.parse(d)); return;}}catch(e){} S=freshState();}
+function load(){try{const d=localStorage.getItem(SAVE_KEY); if(d){S=Object.assign(freshState(),JSON.parse(d));
+S.chats=Object.assign({hiroto:[],jboyz:[],nihon:[],loverboy:[],yuleyuan:[],weixing:[]},S.chats||{});
+if(!Array.isArray(S.twitter)) S.twitter=[];
+if(!Array.isArray(S.seenTwitter)) S.seenTwitter=[];
+if(S.finished&&S.step===18&&!S.ending){S.part1Done=true; S.finished=false; S.step=19;}
+return;}}catch(e){} S=freshState();}
 function toast(t){const el=$("#toast"); el.textContent=t; el.classList.add("show"); clearTimeout(el._h); el._h=setTimeout(()=>el.classList.remove("show"),2300);}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
 function avHTML(id,cls){const c=CAST[id]; if(!c) return `<div class="av-init ${cls||''}">？</div>`;
@@ -729,7 +1236,7 @@ function nameOf(id){ if(id==="me") return "なお"; if(id==="staff") return "制
 let curScreen="screen-home";
 function show(id,head){document.querySelectorAll(".screen").forEach(e=>e.classList.remove("active")); $("#"+id).classList.add("active"); curScreen=id;
 const h=$("#app-head"); if(head){h.style.display="flex"; $("#head-title").textContent=head.t||""; $("#head-sub").textContent=head.s||"";} else h.style.display="none";
-$("#main").scrollTop=0; if(id!=="screen-scene") stopMusic();}
+$("#main").scrollTop=0; if(id!=="screen-scene") stopMusic(); document.getElementById("phone").dataset.screen=id;}
 $("#head-back").onclick=()=>{stopVoice(); if(typeof stopCallTimer==="function") stopCallTimer(); goHome();};
 function goHome(){renderHome(); show("screen-home",null);}
 /* ---------- home ---------- */
@@ -737,39 +1244,49 @@ const APPS=[
 {id:"talk",ic:"💬",n:"トーク",go:()=>{renderChatList(); show("screen-chatlist",{t:"トーク",s:"担当学員との連絡"});}},
 {id:"weibo",ic:"👁️",n:"微博",go:()=>{renderWeibo(); show("screen-weibo",{t:"微博 Weibo",s:"中国のSNSの反応"});}},
 {id:"news",ic:"📰",n:"ニュース",go:()=>{renderNews(); show("screen-news",{t:"ニュース",s:"番組関連の報道"});}},
+{id:"twitter",ic:"🐦",n:"Twitter",go:()=>{renderTwitter(); show("screen-twitter",{t:"Twitter",s:"日本のファンの声（2021）"});}},
 {id:"support",ic:"🛠️",n:"サポート室",go:()=>{openSupportApp();}},
 {id:"rank",ic:"🏆",n:"順位表",go:()=>{renderRankApp(); show("screen-rank",{t:"順位表",s:"創造営2021"});}},
 {id:"members",ic:"👥",n:"メンバー",go:()=>{renderMembers(); show("screen-members",{t:"メンバー",s:"主要学員・メンター"});}},
 {id:"settings",ic:"⚙️",n:"設定",go:()=>{renderSettings(); show("screen-settings",{t:"設定",s:"サウンド・データ"});}}
 ];
-function hirotoClass(){const st=S.step; if(st<8) return "B班"; if(st<12) return "A班"; return "B班";}
+function hirotoClass(){ if(S.ending==="debut") return "INTO1"; const st=S.step; if(st<8) return "B班"; if(st<12) return "A班"; return "B班";}
 function renderHome(){
 const step=STEPS[S.step];
-if(S.finished){$("#story-badge").textContent="第1部 完"; $("#story-title").textContent="第1部は完結しました"; $("#story-desc").textContent="記録を見返す · 第2部は制作中です";}
+if(S.finished){ const e=S.ending; $("#story-badge").textContent="完結"; $("#story-title").textContent=e==="debut"?"INTO1デビュー達成！":(e==="elim3"?"第3回順位発表で離営":"あと一歩――最終"+(S.finalResult?S.finalResult.rank:"―")+"位"); $("#story-desc").textContent="物語は完結しました · 記録は各アプリから見返せます";}
 else if(step){$("#story-badge").textContent=step.badge||""; $("#story-title").textContent=step.title||"ストーリーを進める"; $("#story-desc").textContent=step.desc||"";}
 const unreadW=S.weibo.filter(w=>!S.seenWeibo.includes(w)).length;
 const unreadN=S.news.filter(n=>!S.seenNews.includes(n)).length;
-$("#apps").innerHTML=APPS.map(a=>`<button class="appicon" data-app="${a.id}"><div class="ic">${a.ic}</div><span>${a.n}</span>${a.id==="weibo"&&unreadW?`<span class="bdg">${unreadW}</span>`:""}${a.id==="news"&&unreadN?`<span class="bdg">${unreadN}</span>`:""}</button>`).join("");
+const unreadT=(S.twitter||[]).filter(t=>!S.seenTwitter.includes(t)).length;
+$("#apps").innerHTML=APPS.map(a=>`<button class="appicon" data-app="${a.id}"><div class="ic">${a.ic}</div><span>${a.n}</span>${a.id==="weibo"&&unreadW?`<span class="bdg">${unreadW}</span>`:""}${a.id==="news"&&unreadN?`<span class="bdg">${unreadN}</span>`:""}${a.id==="twitter"&&unreadT?`<span class="bdg">${unreadT}</span>`:""}</button>`).join("");
 document.querySelectorAll(".appicon").forEach(b=>b.onclick=()=>APPS.find(a=>a.id===b.dataset.app).go());
 const bar=(v)=>`<span class="bar"><i style="width:${Math.max(0,Math.min(100,v))}%"></i></span>`;
 const srow=(lb,v)=>`<div class="stat-row"><span class="lb">${lb}</span>${bar(v)}<span class="vl">${v}</span></div>`;
-$("#stat-strip").innerHTML=`<div class="stat-head"><span class="who">担当 <b>井汲大翔</b><span class="cls-chip">${hirotoClass()}</span></span><span class="nick">愛称：吉祥弟弟</span></div>${srow("信頼度",S.trust)}${srow("メンタル",S.mental)}${srow("注目度",S.pop)}<div class="stat-foot"><span>裏側サポート <b>${S.score} pt</b></span>${S.rankResult?`<span>第1回順位発表 <b>${S.rankResult.rank}位</b>（${S.rankResult.votes.toLocaleString()}票／史実17位）</span>`:""}</div>`;
+$("#stat-strip").innerHTML=`<div class="stat-head"><span class="who">担当 <b>井汲大翔</b><span class="cls-chip">${hirotoClass()}</span></span><span class="nick">愛称：吉祥弟弟</span></div>${srow("信頼度",S.trust)}${srow("メンタル",S.mental)}${srow("注目度",S.pop)}<div class="stat-foot"><span>裏側サポート <b>${S.score} pt</b></span>${S.finalResult?`<span>最終結果 <b>${S.finalResult.rank}位</b>（${S.finalResult.votes.toLocaleString()}票／史実15位）</span>`:S.rank3Result?`<span>第3回順位発表 <b>${S.rank3Result.rank}位</b>（史実14位）</span>`:S.rank2Result?`<span>第2回順位発表 <b>${S.rank2Result.rank}位</b>（史実12位）</span>`:S.rankResult?`<span>第1回順位発表 <b>${S.rankResult.rank}位</b>（${S.rankResult.votes.toLocaleString()}票／史実17位）</span>`:""}</div>`;
 }
-$("#story-banner").onclick=()=>{ if(S.finished){toast("第1部は完結済みです。第2部をお楽しみに"); return;} startStep();};
+$("#story-banner").onclick=()=>{ if(S.finished){toast("物語は完結済みです。記録は各アプリから見返せます"); return;} startStep();};
 /* ---------- steps ---------- */
 let pageIdx=0, talkDone=false;
 function applyFx(fx){ if(!fx) return; if(fx.trust) S.trust=Math.min(100,S.trust+fx.trust); if(fx.mental) S.mental=Math.min(100,S.mental+fx.mental); if(fx.pop) S.pop=Math.min(100,S.pop+fx.pop); if(fx.score) S.score+=fx.score;}
 function completeStep(){ const step=STEPS[S.step];
 if(step.addWeibo) step.addWeibo.forEach(w=>{if(!S.weibo.includes(w)) S.weibo.push(w);});
 if(step.addNews) step.addNews.forEach(n=>{if(!S.news.includes(n)) S.news.push(n);});
-S.step++; S.stepApplied=false; if(S.step>=STEPS.length){S.finished=true;} save(); stopMusic(); goHome();
-if(step.addWeibo||step.addNews) toast("新しい投稿・記事が届きました");}
+if(step.addTwitter) step.addTwitter.forEach(t=>{if(!S.twitter.includes(t)) S.twitter.push(t);});
+let nxt=S.step+1;
+if(step.jumpTo!=null) nxt=step.jumpTo;
+if(S.pendingJump!=null){ nxt=S.pendingJump; S.pendingJump=null;}
+S.step=nxt; S.stepApplied=false; if(S.step>=STEPS.length){S.finished=true;} save(); stopMusic(); goHome();
+if(step.addWeibo||step.addNews||step.addTwitter) toast("新しい投稿・記事が届きました");}
 function startStep(){ const step=STEPS[S.step]; if(!step) return;
 if(step.type==="scene"||step.type==="stage"){ pageIdx=0; renderScenePage(); show("screen-scene",{t:step.title,s:step.desc}); if(step.music) playTrack(step.music);}
-else if(step.type==="talk"){ if(!S.stepApplied){ step.msgs.forEach(m=>S.chats[step.thread].push(m)); S.stepApplied=true; save();} talkDone=false; openChat(step.thread,true);}
+else if(step.type==="talk"){ if(!S.stepApplied){ if(!S.chats[step.thread]) S.chats[step.thread]=[]; step.msgs.forEach(m=>S.chats[step.thread].push(m)); S.stepApplied=true; save();} talkDone=false; openChat(step.thread,true);}
 else if(step.type==="support"){ renderSupport(step.phase); show("screen-support",{t:step.title,s:step.desc});}
 else if(step.type==="call"){ startCall(step);}
 else if(step.type==="rank"){ doRank(step);}
+else if(step.type==="rank2"){ doRank2(step);}
+else if(step.type==="rank3"){ doRank3(step);}
+else if(step.type==="finalrank"){ doFinalRank(step);}
+else if(step.type==="grandfin"){ renderGrandFin(); show("screen-scene",{t:"完結",s:"おつかれさまでした"});}
 else if(step.type==="fin"){ renderFin(); show("screen-scene",{t:"第1部 完",s:"おつかれさまでした"});}
 }
 function renderScenePage(){ const step=STEPS[S.step]; const pages=step.pages;
@@ -782,12 +1299,13 @@ ch.querySelectorAll("button").forEach(b=>b.onclick=()=>{const c=step.choices[+b.
 else if(last){ $("#scene-next").style.display="block"; $("#scene-next").textContent="すすむ";}
 $("#main").scrollTop=0;}
 $("#scene-next").onclick=()=>{ const step=STEPS[S.step]; if(!step) return;
-if(step.type==="fin"){ S.finished=true; save(); goHome(); return;}
- if(step.type==="rank"){ completeStep(); return;}
+if(step.type==="fin"){ S.part1Done=true; S.step++; save(); goHome(); toast("第2部が解放されました"); return;}
+if(step.type==="grandfin"){ S.finished=true; save(); goHome(); return;}
+ if(step.type==="rank"||step.type==="rank2"||step.type==="rank3"||step.type==="finalrank"){ completeStep(); return;}
 if(pageIdx<step.pages.length-1){ pageIdx++; renderScenePage();} else if(!step.choices){ completeStep();}};
 /* ---------- chat ---------- */
 let curThread=null;
-function renderChatList(){ const order=["hiroto","jboyz","loverboy","nihon"];
+function renderChatList(){ const order=["hiroto","weixing","yuleyuan","jboyz","loverboy","nihon"].filter(tid=>tid==="hiroto"||(S.chats[tid]&&S.chats[tid].length));
 $("#chat-list").innerHTML=order.map(tid=>{const th=THREADS[tid]; const msgs=S.chats[tid]; const last=msgs[msgs.length-1];
 const pv=last?(last.v?`🎙 ${VOICES[last.v].text}`:last.t):"（まだメッセージがありません）";
 const av=th.members.length===1?avHTML(th.members[0]):avInitGroup(th);
@@ -823,17 +1341,91 @@ $("#chat-send").onclick=sendFree;
 $("#chat-text").addEventListener("keydown",e=>{if(e.key==="Enter") sendFree();});
 function sendFree(){ const inp=$("#chat-text"); const t=inp.value.trim(); if(!t||!curThread) return; inp.value="";
 S.chats[curThread].push({f:"me",t}); renderChat(); scrollChat();
-if(curThread==="hiroto"&&S.freeReplies<8){ S.freeReplies++; const r=FREE_REPLIES[Math.floor(Math.random()*FREE_REPLIES.length)];
+if(curThread==="hiroto"&&S.freeReplies<30){ S.freeReplies++; const pool=S.ending==="debut"?["INTO1の仕事、始まったとこや","合宿とはまた違う忙しさやな","……なおさんの声、聞きたかったねん","次のステージ、見に来てな","約束、まだ続いてるからな"]:FREE_REPLIES; const r=pool[Math.floor(Math.random()*pool.length)];
 setTimeout(()=>{ S.chats.hiroto.push({f:"hiroto",t:r}); if(curThread==="hiroto"){renderChat(); scrollChat();} save();},700);}
 save();}
 /* ---------- weibo / news ---------- */
-function renderWeibo(){ $("#weibo-list").innerHTML=S.weibo.length?S.weibo.map(id=>{const p=WEIBO[id];
-return `<div class="post"><div class="ph">${`<div class="av-init sm">微</div>`}<div><div class="pn">${p.user}</div><div class="pt">${p.time} · 三亜</div></div></div><div class="pb">${p.body}</div><div class="pf"><span>🔁 転送</span><span>💬 コメント</span><span>👍 ${p.like}</span></div></div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ投稿がありません。ストーリーを進めると中国のSNSの反応が届きます。</p>`;
+function renderWeibo(){ const tabs=`<div class="wb-tabs"><span>关注</span><span class="on">热门</span><span>超话</span><span>三亜</span></div>`;
+$("#weibo-list").innerHTML=tabs+(S.weibo.length?S.weibo.map(id=>{const p=WEIBO[id]; if(!p) return "";
+const body=p.body.replace(/#([^#]+)#/g,'<span class="tag">#$1#</span>');
+return `<div class="post"><div class="ph"><div class="av-init sm">微</div><div><div class="pn">${p.user}${p.user.includes("公式")?'<i class="vbadge">V</i>':""}</div><div class="pt">${p.time} · ${p.user.includes("公式")?"来自 微博网页版":"来自 iPhone 12"}</div></div></div><div class="pb">${body}</div><div class="pf"><span><svg viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.2em;fill:currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg> 転送</span><span>💬 コメント</span><span>👍 ${p.like}</span></div></div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ投稿がありません。ストーリーを進めると中国のSNSの反応が届きます。</p>`);
 S.weibo.forEach(w=>{if(!S.seenWeibo.includes(w)) S.seenWeibo.push(w);}); save();}
 function renderNews(){ $("#news-list").innerHTML=S.news.length?S.news.map(id=>{const n=NEWS[id];
 return `<div class="news-item" data-nid="${id}"><div class="nh">${n.h}</div><div class="nm2">${n.src} · ${n.time}</div><div class="nb">${n.b}</div></div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ記事がありません。</p>`;
 document.querySelectorAll(".news-item").forEach(el=>el.onclick=()=>el.classList.toggle("open"));
 S.news.forEach(n=>{if(!S.seenNews.includes(n)) S.seenNews.push(n);}); save();}
+/* ---------- twitter ---------- */
+function renderTwitter(){ $("#twitter-list").innerHTML=S.twitter.length?S.twitter.map(id=>{const t=TWITTER[id]; if(!t) return "";
+const body=t.body.replace(/#([^\s#]+)/g,'<span class="tag">#$1</span>');
+return `<div class="tweet"><div class="tav">${t.user.charAt(0)}</div><div style="flex:1;min-width:0"><div><span class="tn">${t.user}</span> <span class="th">@${t.handle} · ${t.time}</span></div><div class="tb">${body}</div><div class="ta"><span>💬</span><span><svg viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.2em;fill:currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg> ${t.rt}</span><span>♡ ${t.fav}</span><span>↗</span></div></div></div>`;}).join(""):`<p class="about-txt" style="padding-top:20px;color:#536471">まだツイートがありません。ストーリーを進めると日本のファンの声が届きます。</p>`;
+(S.twitter||[]).forEach(t=>{if(!S.seenTwitter.includes(t)) S.seenTwitter.push(t);}); save();}
+/* ---------- 全学員データ helpers ---------- */
+const MEMBERS90_MAP={}; MEMBERS90.forEach(m=>MEMBERS90_MAP[m.id]=m);
+function avInit90(id,cls){ const m=MEMBERS90_MAP[id]; const ch=m?m.name.charAt(0):"？"; return `<div class="av-init ${cls||''}">${ch}</div>`;}
+window.avInit90 = avInit90;
+function m90Ini(id){ const m=MEMBERS90_MAP[id]; return `<div class="m90-ini">${m?m.name.charAt(0):"？"}</div>`;}
+window.m90Ini = m90Ini;
+/* ---------- 第2部 順位計算 ---------- */
+function buildRows(key,heroVotes){ const rows=ANNOUNCE[key].filter(a=>a[0]!=="hiroto").map(a=>({rank:0,id:a[0],votes:a[1]}));
+rows.push({rank:0,id:"hiroto",votes:heroVotes}); rows.sort((a,b)=>b.votes-a.votes); rows.forEach((r,i)=>r.rank=i+1); return rows;}
+function computeRank2(){ const votes=Math.round(4900000+76000*S.score); const rows=buildRows("r2",votes); const hero=rows.find(r=>r.id==="hiroto"); return {votes,rank:hero.rank,rows};}
+function computeRank3(){ const votes=Math.round(3441630*Math.pow(Math.max(S.score,1)/100,1.35)); const rows=buildRows("r3",votes); const hero=rows.find(r=>r.id==="hiroto"); return {votes,rank:hero.rank,rows};}
+function computeFinal(){ const votes=Math.round(5477202*Math.pow(Math.max(S.score,1)/137,2.2))+S.pop*12000+S.trust*5000; const rows=buildRows("fin",votes); const hero=rows.find(r=>r.id==="hiroto"); return {votes,rank:hero.rank,rows,debut:hero.rank<=11};}
+function ceremonyRows(rows,cut,cutNote){ return rows.slice(0,cut).map((r,i)=>rankRowHTML(r,i)).join("")+`<div class="rank-zone">${cutNote}</div>`+rows.slice(cut).map((r,i)=>{const rr=Object.assign({},r,{zone:"out"}); return rankRowHTML(rr,i+cut);}).join("");}
+function doRank2(step){ const res=computeRank2(); S.rank2Result={rank:res.rank,votes:res.votes}; save();
+playTrack("tension");
+$("#scene-body").innerHTML=`${telopHTML("創造営2021 第2回順位発表","腾讯视频 · 全网独播")}<div class="scene-loc">第2回順位発表 · 2021年4月10日</div>
+<div class="scene-text">55人から33人へ、2度目の関門。
+史実では、大翔は12位・8,856,294票で自己最高位を記録した。――今回は、どうか。</div>
+<div style="margin-top:14px">${ceremonyRows(res.rows,33,"―― ここより下は離営 ――")}</div>
+<p class="rank-note">※他の学員の順位・票数は史実の第2回順位発表に基づきます。大翔の順位・票数は、あなたの裏側サポートで変動したIFの結果です（史実：12位・8,856,294票）。</p>
+<div class="scene-text"><span class="who">鄧超</span>「第${res.rank}位――井汲大翔！」
+自己最高位を更新して、残った33人で第三次公演へ。</div>`;
+$("#scene-choices").innerHTML=""; $("#scene-next").style.display="block"; $("#scene-next").textContent="結果を受け止める";
+show("screen-scene",{t:step.title,s:step.desc});}
+function doRank3(step){ const res=computeRank3(); S.rank3Result={rank:res.rank,votes:res.votes};
+const elim=res.rank>25; if(elim){ S.ending="elim3"; S.pendingJump=49; } save();
+playTrack("tension");
+$("#scene-body").innerHTML=`${telopHTML("創造営2021 第3回順位発表","腾讯视频 · 全网独播")}<div class="scene-loc">第3回順位発表 · 2021年4月18日</div>
+<div class="scene-text">決勝に進めるのは、33人中25人だけ。
+史実では、大翔は14位・3,441,630票で決勝に進んだ。――今回は、どうか。</div>
+<div style="margin-top:14px">${ceremonyRows(res.rows,25,"―― ここより下は離営 ――")}</div>
+<p class="rank-note">※他の学員の順位・票数は史実の第3回順位発表に基づきます。大翔の順位・票数はIFの結果です（史実：14位・3,441,630票）。</p>
+<div class="scene-text">${elim?`最後の名前が呼ばれた。……大翔の名前は、25人の中になかった。
+<span class="who">大翔</span>「…………そっか」
+（あなた：第${res.rank}位）`: `<span class="who">鄧超</span>「第${res.rank}位――井汲大翔！」
+決勝進出。あと1週間で、すべてが決まる。`}</div>`;
+$("#scene-choices").innerHTML=""; $("#scene-next").style.display="block"; $("#scene-next").textContent="結果を受け止める";
+show("screen-scene",{t:step.title,s:step.desc});}
+function doFinalRank(step){ const res=computeFinal(); S.finalResult={rank:res.rank,votes:res.votes,debut:res.debut};
+S.ending=res.debut?"debut":"almost"; if(!res.debut) S.pendingJump=44; save();
+playTrack("tension");
+const rows=res.rows.map(r=>Object.assign({},r,{zone:r.rank<=11?"debut":""}));
+const eleventh=res.debut?null:rows.find(r=>r.rank===11);
+const gap=eleventh?eleventh.votes-res.votes:0;
+$("#scene-body").innerHTML=`${telopHTML("創造営2021 成団夜 · 全球総決賽","腾讯视频 · 全网独播")}<div class="scene-loc">成団夜 · 結果発表（2021年4月24日）</div>
+<div class="scene-text">25人から11人へ。INTO1のメンバーが、今決まる。
+史実では、大翔は15位・5,477,202票。11位・劉彰（13,274,812票）との差は約780万票だった。――今回は、どうか。</div>
+<div style="margin-top:14px">${rows.map((r,i)=>rankRowHTML(r,i)).join("")}</div>
+<p class="rank-note">※他の学員の順位・票数は史実の決勝結果に基づきます。大翔の順位・票数は、あなたの裏側サポート全5フェーズと選択の累積で変動したIFの結果です（史実：15位・5,477,202票）。</p>
+<div class="scene-text">${res.debut?`<span class="who">鄧超</span>「第${res.rank}位――井汲大翔！」
+呼ばれた。INTO1の11人に、井汲大翔がいる。
+2年前の約束が、果たされる瞬間だった。`:`11人の名前が、すべて呼ばれた。
+大翔は第${res.rank}位・${res.votes.toLocaleString()}票。デビュー圏の11位（${eleventh?eleventh.votes.toLocaleString():"―"}票）まで、あと${gap.toLocaleString()}票だった。
+<span class="who">大翔</span>「…………あと少し、やったのにな」`}</div>`;
+$("#scene-choices").innerHTML=""; $("#scene-next").style.display="block"; $("#scene-next").textContent="結果を受け止める";
+show("screen-scene",{t:step.title,s:step.desc});}
+function renderGrandFin(){ const e=S.ending||"almost"; const fr=S.finalResult||{}; const r3=S.rank3Result||{};
+let title,body;
+if(e==="debut"){ title="完結 ― INTO1デビュー"; body=`決勝・成団夜、大翔は <b style="color:var(--accent)">第${fr.rank}位・${(fr.votes||0).toLocaleString()}票</b> でINTO1の11人に選ばれました（史実：15位・5,477,202票）。<br>史実では約780万票あったデビュー圏との差を、あなたの裏側サポートが覆しました。`;}
+else if(e==="elim3"){ title="完結 ― 第3回順位発表"; body=`大翔は第3回順位発表で <b style="color:var(--accent)">第${r3.rank}位</b>となり、決勝には届きませんでした（史実：14位で決勝進出）。<br>それでも三亜で得たものは大きく、直筆の手紙と写真集『灼熱』へと物語は続きました。`;}
+else { title="完結 ― あと一歩"; body=`決勝・成団夜、大翔は <b style="color:var(--accent)">最終 第${fr.rank}位・${(fr.votes||0).toLocaleString()}票</b>（史実：15位・5,477,202票）。<br>デビューには届かなかったけれど、直筆の手紙と写真集『灼熱』へ続く後日談まで、彼の物語を見届けました。`;}
+$("#scene-body").innerHTML=`<div class="fin-card"><div style="font-size:30px">🌴</div><h3>${title}</h3>
+<p>${body}</p>
+<p>信頼度 ${S.trust}｜メンタル ${S.mental}｜注目度 ${S.pop}｜裏側サポート ${S.score}pt</p>
+<p style="color:var(--sub);font-size:12px">『担当をデビューさせる件【創造営編】』はこれで完結です。各アプリから記録（順位表・全学員データ・Weibo・Twitter・ニュース）を見返せます。サポート配分や選択を変えると、結末も変わります。</p></div>`;
+$("#scene-choices").innerHTML=""; const nx=$("#scene-next"); nx.style.display="block"; nx.textContent="ホームへ戻る";}
+
 /* ---------- support room ---------- */
 let supAlloc=null;
 function renderSupport(phase){ supAlloc={lang:0,weibo:0,jp:0,care:0,talk:0};
@@ -865,13 +1457,15 @@ function computeRank(){ const votes=Math.round(4820000 + 54600*S.score);
 const rows=FACT_RANK.map(r=>({rank:0,id:r[1],votes:r[2]})); rows.push({rank:0,id:"hiroto",votes});
 rows.sort((a,b)=>b.votes-a.votes); rows.forEach((r,i)=>r.rank=i+1);
 const hero=rows.find(r=>r.id==="hiroto"); return {votes,rank:hero.rank,rows};}
-function rankRowHTML(r,i){ const isHero=r.id==="hiroto"; const c=CAST[r.id]; const nm=isHero?"井汲大翔":(c?c.name:(EXTRA_NAMES[r.id]||r.id));
-const av=isHero||c?avHTML(r.id,"sm"):`<div class="av-init sm">${nm.charAt(0)}</div>`;
+function rankRowHTML(r,i){ const isHero=r.id==="hiroto"; const c=CAST[r.id]; const m90=MEMBERS90_MAP[r.id];
+const nm=isHero?"井汲大翔":(c?c.name:(m90?m90.name:(EXTRA_NAMES[r.id]||r.id)));
+const av=(isHero||c)?avHTML(r.id,"sm"):(m90?`<img class="av sm" src="assets/cast90/${r.id}.jpg" alt="${nm}" onerror="this.outerHTML=avInit90('${r.id}','sm')">`:`<div class="av-init sm">${nm.charAt(0)}</div>`);
 const d=Math.min((i||0)*0.055,0.95).toFixed(2);
-return `<div class="rank-row ${r.rank<=3?"top3":""} ${isHero?"hero":""}" style="--d:${d}s"><div class="rk">${r.rank}</div>${av}<div class="inf"><div class="n">${nm}${isHero?"（担当）":""}</div><div class="a">${c?c.grp:""}</div></div><div class="vt">${r.votes.toLocaleString()}票</div></div>`;}
+return `<div class="rank-row ${r.rank<=3?"top3":""} ${isHero?"hero":""} ${r.zone||""}" style="--d:${d}s"><div class="rk">${r.rank}</div>${av}<div class="inf"><div class="n">${nm}${isHero?"（担当）":""}</div><div class="a">${c?c.grp:(m90?m90.grp:"")}</div></div><div class="vt">${r.votes.toLocaleString()}票</div></div>`;}
+function telopHTML(t,s2){ return `<div class="telop"><span class="live">LIVE</span><span class="tt">${t}</span><span class="ts">${s2}</span></div>`;}
 function doRank(step){ const res=computeRank(); S.rankResult={rank:res.rank,votes:res.votes}; save();
 playTrack("tension");
-$("#scene-body").innerHTML=`<div class="scene-loc">第1回順位発表 · 2021年3月20日</div>
+$("#scene-body").innerHTML=`${telopHTML("創造営2021 第1回順位発表","腾讯视频 · 全网独播")}<div class="scene-loc">第1回順位発表 · 2021年3月20日</div>
 <div class="scene-text">会場に、鄧超の声が響く。55人だけが残れる、最初の関門。
 史実では、大翔は17位・6,895,112票だった。――今回は、裏側で積み上げたものが数字になる。</div>
 <div style="margin-top:14px">${res.rows.map(rankRowHTML).join("")}
@@ -883,16 +1477,43 @@ $("#scene-body").innerHTML=`<div class="scene-loc">第1回順位発表 · 2021�
 でも、隣の椅子に座るはずだった2人の姿は、もうここにはない。</div>`;
 $("#scene-choices").innerHTML=""; $("#scene-next").style.display="block"; $("#scene-next").textContent="結果を受け止める";
 show("screen-scene",{t:step.title,s:step.desc});}
-function renderRankApp(){ if(!S.rankResult){ $("#rank-body").innerHTML=`<div class="sup-card"><h3>第1回順位発表はまだ先です</h3><p>大翔のここまでの途中順位（史実）：29位 → 29位 → 18位 → 17位圏。発表はストーリー第6章で行われます。あなたの裏側サポートが、史実17位をどこまで押し上げるか――。</p></div>`; return;}
-const res=computeRank();
-$("#rank-body").innerHTML=`<p class="rank-note">第1回順位発表（2021年3月20日）の結果。大翔：<b style="color:var(--accent)">${S.rankResult.rank}位・${S.rankResult.votes.toLocaleString()}票</b>（史実17位・6,895,112票）</p>${res.rows.map(rankRowHTML).join("")}
-<div class="rank-row out" style="--d:1.02s"><div class="rk">78</div>${avHTML("taguchi","sm")}<div class="inf"><div class="n">田口馨也</div><div class="a">RBW JBOYZ</div></div><div class="tag-out">離営</div></div>
-<div class="rank-row out" style="--d:1.1s"><div class="rk">87</div>${avHTML("sumida","sm")}<div class="inf"><div class="n">隅田隼平</div><div class="a">RBW JBOYZ</div></div><div class="tag-out">離営</div></div>`;}
+let rankTab=null;
+function renderRankApp(){ const resMap={r1:S.rankResult,r2:S.rank2Result,r3:S.rank3Result,fin:S.finalResult};
+const played=["r1","r2","r3","fin"].filter(k=>resMap[k]);
+if(!rankTab) rankTab=played.length?played[played.length-1]:"r1";
+const META={r1:{date:"2021年3月20日",cut:55,factRank:17,fact:6895112},r2:{date:"2021年4月10日",cut:33,factRank:12,fact:8856294},r3:{date:"2021年4月21日",cut:25,factRank:14,fact:3441630},fin:{date:"2021年4月24日",cut:11,factRank:15,fact:5477202}};
+const TABS=[["r1","第1回"],["r2","第2回"],["r3","第3回"],["fin","決勝"]];
+const key=rankTab, meta=META[key], res=resMap[key];
+const rows=buildRows(key,res?res.votes:meta.fact);
+rows.forEach(r=>{ r.zone=key==="fin"?(r.rank<=11?"debut":""):(r.rank>meta.cut?"out":""); });
+const head=`<div class="rank-tabs">${TABS.map(t=>`<button data-rt="${t[0]}" class="${t[0]===key?"on":""}">${t[1]}${resMap[t[0]]?"":"（史実）"}</button>`).join("")}</div>
+<p class="rank-note">${meta.date}の順位表（全${rows.length}人）。${res?`大翔はあなたのサポートで <b style="color:var(--accent)">${res.rank}位・${res.votes.toLocaleString()}票</b>（史実${meta.factRank}位・${meta.fact.toLocaleString()}票）。他の学員の順位・票数は史実データです。`:`この発表はまだ迎えていないため、史実データ（大翔：${meta.factRank}位・${meta.fact.toLocaleString()}票）を表示しています。`}</p>`;
+const bodyHtml=rows.map((r,i)=>{ let zone=""; if(key==="fin"&&r.rank===1) zone=`<div class="rank-zone">INTO1 デビュー圏（11位まで）</div>`; else if(key==="fin"&&r.rank===12) zone=`<div class="rank-zone">デビュー圏外</div>`; else if(key!=="fin"&&r.rank===meta.cut+1) zone=`<div class="rank-zone">―― ここより下は離営 ――</div>`; return zone+rankRowHTML(r,i);}).join("");
+$("#rank-body").innerHTML=head+bodyHtml;
+document.querySelectorAll("[data-rt]").forEach(b=>b.onclick=()=>{rankTab=b.dataset.rt; renderRankApp();});}
 /* ---------- members ---------- */
 function renderMembers(){ const mains=Object.keys(CAST).filter(id=>!CAST[id].mentor); const mentors=Object.keys(CAST).filter(id=>CAST[id].mentor);
 const cell=id=>{const c=CAST[id]; return `<button class="mem-cell" data-mid="${id}">${avHTML(id)}<span>${c.name}</span><small>${c.grp}</small></button>`;};
-$("#members-body").innerHTML=`<p class="rank-note">主要学員（タップでプロフィール）</p><div class="mem-grid">${mains.map(cell).join("")}</div><p class="rank-note">メンター陣</p><div class="mem-grid">${mentors.map(cell).join("")}</div>`;
-document.querySelectorAll(".mem-cell").forEach(b=>b.onclick=()=>openProfile(b.dataset.mid)); show("screen-members",{t:"メンバー",s:"主要学員・メンター"});}
+$("#members-body").innerHTML=`<p class="rank-note">主要学員（タップでプロフィール）</p><div class="mem-grid">${mains.map(cell).join("")}</div><p class="rank-note">メンター陣</p><div class="mem-grid">${mentors.map(cell).join("")}</div><p class="rank-note">全学員データ（90人・史実）― 名前／読み／所属で検索できます</p><input class="mem-search" id="mem-q" type="text" placeholder="学員を検索（例：井汲、リウ、RBW）"><div id="m90-list"></div><p class="rank-note">出典：Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の学員一覧・順位発表データ（順位・票数・分班・所属・生年月日）。写真はWeTV公式プロフィール写真（KProfiles掲載分・90人全員）。</p>`;
+document.querySelectorAll(".mem-cell").forEach(b=>b.onclick=()=>openProfile(b.dataset.mid));
+const q=$("#mem-q"); const draw=()=>renderM90List(q.value.trim()); q.addEventListener("input",draw); draw();
+show("screen-members",{t:"メンバー",s:"主要学員・メンター・全90人"});}
+function renderM90List(query){ const el=$("#m90-list"); if(!el) return;
+const list=MEMBERS90.filter(m=>!query||m.name.includes(query)||(m.yomi&&m.yomi.includes(query))||(m.grp&&m.grp.includes(query))||(m.region&&m.region.includes(query)));
+el.innerHTML=list.length?list.map(m=>`<button class="m90-row" data-m90="${m.id}"><img class="m90-av" src="assets/cast90/${m.id}.jpg" alt="" loading="lazy" onerror="this.outerHTML=m90Ini('${m.id}')"><span><span class="m90-nm">${m.name}</span><span class="m90-sb" style="display:block">${m.yomi||""}｜${m.grp||""}</span></span><span class="m90-rk">${m.r&&m.r[3]?"最終"+m.r[3]+"位":(m.res||"")}</span></button>`).join(""):`<p class="about-txt">該当する学員が見つかりませんでした。</p>`;
+el.querySelectorAll("[data-m90]").forEach(b=>b.onclick=()=>openProfile90(b.dataset.m90));}
+function openProfile90(id){ const m=MEMBERS90_MAP[id]; if(!m) return;
+const rn=["第1回","第2回","第3回","最終"];
+const traj=m.r.map((v,i)=>v?`<span class="tj">${rn[i]} <b>${v}位</b></span>`:"").join("");
+const castId=(m.cast&&CAST[m.cast])?m.cast:(CAST[id]?id:null);
+$("#pf-body").innerHTML=`<div class="pf-hero"><img class="av" src="assets/cast90/${id}.jpg" alt="${m.name}" onerror="this.outerHTML=avInit90('${id}')"><div><div style="font-size:20px;font-weight:800">${m.name}</div><div style="color:var(--sub);font-size:12px;margin-top:3px">${m.yomi||""}</div><div style="color:var(--sub);font-size:12px">${m.grp||""}｜${m.from||m.region||""}</div></div></div>
+<div class="pf-sec"><h3>順位推移（史実）</h3><div class="traj">${traj||'<span class="tj">順位発表前に離脱</span>'}</div><p>${m.res||""}</p></div>
+<div class="pf-sec"><h3>プロフィール</h3><p>${m.age!=null?"当時"+m.age+"歳":""}${m.born?"（"+m.born+"生まれ）":""}｜${m.region||""}・${m.from||""}<br>所属：${m.grp||"―"}</p></div>
+<div class="pf-sec"><h3>クラス（分班）推移</h3><p>${m.cls||"―"}</p></div>
+${m.note?`<div class="pf-sec"><h3>備考</h3><p>${m.note}</p></div>`:""}
+${castId?`<button class="ghost-btn" id="pf90-cast">詳しいプロフィール（主要メンバー版）を見る</button>`:""}`;
+const b=$("#pf90-cast"); if(b) b.onclick=()=>openProfile(castId);
+show("screen-profile",{t:m.name,s:"全学員データ"});}
 function openProfile(id){ const c=CAST[id]; const skn={vo:"ボーカル",da:"ダンス",ra:"ラップ",vi:"ビジュアル"};
 $("#pf-body").innerHTML=`<div class="pf-hero">${avHTML(id)}<div><div style="font-size:20px;font-weight:800">${c.name}</div><div style="color:var(--sub);font-size:12px;margin-top:3px">${c.sub}</div><div style="color:var(--sub);font-size:12px">${c.grp}｜${c.from}</div></div></div>
 <div class="pf-sec"><h3>クラス推移</h3><p>${c.cls}</p></div>
@@ -907,7 +1528,10 @@ function stopCallTimer(){ if(callTimer){ clearInterval(callTimer); callTimer=nul
 function startCall(step){ callStep=step; callIdx=0; $("#call-av-wrap").innerHTML=avHTML("hiroto"); $("#call-name").textContent="井汲大翔"; $("#call-status").textContent="通話中… 00:00"; $("#call-choices").innerHTML="";
 show("screen-call",{t:"通話",s:"順位発表の前夜"}); startCallTimer(); renderCallLine();}
 function renderCallLine(){ const line=callStep.script[callIdx]; if(!line){ finishCall(); return;}
-$("#call-sub").innerHTML=line.who==="me"?`<span style="color:var(--me)">${esc(line.text)}</span>`:`${esc(line.text)}`;
+let inner=line.who==="me"?`<span style="color:var(--me)">${esc(line.text)}</span>`:`${esc(line.text)}`;
+if(line.v&&VOICE_OK[line.v]) inner+=`<div style="margin-top:10px;display:flex;justify-content:center"><span class="bubble voice-bub" data-voice="${line.v}" style="background:rgba(255,255,255,.12);color:#fff"><span class="play">▶</span><span class="wave"></span><span>${VOICES[line.v].label}</span></span></div>`;
+$("#call-sub").innerHTML=inner;
+const vb=$("#call-sub [data-voice]"); if(vb){ vb.style.pointerEvents="none"; const pb=vb.querySelector(".play"); if(pb){ pb.style.pointerEvents="auto"; pb.onclick=e=>{e.stopPropagation(); playVoice(line.v,vb);};}}
 $("#call-sub").style.cursor="pointer";}
 $("#screen-call").onclick=e=>{ if(curScreen!=="screen-call") return; if(e.target.closest("#call-end")) return; if(e.target.closest(".play")) return; callIdx++; renderCallLine();};
 $("#call-end").onclick=()=>{ if(curScreen!=="screen-call") return; if(callStep&&callIdx<callStep.script.length){ callIdx=callStep.script.length; finishCall();}};
@@ -919,7 +1543,7 @@ $("#scene-body").innerHTML=`<div class="fin-card"><div style="font-size:30px">�
 JBOYZは大翔ひとりに。それでも「今度は最後まで行く」という言葉は、まだ生きています。</p>
 <p>信頼度 ${S.trust}｜メンタル ${S.mental}｜注目度 ${S.pop}｜裏側サポート ${S.score}pt</p>
 <p style="color:var(--sub);font-size:12px">――第2部へつづく：第二次公演「Therefore I Am」、第2回順位発表（史実では自己最高12位）、そして決勝・成団夜へ。目標はINTO1の11人。</p></div>`;
-$("#scene-choices").innerHTML=""; const nx=$("#scene-next"); nx.style.display="block"; nx.textContent="ホームへ戻る";}
+$("#scene-choices").innerHTML=""; const nx=$("#scene-next"); nx.style.display="block"; nx.textContent="第2部へ進む";}
 /* ---------- settings ---------- */
 function renderSettings(){ $("#settings-body").innerHTML=`
 <div class="set-row"><div class="grow">サウンド（音楽）</div><button class="switch ${settings.sound?"on":""}" id="set-sound"></button></div>
@@ -928,7 +1552,7 @@ function renderSettings(){ $("#settings-body").innerHTML=`
 <div class="about-txt" id="about-box" style="display:none">
 『担当をデビューさせる件』は、実在の番組『創造営2021』（2021・テンセントビデオ）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。<br>
 音楽：課題曲はiTunes公式プレビュー（30秒）を使用しています（HIP -Japanese ver.-／MAMAMOO、Lover Boy 88（纯享版）／進步男孩兒、我們一起闖／創造営2021学員）。順位発表BGM："The Descent" by Kevin MacLeod (CC-BY)。写真はPinterest等で流通している各学員の写真を使用しています（本人の最終確認は実機目視によります）。<br>
-ボイスは大翔役の音声生成によるものです。</div>
+ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。</div>
 <button class="ghost-btn" id="set-reset" style="color:#ff8296">セーブデータを消して最初から</button>`;
 $("#set-sound").onclick=e=>{ settings.sound=!settings.sound; e.target.classList.toggle("on",settings.sound); saveSettings(); if(!settings.sound) stopMusic();};
 $("#set-vol").oninput=e=>{ settings.vol=+e.target.value/100; saveSettings(); const a=$("#music-audio"); if(a) a.volume=settings.vol;};
