@@ -226,6 +226,22 @@ input,textarea{font-size:16px!important}
 #call-av-wrap .av,#call-av-wrap .av-init,#music-bar .note,.voice-bub.playing .wave{animation:none!important}
 *{transition-duration:.01ms!important}
 }
+
+/* ===== v2.1: 通話画面の下切れ対策（短い画面でも全要素が収まる） ===== */
+#screen-call.active{display:flex;flex-direction:column;min-height:100%}
+#call-av-wrap{padding:clamp(14px,5vh,64px) 0 6px}
+#call-av-wrap .av,#call-av-wrap .av-init{width:clamp(80px,17vh,116px);height:clamp(80px,17vh,116px);font-size:clamp(32px,7vh,46px)}
+#call-name{font-size:clamp(19px,3vh,23px);margin-top:clamp(8px,1.8vh,16px)}
+#call-status{margin-top:5px}
+#call-sub{margin:clamp(12px,2.6vh,28px) 24px 0;max-height:36vh;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:0 1 auto}
+#call-choices:empty{display:none}
+#chat-choices:empty{display:none}
+#call-end{margin-top:clamp(12px,2.6vh,24px);flex:0 0 auto}
+@media (max-height:720px){
+#screen-call{padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+#call-sub{font-size:14.5px;line-height:1.8}
+}
+
 </style>
 </head>
 <body>
@@ -893,7 +909,7 @@ show("screen-call",{t:"通話",s:"順位発表の前夜"}); startCallTimer(); re
 function renderCallLine(){ const line=callStep.script[callIdx]; if(!line){ finishCall(); return;}
 $("#call-sub").innerHTML=line.who==="me"?`<span style="color:var(--me)">${esc(line.text)}</span>`:`${esc(line.text)}`;
 $("#call-sub").style.cursor="pointer";}
-$("#call-sub").onclick=()=>{ if(curScreen!=="screen-call") return; callIdx++; renderCallLine();};
+$("#screen-call").onclick=e=>{ if(curScreen!=="screen-call") return; if(e.target.closest("#call-end")) return; if(e.target.closest(".play")) return; callIdx++; renderCallLine();};
 $("#call-end").onclick=()=>{ if(curScreen!=="screen-call") return; if(callStep&&callIdx<callStep.script.length){ callIdx=callStep.script.length; finishCall();}};
 function finishCall(){ callStep=null; stopCallTimer(); completeStep();}
 /* ---------- fin ---------- */
