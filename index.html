@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>担当をデビューさせる件｜学員サポートなおの裏側SNS</title>
+<style>
+:root{
+--bg:#0b1526; --panel:#12233d; --panel2:#182c4c; --line:#24406b;
+--txt:#eaf2ff; --sub:#9db6d9; --accent:#ffb84d; --accent2:#39d0c4;
+--me:#ffe08a; --me-txt:#2a2008; --other:#1d3357; --pink:#ff8fb2;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:#050a16;color:var(--txt);font-family:-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}
+body{display:flex;justify-content:center;min-height:100dvh}
+#phone{width:100%;max-width:430px;min-height:100dvh;background:linear-gradient(180deg,#0d1e38,#081426);position:relative;display:flex;flex-direction:column;overflow:hidden}
+@media(min-width:480px){#phone{min-height:932px;max-height:932px;border-radius:28px;border:1px solid #2a4a7f;margin:12px 0;box-shadow:0 20px 60px rgba(0,0,0,.6)}}
+#sb{display:flex;justify-content:space-between;padding:8px 16px 4px;font-size:12px;color:var(--sub)}
+header.app-head{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);background:rgba(10,22,42,.85);position:sticky;top:0;z-index:5}
+header.app-head h1{font-size:17px;margin:0;flex:1}
+header.app-head.sub{font-size:11px;color:var(--sub)}
+.backbtn{background:none;border:none;color:var(--accent2);font-size:22px;cursor:pointer;padding:0 4px}
+main{flex:1;overflow-y:auto;position:relative}
+.screen{display:none;padding:0 0 90px}
+.screen.active{display:block}
+/* home */
+#home-hero{padding:22px 18px 8px}
+#home-hero.date{color:var(--sub);font-size:12px}
+#home-hero h2{margin:6px 0 4px;font-size:21px;line-height:1.4}
+#home-hero p{color:var(--sub);font-size:13px;line-height:1.7;margin:4px 0}
+#story-banner{margin:12px 16px;background:linear-gradient(135deg,#8a4b12,#b97a1e 55%,#d9a13b);border-radius:16px;padding:16px;color:#fff8ea;cursor:pointer;box-shadow:0 8px 22px rgba(217,161,59,.25)}
+#story-banner.t{font-weight:700;font-size:16px}
+#story-banner.d{font-size:12px;opacity:.92;margin-top:4px;line-height:1.6}
+#story-banner.badge{display:inline-block;background:rgba(0,0,0,.28);border-radius:999px;padding:2px 10px;font-size:11px;margin-bottom:8px}
+#apps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 6px;padding:14px 16px}
+.appicon{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;position:relative;background:none;border:none;color:var(--txt)}
+.appicon.ic{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:27px;background:var(--panel2);border:1px solid var(--line)}
+.appicon span{font-size:11px;color:var(--sub)}
+.appicon.bdg{position:absolute;top:-4px;right:8px;background:#ff4d5e;color:#fff;font-size:10px;border-radius:999px;padding:1px 6px;font-weight:700}
+#stat-strip{margin:4px 16px 0;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:12px;color:var(--sub);line-height:1.9}
+#stat-strip b{color:var(--txt)}
+.bar{height:6px;background:#0a1830;border-radius:99px;overflow:hidden;display:inline-block;width:86px;vertical-align:middle;margin-left:6px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent))}
+/* scene */
+#scene-body{padding:20px 18px}
+.scene-loc{color:var(--accent);font-size:12px;letter-spacing:.08em;margin-bottom:10px}
+.scene-text{font-size:15px;line-height:2.05;white-space:pre-wrap}
+.scene-text.who{color:var(--accent2);font-weight:700}
+.scene-text.cn{color:var(--sub);font-size:13px}
+.novel-img{width:100%;border-radius:14px;margin:10px 0;border:1px solid var(--line)}
+.big-btn{display:block;width:calc(100% - 36px);margin:16px auto;padding:15px;background:linear-gradient(135deg,#e09543,#c77414);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer}
+.ghost-btn{display:block;width:calc(100% - 36px);margin:8px auto;padding:12px;background:var(--panel2);color:var(--txt);border:1px solid var(--line);border-radius:12px;font-size:14px;cursor:pointer}
+.choice-list{padding:6px 18px}
+.choice-list button{display:block;width:100%;margin:8px 0;padding:13px 14px;background:#1a3055;border:1px solid #31548c;color:var(--txt);border-radius:12px;font-size:14px;text-align:left;cursor:pointer;line-height:1.6}
+.choice-list button:active{background:#24406f}
+/* chat */
+#chat-list.thread{display:flex;gap:12px;padding:13px 16px;border-bottom:1px solid rgba(36,64,107,.5);cursor:pointer;align-items:center}
+#chat-list.thread.meta{flex:1;min-width:0}
+#chat-list.thread.nm{font-weight:700;font-size:15px}
+#chat-list.thread.pv{color:var(--sub);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+#chat-list.thread.tm{color:var(--sub);font-size:11px}
+.av{width:48px;height:48px;border-radius:50%;flex:0 0 auto;object-fit:cover;background:#2a4a7f}
+.av-init{width:48px;height:48px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2c5f8a,#39d0c4);color:#fff;font-weight:700;font-size:19px}
+.av.sm{width:34px;height:34px;font-size:14px}
+#chat-body{padding:14px 12px 8px;display:flex;flex-direction:column;gap:10px}
+.msgrow{display:flex;gap:8px;align-items:flex-end;max-width:100%}
+.msgrow.me{flex-direction:row-reverse}
+.msgcol{display:flex;flex-direction:column;max-width:74%}
+.msgrow.me.msgcol{align-items:flex-end}
+.msgname{font-size:11px;color:var(--sub);margin:0 2px 3px}
+.bubble{padding:9px 12px;border-radius:16px;font-size:14.5px;line-height:1.65;background:var(--other);border-bottom-left-radius:5px;overflow-wrap:anywhere;flex:0 1 auto}
+.msgrow.me.bubble{background:var(--me);color:var(--me-txt);border-radius:16px;border-bottom-right-radius:5px}
+.bubble.cn{display:block;color:inherit;opacity:.62;font-size:12px;margin-top:2px}
+.voice-bub{display:flex;align-items:center;gap:9px;min-width:150px;cursor:pointer}
+.voice-bub.play{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:13px;flex:0 0 auto}
+.voice-bub.wave{flex:1;height:18px;background:repeating-linear-gradient(90deg,currentColor 0 2px,transparent 2px 5px);opacity:.5;border-radius:3px}
+.sysmsg{align-self:center;background:rgba(20,40,72,.85);color:var(--sub);font-size:11.5px;padding:5px 12px;border-radius:999px;text-align:center;line-height:1.6}
+#chat-inputbar{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:rgba(10,22,42,.92);position:sticky;bottom:0}
+#chat-text{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:999px;color:var(--txt);padding:10px 14px;font-size:16px;outline:none}
+#chat-send{background:var(--accent);border:none;color:#2a2008;font-weight:700;border-radius:999px;padding:0 16px;cursor:pointer;font-size:14px}
+#chat-choices{padding:4px 12px 10px}
+/* weibo / news */
+.post{margin:12px 16px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 14px}
+.post.ph{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.post.pn{font-weight:700;font-size:14px}
+.post.pt{color:var(--sub);font-size:11px}
+.post.pb{font-size:14px;line-height:1.8}
+.post.pb.tag{color:#6db3ff}
+.post.pf{color:var(--sub);font-size:12px;margin-top:9px;display:flex;gap:18px}
+.news-item{margin:12px 16px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;cursor:pointer}
+.news-item.nh{font-weight:700;font-size:15px;line-height:1.6}
+.news-item.nm2{color:var(--sub);font-size:11px;margin-top:5px}
+.news-item.nb{font-size:13.5px;line-height:1.9;color:#cfe0f5;margin-top:8px;display:none}
+.news-item.open.nb{display:block}
+/* support room */
+.sup-card{margin:12px 16px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.sup-card h3{margin:0 0 4px;font-size:15px}
+.sup-card p{color:var(--sub);font-size:12.5px;line-height:1.7;margin:0 0 10px}
+.sup-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px dashed rgba(36,64,107,.7)}
+.sup-row.inf{flex:1;min-width:0}
+.sup-row.inf.n{font-size:14px;font-weight:700}
+.sup-row.inf.d{font-size:11.5px;color:var(--sub);line-height:1.5}
+.stepper{display:flex;align-items:center;gap:8px}
+.stepper button{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--panel2);color:var(--txt);font-size:16px;cursor:pointer}
+.stepper.val{font-weight:700;min-width:20px;text-align:center;color:var(--accent)}
+#sup-pts{font-size:13px;color:var(--sub);text-align:center;padding-top:6px}
+#sup-pts b{color:var(--accent);font-size:16px}
+/* ranking */
+.rank-note{margin:10px 16px;color:var(--sub);font-size:11.5px;line-height:1.7}
+.rank-row{display:flex;align-items:center;gap:11px;margin:0 16px;padding:9px 10px;border-bottom:1px solid rgba(36,64,107,.45)}
+.rank-row.rk{width:30px;text-align:center;font-weight:800;font-size:16px;color:var(--sub)}
+.rank-row.top3.rk{color:var(--accent)}
+.rank-row.inf{flex:1;min-width:0}
+.rank-row.inf.n{font-weight:700;font-size:14.5px}
+.rank-row.inf.a{color:var(--sub);font-size:11px}
+.rank-row.vt{font-size:12px;color:var(--sub);text-align:right}
+.rank-row.hero{background:linear-gradient(90deg,rgba(255,184,77,.22),rgba(255,184,77,.05));border:1px solid var(--accent);border-radius:12px;margin-top:6px;margin-bottom:6px}
+.rank-row.out{opacity:.55}
+.rank-row.tag-out{color:#ff8296;font-size:11px;font-weight:700}
+/* members */
+.mem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:16px}
+.mem-cell{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;background:none;border:none;color:var(--txt)}
+.mem-cell.av,.mem-cell.av-init{width:64px;height:64px;font-size:24px}
+.mem-cell span{font-size:12px}
+.mem-cell small{color:var(--sub);font-size:10px}
+.pf-hero{display:flex;gap:14px;padding:18px;align-items:center}
+.pf-hero.av,.pf-hero.av-init{width:84px;height:84px;font-size:32px}
+.pf-sec{margin:0 16px 12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 14px}
+.pf-sec h3{margin:0 0 8px;font-size:13px;color:var(--accent2)}
+.pf-sec p{font-size:13.5px;line-height:1.9;margin:0;color:#d7e5f8}
+.skill{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--sub);margin:5px 0}
+.skill.sn{width:64px}
+.skill.bar{flex:1;width:auto;margin:0}
+/* call */
+#screen-call{background:linear-gradient(180deg,#10294d,#081426);text-align:center}
+#call-av-wrap{padding:56px 0 8px;display:flex;justify-content:center}
+#call-av-wrap.av,#call-av-wrap.av-init{width:110px;height:110px;font-size:44px}
+#call-name{font-size:22px;font-weight:700;margin-top:14px}
+#call-status{color:var(--sub);font-size:13px;margin-top:6px}
+#call-sub{margin:26px 30px;background:rgba(10,22,42,.75);border:1px solid var(--line);border-radius:14px;padding:14px;font-size:15px;line-height:1.9;min-height:56px}
+#call-end{margin:20px auto 0;width:64px;height:64px;border-radius:50%;background:#ff4d5e;border:none;color:#fff;font-size:24px;cursor:pointer;display:block}
+/* music bar */
+#music-bar{position:sticky;bottom:0;left:0;right:0;background:rgba(8,18,36,.96);border-top:1px solid var(--line);padding:9px 14px;display:none;align-items:center;gap:10px;z-index:8}
+#music-bar.on{display:flex}
+#music-bar.mt{flex:1;min-width:0}
+#music-bar.mt.a{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#music-bar.mt.b{font-size:11px;color:var(--sub)}
+#music-toggle{background:var(--accent);border:none;width:38px;height:38px;border-radius:50%;font-size:15px;cursor:pointer;color:#2a2008;flex:0 0 auto}
+#music-stop{background:var(--panel2);border:1px solid var(--line);width:34px;height:34px;border-radius:50%;font-size:12px;cursor:pointer;color:var(--txt);flex:0 0 auto}
+/* settings etc */
+.set-row{display:flex;align-items:center;gap:10px;margin:12px 16px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;font-size:14px}
+.set-row.grow{flex:1}
+.set-row input[type=range]{flex:1}
+.switch{width:46px;height:26px;border-radius:99px;background:#2a4a7f;border:none;position:relative;cursor:pointer;flex:0 0 auto}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}
+.switch.on{background:var(--accent2)}
+.switch.on::after{left:23px}
+.about-txt{font-size:12.5px;line-height:2;color:var(--sub);padding:0 18px}
+.fin-card{margin:26px 16px;background:linear-gradient(160deg,#14315e,#0c1e3a);border:1px solid var(--accent);border-radius:18px;padding:22px 18px;text-align:center}
+.fin-card h3{margin:0 0 8px;font-size:19px}
+.fin-card p{font-size:13.5px;line-height:1.95;color:#d7e5f8}
+#toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%) translateY(20px);background:rgba(8,18,36,.95);border:1px solid var(--accent);color:var(--txt);padding:10px 18px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:50;max-width:88%;text-align:center}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+input,textarea{font-size:16px!important}
+</style>
+</head>
+<body>
+<div id="phone">
+<div id="sb"><span id="sb-time">19:00</span><span>CHUANG 2021 · 三亜</span><span>📶 🔋</span></div>
+<header class="app-head" id="app-head" style="display:none">
+<button class="backbtn" id="head-back">‹</button>
+<div style="flex:1;min-width:0"><h1 id="head-title">ホーム</h1><div class="sub" id="head-sub"></div></div>
+</header>
+<main id="main">
+<!-- HOME -->
+<section class="screen active" id="screen-home">
+<div id="home-hero">
+<div class="date" id="home-date">2021年2月 · 中国・三亜</div>
+<h2 id="home-title">担当をデビューさせる件</h2>
+<p id="home-desc">日本人学員サポートスタッフとして『創造営2021』の収録に帯同中。担当は、あの井汲大翔。2年ぶりの再会から、もう一度「デビューさせる」戦いが始まる。</p>
+</div>
+<div id="story-banner">
+<span class="badge" id="story-badge">第1部</span>
+<div class="t" id="story-title">ストーリーを進める</div>
+<div class="d" id="story-desc">プロローグ：三亜到着</div>
+</div>
+<div id="stat-strip"></div>
+<div id="apps"></div>
+<p class="about-txt">※本作品は実在の番組『創造営2021』（2021・テンセント）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。</p>
+</section>
+<!-- SCENE -->
+<section class="screen" id="screen-scene">
+<div id="scene-body"></div>
+<div class="choice-list" id="scene-choices"></div>
+<button class="big-btn" id="scene-next">つづける</button>
+</section>
+<!-- CHAT LIST -->
+<section class="screen" id="screen-chatlist"><div id="chat-list"></div></section>
+<!-- CHAT -->
+<section class="screen" id="screen-chat">
+<div id="chat-body"></div>
+<div id="chat-choices"></div>
+<div id="chat-inputbar">
+<input id="chat-text" type="text" placeholder="メッセージを入力" autocomplete="off">
+<button id="chat-send">送信</button>
+</div>
+</section>
+<!-- WEIBO -->
+<section class="screen" id="screen-weibo"><div id="weibo-list"></div></section>
+<!-- NEWS -->
+<section class="screen" id="screen-news"><div id="news-list"></div></section>
+<!-- SUPPORT -->
+<section class="screen" id="screen-support"><div id="support-body"></div></section>
+<!-- RANK -->
+<section class="screen" id="screen-rank"><div id="rank-body"></div></section>
+<!-- MEMBERS -->
+<section class="screen" id="screen-members"><div id="members-body"></div></section>
+<!-- PROFILE -->
+<section class="screen" id="screen-profile"><div id="pf-body"></div></section>
+<!-- CALL -->
+<section class="screen" id="screen-call">
+<div id="call-av-wrap"></div>
+<div id="call-name"></div>
+<div id="call-status">通話中…</div>
+<div id="call-sub"></div>
+<div class="choice-list" id="call-choices"></div>
+<button id="call-end">📞</button>
+</section>
+<!-- SETTINGS -->
+<section class="screen" id="screen-settings"><div id="settings-body"></div></section>
+</main>
+<div id="music-bar">
+<div class="mt"><div class="a" id="music-title">—</div><div class="b" id="music-sub">音楽</div></div>
+<button id="music-toggle">⏸</button>
+<button id="music-stop">✕</button>
+</div>
+</div>
+<div id="toast"></div>
+<audio id="music-audio" preload="auto"></audio>
+<audio id="voice-audio" preload="auto"></audio>
+<script>
+"use strict";
+/* ================= DATA ================= */
+const CAST = {
+hiroto:{name:"井汲大翔",sub:"いくみ ひろと｜吉祥弟弟",grp:"RBW JBOYZ",from:"日本・大阪",cls:"B → A → B",sk:{vo:68,da:84,ra:72,vi:88},pop:86,
+ prof:"18歳。2019年の日プ無印では36位で脱落し、その後RBWの練習生に。今回は事務所の先輩曲を引っさげて、人生2度目のサバイバルに挑む。本名の中国語読み「Jǐng Jí Dà Xiáng」から「吉祥（縁起がいい）」と同音になるため、愛称は「吉祥弟弟」。学員みんなに可愛がられる“团宠”タイプで、中国語は勉強中。ステージでは表情管理とダンスのキレが武器。",
+ rel:"担当学員。前作（2019年・日プ合宿）で「デビューさせる」と交わした約束の、続きの相手。"},
+taguchi:{name:"田口馨也",sub:"たぐち けいや",grp:"RBW JBOYZ",from:"日本・茨城",cls:"F（初評級58票）",sk:{vo:62,da:74,ra:55,vi:76},pop:52,
+ prof:"18歳。日プ無印では大翔と同じTeam DKの最年少だった。創造営でも同じRBWから参加し、初評級は58票でF班スタート。真面目で素直な末っ子気質は変わらない。",
+ rel:"大翔のTeam DK時代からの仲間。日本にいた頃から知る、数少ない“素の大翔”を知る存在。"},
+sumida:{name:"隅田隼平",sub:"すみだ じゅんぺい",grp:"RBW JBOYZ",from:"日本・東京",cls:"F（初評級54票）",sk:{vo:70,da:66,ra:60,vi:70},pop:48,
+ prof:"JBOYZの最年長お兄さん枠。初評級は54票でF班。歌の安定感と場を和ませる力で、年下2人を引っ張る。",
+ rel:"大翔・田口と3人で渡中した同僚。合宿生活の支え。"},
+linmo:{name:"林墨",sub:"リン・モー｜Lin Mo",grp:"原際画",from:"中国・重慶",cls:"A → B → A",sk:{vo:74,da:80,ra:66,vi:82},pop:88,
+ prof:"19歳。易安音楽社出身の経験者で初評級A班。一公「Lover Boy 88」ではセンターを務め、チームを勝利に導いた。明るく社交的で、初対面でも一気に距離を詰めるタイプ。",
+ rel:"一公で大翔と同チーム。センターとして大翔の“撑腰王”獲得を後押しした。"},
+jiayuan:{name:"張嘉元",sub:"ジャン・ジアユエン",grp:"哇唧唧哇",from:"中国・遼寧",cls:"C → B → C → A",sk:{vo:72,da:78,ra:64,vi:80},pop:84,
+ prof:"18歳。ギターも弾ける音楽好き。一公「Lover Boy 88」では110票を集め、大翔とチーム内トップを争った。素直で感情が顔に出る年下キャラ。",
+ rel:"一公のチームメイト。大翔とは同い年コンビで練習でもよく組む。"},
+zhangteng:{name:"張騰",sub:"ジャン・トン",grp:"個人学員",from:"中国・河北",cls:"C → B",sk:{vo:66,da:72,ra:58,vi:74},pop:60,
+ prof:"落ち着いた個人学員。一公「Lover Boy 88」のメンバーとして堅実にパートをこなした。",
+ rel:"一公のチームメイト。"},
+xingte:{name:"張星特",sub:"ジャン・シントー",grp:"微粒文化",from:"中国・浙江",cls:"B → B",sk:{vo:86,da:70,ra:52,vi:78},pop:72,
+ prof:"18歳。初評級では高音ボーカルで88票を集めた歌唱派。一公でも安定した歌声でチームを支えた。",
+ rel:"一公のチームメイト。大翔の歌パートの相談相手。"},
+junjie:{name:"陳俊潔",sub:"チェン・ジュンジェ",grp:"嘉尚伝媒",from:"中国・新疆",cls:"C → B",sk:{vo:64,da:74,ra:60,vi:72},pop:55,
+ prof:"新疆出身のダンサー気質。一公「Lover Boy 88」のメンバー。",
+ rel:"一公のチームメイト。"},
+caelan:{name:"慶憐",sub:"ケイレン｜Caelan",grp:"Avex",from:"キューバ／INTERSECTION",cls:"B → C → B → A",sk:{vo:78,da:82,ra:70,vi:90},pop:90,
+ prof:"INTERSECTIONのメンバー。英語・日本語が話せ、外国人学員の橋渡し役。一公は対戦相手「Radio」組だった（67票）。最終的にはデビュー圏目前まで迫る人気者。",
+ rel:"一公の対戦相手。言語の壁を越えて話せる数少ない相手で、のちに同じステージに立つ仲間に。"},
+huyetao:{name:"胡燁韜",sub:"フー・イェタオ",grp:"MISTAR",from:"中国・江蘇",cls:"A → A → A",sk:{vo:76,da:88,ra:50,vi:95},pop:92,
+ prof:"初評級92票のA班。一公「作為怪物」ではセンター＆撑腰王（114票）で勝利し、A班入りも果たした。中性的な美しさと妖精のようなダンスで強い存在感。",
+ rel:"一公の勝者同士として大翔と認め合う。のちに同じチームでステージに立つ。"},
+boyuan:{name:"伯遠",sub:"ボー・ユエン",grp:"白色系",from:"中国・貴州",cls:"A → B → A",sk:{vo:80,da:78,ra:62,vi:72},pop:78,
+ prof:"1993年生まれの最年長クラス。ZERO-G出身の実力派で、主題曲の二創では大翔と一緒に獅子舞アレンジ「如獅添翼」を披露した。面倒見のいい兄貴分。",
+ rel:"二創で大翔と同組。中国の合宿文化を教えてくれる先輩。"},
+lelush:{name:"利路修",sub:"リルーシュ｜Lelush",grp:"King Holdings",from:"ロシア",cls:"F → B → F",sk:{vo:55,da:60,ra:58,vi:84},pop:95,
+ prof:"ロシア出身の中国語教師。初評級は40票でF班だったが、「早く帰りたい（下班したい）」という本音キャラが中国のSNSで大バズりし、異例の人気者に。本人の意向と人気が真逆に走る、創造営2021最大の話題枠。",
+ rel:"同じ外国人学員。人気の出方の“別ルート”を体現する存在。"},
+liuyu:{name:"劉宇",sub:"リウ・ユー",grp:"嗶喲嗶喲",from:"中国・安徽",cls:"A → A → A",sk:{vo:78,da:92,ra:40,vi:90},pop:96,
+ prof:"中国舞踊仕込みの表現者。初評級90票のA班、主題曲のセンター投票でも選ばれた実力と人気の中心。",
+ rel:"このシーズンの頂点に立つ学員。大翔からは遠い背中。"},
+santa:{name:"贊多",sub:"サンタ｜Santa",grp:"Avex Warps",from:"日本・愛知",cls:"A → C → A",sk:{vo:60,da:99,ra:55,vi:84},pop:94,
+ prof:"WARPs UPのメンバー。ダンスの世界大会で優勝経験があり、初評級では出場者中トップ級の94票を獲得した。日本人学員の筆頭格。",
+ rel:"同じ日本組の先輩格。大翔にとって「世界のダンス」の基準を示す人。"},
+rikimaru:{name:"力丸",sub:"リキマル｜Rikimaru",grp:"Avex Warps",from:"日本・兵庫",cls:"A → A → A",sk:{vo:58,da:98,ra:50,vi:80},pop:92,
+ prof:"振付師としても活動するダンスの職人。初評級93票。一公では「蓮（Lit）」チームを率いて“最佳表演队伍”に選ばれた。",
+ rel:"同じ日本組。大翔のダンスを厳しくも温かく見てくれる。"},
+mika:{name:"米卡",sub:"ミカ｜Mika",grp:"Avex",from:"アメリカ・ハワイ／INTERSECTION",cls:"F → B → A",sk:{vo:92,da:76,ra:45,vi:86},pop:90,
+ prof:"INTERSECTIONのメインボーカル格。初評級86票ながらバトルでF班に落ちる波乱も、歌の実力で巻き返した。日本語も話せる。",
+ rel:"同じ日本語話者の外国人学員。歌の相談ができる相手。"},
+nine:{name:"高卿塵",sub:"ガオ・チンチェン｜Nine",grp:"洞察娯楽",from:"タイ・バンコク",cls:"B → C → B",sk:{vo:72,da:74,ra:48,vi:92},pop:88,
+ prof:"タイ出身の爽やか系。初評級83票のB班。可愛い系という点で大翔と「タイプが被る」と番組総評でも分析された、後半に人気を伸ばすライバル。",
+ rel:"大翔の人気の“競合”として意識される存在。"},
+patrick:{name:"尹浩宇",sub:"イン・ハオユー｜Patrick",grp:"洞察娯楽",from:"タイ／ドイツ",cls:"F → C → A",sk:{vo:70,da:72,ra:56,vi:90},pop:86,
+ prof:"俳優としても活動する17歳（当時）。初評級82票→バトルでF班という波乱から這い上がる物語の持ち主。",
+ rel:"同じ年下組・外国人学員として親近感のある相手。"},
+keyu:{name:"周柯宇",sub:"ジョウ・クーユー",grp:"嘉行新悦",from:"アメリカ",cls:"F → C → C → A",sk:{vo:66,da:80,ra:74,vi:92},pop:89,
+ prof:"アメリカ生まれの長身ラッパー気質。一公「Radio」組では122票の撑腰王。ビジュアルと存在感で人気が高い。",
+ rel:"一公の対戦相手チームの中心。大翔の117票と競り合った。"},
+ak:{name:"劉彰",sub:"リウ・ジャン｜AK",grp:"W8VES",from:"中国・広東",cls:"F → B → B",sk:{vo:62,da:64,ra:92,vi:70},pop:76,
+ prof:"自作ラップで知られる実力派ラッパー。初評級83票→バトルでF班。一公は「作為怪物」組。",
+ rel:"大翔の中国語ラップの参考になる先輩格。"},
+dengchao:{name:"鄧超",sub:"ドン・チャオ",grp:"メンター｜発起人団長",from:"中国",cls:"—",sk:{vo:80,da:70,ra:60,vi:80},pop:99,mentor:1,
+ prof:"国民プロデューサー代表／発起人団の団長。場を温めるムードメーカーであり、発表の場では緊張感を作る。",rel:"番組の顔。"},
+ningjing:{name:"寧静",sub:"ニン・ジン",grp:"メンター｜メンター代表",from:"中国",cls:"—",sk:{vo:85,da:75,ra:55,vi:85},pop:97,mentor:1,
+ prof:"メンター代表。率直で厳しいが、学員への愛のあるコメントで知られる。",rel:"メンター陣の中心。"},
+amber:{name:"劉逸雲",sub:"アンバー｜Amber",grp:"メンター",from:"アメリカ",cls:"—",sk:{vo:82,da:90,ra:85,vi:82},pop:95,mentor:1,
+ prof:"f(x)出身。英語・中国語・韓国語を操り、外国人学員の気持ちが分かるメンター。主題曲の英語版も披露した。",rel:"語学面で大翔を気にかけるメンター。"},
+zhoushen:{name:"周深",sub:"ジョウ・シェン",grp:"メンター",from:"中国",cls:"—",sk:{vo:99,da:50,ra:40,vi:78},pop:98,mentor:1,
+ prof:"唯一無二の歌声を持つボーカルメンター。優しく具体的な歌唱指導で学員から慕われる。",rel:"歌のメンター。"},
+nannan:{name:"周震南",sub:"ジョウ・ジェンナン",grp:"メンター",from:"中国",cls:"—",sk:{vo:78,da:88,ra:90,vi:80},pop:93,mentor:1,
+ prof:"R1SEのセンター経験者。同じサバイバル出身として、学員の心理を踏まえた言葉をかける。",rel:"先輩メンター。"},
+nene:{name:"鄭乃馨",sub:"ジェン・ナイシン｜Nene",grp:"メンター｜国際学員助教",from:"タイ",cls:"—",sk:{vo:80,da:78,ra:50,vi:90},pop:94,mentor:1,
+ prof:"海外練習生メンター／国際学員助教。外国人学員の生活面・言語面のサポート役。",rel:"なおと同じく外国人学員を支える立場の先輩。"}
+};
+const FACT_RANK = [
+[1,"liuyu",21308912],[2,"santa",19576309],[3,"rikimaru",18446706],[4,"mika",17639804],[5,"keyu",16906210],
+[6,"linmo",13990221],[7,"jiayuan",12624851],[8,"caelan",11909999],[9,"patrick",10463315],[10,"__ren",10034180],
+[11,"__oscar",10007720],[12,"__gan",9794669],[13,"ak",9565832],[14,"__wu",9412096],[15,"__jinglong",8974409],
+[16,"nine",8441438],[18,"boyuan",6375096],[19,"__han",6354663],[20,"__zhangxinyao",5667546],[21,"xingte",5310719]
+];
+const EXTRA_NAMES = {"__ren":"任胤蓬","__oscar":"奥斯卡","__gan":"甘望星","__wu":"吳宇恒","__jinglong":"井朧","__han":"韓佩泉","__zhangxinyao":"張欣堯"};
+const HIROTO_BASE_VOTES = 6895112;
+const TRACKS = {
+ hip:{src:"assets/music/hip.mp3",title:"HIP -Japanese ver.-",sub:"MAMAMOO｜初評級ステージ（公式プレビュー30秒）"},
+ loverboy:{src:"assets/music/loverboy88.mp3",title:"Lover Boy 88（纯享版）",sub:"進步男孩兒｜第一次公演（公式プレビュー30秒）"},
+ theme:{src:"assets/music/theme.mp3",title:"我們一起闖（Chuang To-Gather, Go!）",sub:"創造営2021主題曲（公式プレビュー30秒）"},
+ tension:{src:"assets/music/bgm-tension.mp3",title:"The Descent",sub:"順位発表BGM｜Kevin MacLeod (CC-BY)",loop:true}
+};
+const VOICES = {
+ line1:{src:"new-voices/line1-reunion.mp3",label:"0:04",text:"……なおさん？　なんでここにおるん……いや、夢ちゃうよな"},
+ line2:{src:"new-voices/line2-loverboy.mp3",label:"0:05",text:"チームで1位、取れました。……今度は、最後まで行きます"}
+};
+</script>
+<script>
+/* ================= SNS CONTENT ================= */
+const WEIBO = {
+w1:{user:"創造営2021公式",time:"2月17日",body:"#創造営2021# 学員が続々と三亜に集結！今年は20カ国以上から90人が参加。日本人学員は最多の17人です。#ChuangToGatherGo#",like:"12.4万"},
+w2:{user:"鹅厂追星日记",time:"2月20日",body:"RBW JBOYZの井汲大翔くん、本名の中国語読みが「Jǐng Jí Dà Xiáng」で“吉祥”と同音らしく、もう「#吉祥弟弟#」って呼ばれてる。入営早々に愛称がつくのは強い。",like:"3.8万"},
+w3:{user:"創造営2021公式",time:"2月27日",body:"#創造営2021初舞台# RBW JBOYZ「HIP -Japanese ver.-」！井汲大翔は個人撑腰値89票でB班に。追加ステージ「CALL CALL CALL！」のダンスも話題です。",like:"9.6万"},
+w4:{user:"岛民小薯条",time:"2月27日",body:"吉祥弟弟の加試、表情管理がすごくない？可愛い顔してバチバチに踊るの、反差（ギャップ）がすごい。周深先生も笑顔だった。",like:"2.1万"},
+w5:{user:"創造営2021公式",time:"3月6日",body:"#創造営2021第一次公演# 「Lover Boy 88」進步男孩兒が勝利！井汲大翔は現場個人票117票でチーム内1位＝撑腰王。中国語ラップも披露しました。",like:"15.2万"},
+w6:{user:"选秀显微镜",time:"3月6日",body:"一公の撑腰王・井汲大翔、A班昇級おめでとう。林墨センターのチームで一番票を取るの、外国人学員では快挙。吉祥弟弟、運だけじゃなく実力もある。",like:"4.4万"},
+w7:{user:"鹅岛气象站",time:"3月13日",body:"主題曲考核、井汲大翔はB班に降級。でも二創の「如獅添翼」（伯遠・井汲大翔ら）の獅子舞アレンジ、創造営らしい国際感で好きだった。",like:"1.7万"},
+w8:{user:"下班倒计时（利路修bot）",time:"3月14日",body:"今日の利路修「まだ帰れないの？」発言まとめ。人気だけがうなぎ上りで本人が一番困惑しているの、創造営2021の七不思議。",like:"28.9万"},
+w9:{user:"創造営2021公式",time:"3月20日",body:"#創造営2021第一次順位発表# 井汲大翔の順位が発表されました。RBW JBOYZでは唯一の残留。田口馨也（78位）・隅田隼平（87位）はここで離営となります。たくさんの応援ありがとうございました。",like:"11.3万"},
+w10:{user:"岛民小薯条",time:"3月20日",body:"JBOYZの別れの場面で泣いた。吉祥弟弟だけが残るの、嬉しいけど寂しい。弟弟、2人の分まで行ってくれ。",like:"5.2万"}
+};
+const NEWS = {
+n1:{src:"創造営ニュース",time:"2021年2月17日",h:"『創造営2021』三亜で収録開始　テーマは「国際化」、日本人学員は最多17人",b:"テンセントビデオの国際男団オーディション『創造営2021』が中国・三亜で収録を開始した。全90人のうち約25%が外国人学員で、日本人は最多の17人。メンターは鄧超、寧静、劉逸雲（Amber）、周深、周震南、鄭乃馨（Nene）。上位11人が期間限定グループ「INTO1」としてデビューする。"},
+n2:{src:"日中エンタメ通信",time:"2021年2月28日",h:"日プ出身・井汲大翔、創造営の初舞台で89票「弟弟」愛称も話題に",b:"『PRODUCE 101 JAPAN』（2019）出身の井汲大翔が、RBW JBOYZとして田口馨也・隅田隼平と出場。MAMAMOO「HIP -Japanese ver.-」で個人89票を集めB班に。追加ステージのダンスも好評で、本名の中国語読みに由来する愛称「吉祥弟弟」が中国のSNSで広がっている。"},
+n3:{src:"創造営ニュース",time:"2021年3月7日",h:"第一次公演、井汲大翔が「撑腰王」に　中国語ラップも披露しA班昇級",b:"第一次公演で井汲大翔は「Lover Boy 88」（林墨センターの進步男孩兒）に出演。現場個人票117票でチーム内1位の「撑腰王」となり、対戦相手の「Radio」組に勝利。公演後の再分班でA班への昇級を決めた。中国語ラップの披露も日本側ファンメディアで特記されている。"},
+n4:{src:"鹅島トレンド",time:"2021年3月15日",h:"「帰りたい」利路修がバズり続ける理由　創造営2021の人気の多様化",b:"ロシア出身の利路修（Lelush）は「早く帰りたい」という本音がSNSで拡散され、実力派とは別軸の人気が拡大中。実力・ビジュアル・物語性・キャラクター――人気の出方が多様化しているのが今季の特徴だ。井汲大翔の「吉祥弟弟」人気も、実力と愛されキャラの両立として注目されている。"},
+n5:{src:"創造営ニュース",time:"2021年3月20日",h:"第1回順位発表：劉宇が1位、井汲大翔は残留　JBOYZは1人に",b:"第1回順位発表で1位は劉宇（21,308,912票）。井汲大翔は残留を決めた一方、同じRBW JBOYZの田口馨也（78位）・隅田隼平（87位）は離営となった。残り55人で第二次公演へ進む。"}
+};
+/* ================= STORY STEPS ================= */
+const M = (f,t,cn)=>({f,t,cn});
+const V = (f,v)=>({f,v});
+const SYS = t=>({f:"sys",t});
+const STEPS = [
+{type:"scene",badge:"プロローグ",title:"三亜到着",desc:"2021年2月、中国・三亜。2年ぶりの再会。",
+loc:"2021年2月 · 中国・三亜（海南島）創造営の合宿施設",
+pages:[
+`南国の日差し。ヤシの木と、白い合宿棟。
+ここは『創造営2021』の収録地、中国・三亜。
+
+なお（19歳目前）は今回、制作側の「日本人学員サポートスタッフ」として帯同している。通訳補助、スケジュール調整、日本の事務所との連絡――日本から来た17人の学員を、裏側から支える仕事だ。`,
+`2年前の夏。韓国の坡州で、高校3年生のインターンとして出会った練習生がいた。
+井汲大翔。あのとき結局、36位でステージを去った彼を、デビューまで連れていくことはできなかった。
+
+――それでも彼は諦めなかった。RBWの練習生になり、今度は中国のサバイバルに挑んでいる。`,
+`受付で学員リストを確認する。90人の名前。
+「井汲大翔　RBW JBOYZ」――あった。
+
+そのとき、背後から声がした。`,
+`<span class="who">大翔</span>「……うそやん」
+振り返ると、スーツケースを引いた彼が立っていた。2年で少し背が伸びて、でも笑い方はあの頃のまま。
+<span class="who">大翔</span>「なんで、なおさんがここにおるん」
+<span class="who">なお</span>「仕事。日本人学員のサポートスタッフとして来た。……久しぶり、ひろと」
+<span class="who">大翔</span>「ほんまに、会えると思ってなかった」`,
+`彼は笑ったあと、少しだけ真剣な顔になった。
+<span class="who">大翔</span>「今度は……最後まで行くから。今度こそ」
+分かっている。その言葉を聞くために、ここまで来たのかもしれない。
+
+史実では最終15位だった大翔を、裏側のサポートでINTO1（11位以内）のデビュー圏へ押し上げよう。`],
+choices:[
+{label:"「今度こそ、デビューさせたる」と約束する",fx:{trust:6,mental:2},note:"信頼度が上がった"},
+{label:"「まずは無事に初舞台を乗り越えよう」と現実的に返す",fx:{mental:5,trust:2},note:"メンタルが安定した"}
+]},
+{type:"talk",thread:"hiroto",badge:"トーク",title:"ひろと｜再会",desc:"2年ぶりの連絡先交換",
+msgs:[
+M("hiroto","着いた？　俺は寮に入ったとこ"),
+M("hiroto","さっきはほんまにびっくりした。心臓まだバクバクやで"),
+V("hiroto","line1"),
+M("me","こっちも。まさか本当に同じ現場になるなんて"),
+M("hiroto","2年、長かったな。……いや、短かったんかな"),
+M("hiroto","日プのあと、RBWの練習生になって。ダンスも歌も、ずっとやってた"),
+M("hiroto","中国語はまだまだやけど……『吉祥』って呼ばれてるらしいわ、俺"),
+M("me","本名の読みが「Jíxiáng（吉祥）」と同音だからって、もう愛称ついてる"),
+M("hiroto","縁起のいい弟、やって。……弟、ではないんやけどな、なおさんより年下やけど"),
+SYS("2年前の夏と、同じ距離感ではいられない。それでも、また彼の担当になれた。")
+],
+choices:[
+{label:"「中国語、困ったらすぐ頼って。通訳も仕事のうち」",fx:{trust:5,pop:2},reply:[M("hiroto","頼りにしてる。……ありがとう、なおさん")],note:"信頼度が上がった"},
+{label:"「愛称に負けないくらい、実力で呼ばれるようになろう」",fx:{mental:4,score:3},reply:[M("hiroto","……うん。それが一番かっこいいよな")],note:"本人の闘志に火がついた"}
+]},
+{type:"scene",badge:"第1章",title:"JBOYZ集結",desc:"田口馨也・隅田隼平と合流",
+loc:"合宿棟 · ロビー",
+pages:[
+`荷物を置いてロビーに出ると、聞き覚えのある声。
+<span class="who">田口</span>「大翔ー！　……え、なおさん！？」
+田口馨也。日プのTeam DKで最年少だった彼も、RBWから一緒に来ていた。
+<span class="who">隅田</span>「お久しぶりです。まさかスタッフ側で再会するとは」
+隅田隼平。JBOYZの最年長、頼れるお兄さん枠。`,
+`<span class="who">田口</span>「俺たち3人、今回“RBW JBOYZ”として出ます。先輩のMAMAMOOさんの曲で」
+<span class="who">大翔</span>「田口とは日プからやから……長い付き合いやな」
+<span class="who">田口</span>「大翔はもう“吉祥弟弟”でバズってるらしいですよ。中国のスタッフさんにも『ジーシャン！』って呼ばれてた」
+<span class="who">大翔</span>「……悪くはないけど、実力で覚えてほしいな」`,
+`その日の夜、寮の部屋決めではちょっとした騒動があった。
+「井汲大翔と同室になりたい」という希望者が殺到したらしい。
+<span class="who">隅田</span>「人気者は辛いねえ」
+<span class="who">大翔</span>「からかわんといて」
+――“团宠（みんなに可愛がられる存在）”。この合宿での彼の武器は、実力だけじゃない。`],
+addWeibo:["w1","w2"],addNews:["n1"]},
+{type:"talk",thread:"jboyz",badge:"トーク",title:"RBW JBOYZ",desc:"3人のグループトーク",
+msgs:[
+M("sumida","JBOYZの連絡用グループ作りました。よろしくお願いします"),
+M("taguchi","よろしくです！　なおさんも入ってるの心強い"),
+M("hiroto","初舞台、HIPやな。先輩の曲、失敗できひんやつ"),
+M("taguchi","俺、正直めちゃくちゃ緊張してる……58票とか取れるんかな"),
+M("me","投票は“自分以外の全員”がする方式。まずは全員に顔と名前を覚えてもらうことが大事"),
+M("sumida","大翔はもう愛称で覚えられてるけどね"),
+M("hiroto","……俺はダンスで覚えてもらう。加試（追加ステージ）もらえたら、そこで見せる")
+],
+choices:[
+{label:"「3人とも、まずは初舞台。体調だけは崩さないで」",fx:{mental:5},reply:[M("taguchi","はい！　寝ます、ちゃんと寝ます")],note:"3人のメンタルが安定した"},
+{label:"「大翔の追加ステージ、全力で取りに行こう」",fx:{score:3,trust:2},reply:[M("hiroto","うん。チャンスは掴むもんや")],note:"本番への集中が高まった"}
+]},
+{type:"stage",badge:"第2章",title:"初評級",desc:"「HIP」89票・B班スタート",music:"hip",
+loc:"収録スタジオ · 初評級ステージ",
+pages:[
+`初評級。全90人の運命が動き出すステージ。
+RBW JBOYZの出番は28番目。事務所の先輩・MAMAMOOの「HIP -Japanese ver.-」。
+（♪ 音楽が流れます：HIP -Japanese ver.-）`,
+`3人のパフォーマンスは、元気いっぱいの「日系男団」そのもの。
+メンター陣の反応も上々で、寧静は笑顔で頷いていた。
+投票結果――
+<span class="who">井汲大翔：89票（B班）</span>
+田口馨也：58票（F班）／隅田隼平：54票（F班）`,
+`そして、大翔には追加ステージ（加試）の機会が回ってきた。
+SEVENTEEN「CALL CALL CALL！」。
+可愛い顔でバチバチに踊るギャップに、会場の空気が変わる。周深の笑顔がカメラに抜かれた。
+<span class="who">大翔</span>「（息を整えて）……ありがとうございました！」
+初日としては上出来。ただ、B班はまだ“安全圏”じゃない。`],
+choices:[
+{label:"加試の映像を日本側ファンへすぐ発信する手配をする",fx:{pop:6,score:3},note:"日本での注目度が上がった"},
+{label:"まずは3人の体調確認と明日の日程調整を優先する",fx:{mental:5},note:"メンタルが安定した"}
+],addWeibo:["w3","w4"],addNews:["n2"]},
+{type:"talk",thread:"nihon",badge:"トーク",title:"日本組・語学組",desc:"贊多・力丸・米卡と",
+msgs:[
+M("santa","初舞台おつかれ！　大翔、89票すごいじゃん"),
+M("rikimaru","加試のダンス、キレ良かったよ。2年でだいぶ変わったな"),
+M("hiroto","贊多さん94票には負けてます……トップはやっぱりすごい"),
+M("mika","俺なんかバトルでF班落ちしたからね。ここから巻き返すよ"),
+M("me","日本組は全部で17人。言葉の壁がある分、支え合っていきましょう"),
+M("santa","中国語の言い回しで困ったら聞いて。俺も最初は全然だった"),
+M("hiroto","……ありがとうございます。頼ります")
+],
+choices:[
+{label:"日本組の合同練習を見学し、各自の課題をメモする",fx:{score:3,pop:2},reply:[M("rikimaru","スタッフがそこまで見てくれるの、ありがたいな")],note:"現場の空気が掴めた"},
+{label:"「大翔は大翔の武器で戦おう」と声をかける",fx:{trust:4,mental:2},reply:[M("hiroto","うん。……俺は俺のやり方で")],note:"信頼度が上がった"}
+]},
+{type:"support",phase:1,badge:"裏側の仕事",title:"サポート作戦室（1）",desc:"第一次公演に向けて、裏側の手を配分しよう"},
+{type:"scene",badge:"第3章",title:"一公の練習",desc:"「Lover Boy 88」進步男孩兒",
+loc:"練習室 · 第一次公演チーム「進步男孩兒」",
+pages:[
+`第一次公演のチーム分け。大翔が選ばれたのは「Lover Boy 88」。
+チーム名は「進步男孩兒（進歩男孩児）」。メンバーは林墨（センター）、陳俊潔、張騰、張嘉元、張星特、そして大翔。
+<span class="who">林墨</span>「みんな、よろしく！　この曲は“楽しんだ者勝ち”だよ」
+最年少級のメンバーが揃い、ファンからは早くも「小学生組」なんて呼ばれている。`,
+`練習の合間、大翔は中国語ラップのパートで苦戦していた。
+<span class="who">大翔</span>「発音が……どうしても日本語っぽくなる」
+<span class="who">張嘉元</span>「大翔、ここの音はこう！（口の形を見せる）」
+<span class="who">張星特</span>「歌の方は任せて。音程は俺が合わせる」
+同い年の張嘉元、歌唱派の張星特。チームの空気は悪くない。`,
+`なおは通訳として練習に帯同し、振付のカウントや歌詞のニュアンスを橋渡しする。
+<span class="who">林墨</span>「スタッフさんがここまで入ってくれるの、助かるなあ」
+<span class="who">大翔</span>「（小声で）……なおさんがおると、落ち着くわ」
+その一言は、中国語でも日本語でもなく、彼だけの本音の言語だった。`],
+choices:[
+{label:"中国語ラップの発音チェックに毎晩つきあう",fx:{score:5,trust:3},note:"本番の完成度が上がりそうだ"},
+{label:"チーム全員のスケジュールと睡眠を徹底管理する",fx:{mental:5,pop:1},note:"チームのコンディションが整った"}
+]},
+{type:"stage",badge:"第3章",title:"第一次公演",desc:"「Lover Boy 88」撑腰王は――",music:"loverboy",
+loc:"公演会場 · 第一次公演",
+pages:[
+`第一次公演。「Lover Boy 88」進步男孩兒 vs「Radio」夢之隊。
+（♪ 音楽が流れます：Lover Boy 88）
+林墨センターの明るいステージ。大翔の中国語ラップが決まった瞬間、会場がどっと湧いた。`,
+`現場投票の結果――
+<span class="who">井汲大翔：117票（チーム内1位＝撑腰王）</span>
+張嘉元110票、林墨109票、張星特88票、張騰82票、陳俊潔72票。
+チームも「Radio」組に勝利！
+そして公演後の再分班で、勝利チームの撑腰王・大翔は<span class="who">A班への昇級</span>を決めた。`,
+`<span class="who">大翔</span>「やった……！」
+<span class="who">林墨</span>「大翔が1位！　俺たちの撑腰王だ！」
+<span class="who">張嘉元</span>「次も一緒にやろうな」
+2年前、ポジション評価で36票しか取れなかった彼が、今は6000km離れた国のステージで「1位」と呼ばれている。`],
+addWeibo:["w5","w6"],addNews:["n3"]},
+{type:"talk",thread:"hiroto",badge:"トーク",title:"ひろと｜一公の夜",desc:"撑腰王の報告",
+msgs:[
+M("hiroto","終わった……終わったで、なおさん"),
+V("hiroto","line2"),
+M("me","117票、チーム内1位。A班昇級。すごいよ、ひろと"),
+M("hiroto","中国語ラップ、練習につきあってくれたおかげや"),
+M("hiroto","……日プのとき、OVER THE TOPで36票やったの、覚えてる？"),
+M("me","覚えてる。あのときとは違うね"),
+M("hiroto","うん。……今度は違う。今度は、最後まで行く")
+],
+choices:[
+{label:"「次は主題曲考核。A班を守ろう」",fx:{mental:3,score:2},reply:[M("hiroto","守る。……絶対守る")],note:"気持ちが引き締まった"},
+{label:"「今夜くらいは喜んでいいよ。おつかれさま」",fx:{trust:5},reply:[M("hiroto","……うん。ありがとう、なおさん")],note:"信頼度が上がった"}
+]},
+{type:"talk",thread:"loverboy",badge:"トーク",title:"進步男孩兒",desc:"勝利の夜のグループトーク",
+msgs:[
+M("linmo","勝ったー！！　みんな最高だった！"),
+M("jiayuan","大翔117票！　俺110で負けた、くやしい〜"),
+M("hiroto","嘉元もすごかった。ギターのとこ、会場湧いてた"),
+M("xingte","大翔のラップ、発音めちゃくちゃ良くなってた"),
+M("zhangteng","進步男孩兒、名前の通り進歩したな"),
+M("junjie","次も同じチームがいいな"),
+M("me","みなさんお疲れさまでした。明日の日程は朝ゆっくりめに調整済みです"),
+M("linmo","スタッフさん神！　大翔、いい担当さんだね")
+],
+choices:[
+{label:"チームの集合写真を公式SNS用に手配する",fx:{pop:5},reply:[M("jiayuan","やった！　思い出残る！")],note:"チームの注目度が上がった"},
+{label:"「次は主題曲。今日は早く休んで」",fx:{mental:4},reply:[M("xingte","はーい、寝ます")],note:"コンディションが整った"}
+]},
+{type:"scene",badge:"第4章",title:"バックステージ",desc:"慶憐・胡燁韜・周柯宇と",
+loc:"公演後 · バックステージ",
+pages:[
+`公演後のバックステージ。対戦相手だった「Radio」組の慶憐が、大翔に声をかけた。
+<span class="who">慶憐</span>「大翔、117票おめでとう。ラップ、すごく良かった」
+日本語も英語も話せる彼は、外国人学員同士の橋渡し役だ。
+<span class="who">大翔</span>「慶憐も……周柯宇さん122票はすごかった」
+<span class="who">慶憐</span>「あれは彼のホームみたいなもの。でも次は分からないよ」`,
+`そこへ「作為怪物」で同じく撑腰王になった胡燁韜も。
+<span class="who">胡燁韜</span>「A班、おめでとう。……次のステージも、楽しみにしてる」
+妖精のような佇まいで、ふわりと去っていく。
+<span class="who">大翔</span>「（小声で）……強い人、ばっかりやな」
+<span class="who">なお</span>「その中に、ひろとも入ってるんだよ」
+大翔は照れたように笑った。`],
+choices:[
+{label:"慶憐たちとの交流を今後の情報交換につなげる",fx:{pop:4,score:2},note:"外国人学員のネットワークが広がった"},
+{label:"「比べる相手は去年の自分」と大翔に伝える",fx:{mental:4,trust:2},note:"メンタルが安定した"}
+]},
+{type:"scene",badge:"第4章",title:"主題曲考核",desc:"「我們一起闖」――試練",music:"theme",
+loc:"収録スタジオ · 主題曲考核",
+pages:[
+`主題曲「我們一起闖（Chuang To-Gather, Go!）」の考核。
+中英両バージョンを短期間で仕上げる過酷な課題で、全員のクラスが再評価される。
+（♪ 音楽が流れます：我們一起闖）
+A班を守りたい大翔は、連日深夜まで練習室に残った。`,
+`結果発表。
+A班は劉宇、贊多、力丸、米卡、林墨、伯遠、胡燁韜ら11人。
+――大翔の名前は、B班の列にあった。
+<span class="who">大翔</span>「……B、か」
+A班昇級から、わずか1週間での降級。唇を噛む彼に、かける言葉を選ぶ。`],
+choices:[
+{label:"「落ちたのはクラスだけ。票はこれから取り返す」",fx:{mental:6,score:2},replyNote:"落ち込みから立て直した"},
+{label:"何も言わず、温かい飲み物を差し入れる",fx:{trust:6},replyNote:"静かな支えが届いた"}
+],addWeibo:["w7"]},
+{type:"scene",badge:"第5章",title:"二創と獅子舞",desc:"伯遠たちと「如獅添翼」",
+loc:"練習棟 · 主題曲二創ステージ準備",
+pages:[
+`主題曲の二創（二時創作）ステージ。大翔は伯遠、佐藤永翔、頼耀翔らと「如獅添翼」チームを組み、主題曲を獅子舞（舞獅）のパフォーマンスにアレンジした。
+<span class="who">伯遠</span>「大翔、獅子舞は初めてだろ？　腰の入れ方、こうだよ」
+最年長の伯遠が丁寧に教えてくれる。中国の伝統芸能に、日本の若者が本気で挑む絵は、スタッフの間でも評判になった。`,
+`一方その頃、中国のSNSでは思わぬ人気が爆発していた。
+ロシア出身・利路修の「早く帰りたい（下班したい）」という本音発言が大バズりし、彼の順位はうなぎ上り。
+<span class="who">大翔</span>「人気の出方って……いろいろなんやな」
+<span class="who">なお</span>「でも、ひろとの人気は実力とセットだよ。そこは胸を張って」
+発信の仕方次第で、票はまだ動く。第1回順位発表まで、あと少し。`],
+addWeibo:["w8"],addNews:["n4"]},
+{type:"support",phase:2,badge:"裏側の仕事",title:"サポート作戦室（2）",desc:"第1回順位発表に向けて、最後の配分を決めよう"},
+{type:"call",badge:"第6章",title:"発表前夜の電話",desc:"順位発表の前夜",
+script:[
+{who:"hiroto",text:"もしもし、なおさん？　……寝てた？"},
+{who:"me",text:"起きてたよ。明日の発表、眠れない？"},
+{who:"hiroto",text:"うん。……2年前の、あの夜を思い出してた。坡州で、36位って呼ばれた日"},
+{who:"me",text:"あのときとは違う。今のひろとには、中国中のファンがついてる"},
+{who:"hiroto",text:"田口と隅田さんのこともあるし……俺だけ残るわけには、いかへんねん"},
+{who:"hiroto",text:"……なおさん。もし明日、俺の名前が早めに呼ばれたら――そのときは、また約束、更新してくれる？"},
+{who:"me",text:"もちろん。最後まで、デビューまで。"},
+{who:"hiroto",text:"……ありがとう。ほんまに、ここまで来れたのは――いや、明日ちゃんと、結果で返すわ。おやすみ、なおさん"}
+]},
+{type:"rank",badge:"第6章",title:"第1回順位発表",desc:"運命の55人残留発表",music:"tension"},
+{type:"scene",badge:"第6章",title:"別れと約束",desc:"JBOYZの3人で",
+loc:"発表後 · 合宿棟の入口",
+pages:[
+`順位発表が終わった。
+田口馨也は78位、隅田隼平は87位。55人の残留枠には届かず、2人はここで離営となる。
+スーツケースを引く2人と、見送る大翔。
+<span class="who">田口</span>「大翔、絶対デビューしろよ。俺の分まで」
+<span class="who">隅田</span>「Team DKのときからずっと見てきたけど、お前はまだ上に行ける」`,
+`<span class="who">大翔</span>「……2人とも、ありがとう。日本に帰っても、見ててな」
+バスが出ていく。残されたのは90人中55人、そしてJBOYZでは大翔ひとり。
+<span class="who">大翔</span>「（小さく）……行かなきゃな」
+彼の背中を見送りながら、なおは思う。
+ここから先は、もっと厳しい。でも、今度こそ最後まで一緒に戦う。`],
+addWeibo:["w9","w10"],addNews:["n5"]},
+{type:"fin",badge:"第1部 完",title:"第1部 完",desc:"物語は第2部へ――"}
+];
+const SUPPORT_MENUS = [
+{id:"lang",n:"通訳・語学サポート",d:"練習や収録に帯同し、言葉の壁を取り除く。ステージの完成度に効く。",w:2},
+{id:"weibo",n:"Weibo発信の手伝い",d:"中国SNSへの投稿文や写真選びを補助。「吉祥弟弟」の拡散に効く。",w:3},
+{id:"jp",n:"日本側ファンへの発信",d:"日本の事務所・ファン向けに近況を届ける。海外票の掘り起こしに効く。",w:2},
+{id:"care",n:"体調・日程ケア",d:"睡眠と食事、スケジュールの最適化。本番の安定感に効く。",w:1},
+{id:"talk",n:"本人との作戦会議",d:"1対1で不安を聞き、次の打ち手を一緒に決める。信頼と集中に効く。",w:2}
+];
+const THREADS = {
+hiroto:{title:"井汲大翔",sub:"担当学員｜RBW JBOYZ",members:["hiroto"]},
+jboyz:{title:"RBW JBOYZ",sub:"田口馨也・隅田隼平・井汲大翔",members:["hiroto","taguchi","sumida"]},
+nihon:{title:"日本組・語学組",sub:"贊多・力丸・米卡・井汲大翔",members:["santa","rikimaru","mika","hiroto"]},
+loverboy:{title:"進步男孩兒",sub:"Lover Boy 88チーム",members:["linmo","jiayuan","zhangteng","xingte","junjie","hiroto"]}
+};
+</script>
+<script>
+/* ================= ENGINE ================= */
+const $ = s=>document.querySelector(s);
+const SAVE_KEY="chuang-uragawa-save-v1", SET_KEY="chuang-uragawa-settings";
+let settings = JSON.parse(localStorage.getItem(SET_KEY)||'{"sound":true,"vol":0.8}');
+const VOICE_OK = {};
+let S = null;
+function freshState(){return {step:0,trust:10,mental:30,pop:35,score:0,sup:{},chats:{hiroto:[],jboyz:[],nihon:[],loverboy:[]},weibo:[],news:[],seenWeibo:[],seenNews:[],rankResult:null,finished:false,freeReplies:0,stepApplied:false};}
+function save(){localStorage.setItem(SAVE_KEY,JSON.stringify(S));}
+function load(){try{const d=localStorage.getItem(SAVE_KEY); if(d){S=Object.assign(freshState(),JSON.parse(d)); return;}}catch(e){} S=freshState();}
+function toast(t){const el=$("#toast"); el.textContent=t; el.classList.add("show"); clearTimeout(el._h); el._h=setTimeout(()=>el.classList.remove("show"),2300);}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+function avHTML(id,cls){const c=CAST[id]; if(!c) return `<div class="av-init ${cls||''}">？</div>`;
+return `<img class="av ${cls||''}" src="assets/cast/${id}.jpg" alt="${c.name}" onerror="this.outerHTML=avInit('${id}','${cls||''}')">`;}
+function avInit(id,cls){const c=CAST[id]; const ch=c?c.name.charAt(0):"？"; return `<div class="av-init ${cls||''}">${ch}</div>`;}
+window.avInit = avInit;
+function nameOf(id){ if(id==="me") return "なお"; if(id==="staff") return "制作スタッフ"; const c=CAST[id]; return c?c.name:id;}
+/* ---------- navigation ---------- */
+let curScreen="screen-home";
+function show(id,head){document.querySelectorAll(".screen").forEach(e=>e.classList.remove("active")); $("#"+id).classList.add("active"); curScreen=id;
+const h=$("#app-head"); if(head){h.style.display="flex"; $("#head-title").textContent=head.t||""; $("#head-sub").textContent=head.s||"";} else h.style.display="none";
+$("#main").scrollTop=0; if(id!=="screen-scene") stopMusic();}
+$("#head-back").onclick=()=>{stopVoice(); goHome();};
+function goHome(){renderHome(); show("screen-home",null);}
+/* ---------- home ---------- */
+const APPS=[
+{id:"talk",ic:"💬",n:"トーク",go:()=>{renderChatList(); show("screen-chatlist",{t:"トーク",s:"担当学員との連絡"});}},
+{id:"weibo",ic:"👁️",n:"微博",go:()=>{renderWeibo(); show("screen-weibo",{t:"微博 Weibo",s:"中国のSNSの反応"});}},
+{id:"news",ic:"📰",n:"ニュース",go:()=>{renderNews(); show("screen-news",{t:"ニュース",s:"番組関連の報道"});}},
+{id:"support",ic:"🛠️",n:"サポート室",go:()=>{openSupportApp();}},
+{id:"rank",ic:"🏆",n:"順位表",go:()=>{renderRankApp(); show("screen-rank",{t:"順位表",s:"創造営2021"});}},
+{id:"members",ic:"👥",n:"メンバー",go:()=>{renderMembers(); show("screen-members",{t:"メンバー",s:"主要学員・メンター"});}},
+{id:"settings",ic:"⚙️",n:"設定",go:()=>{renderSettings(); show("screen-settings",{t:"設定",s:"サウンド・データ"});}}
+];
+function hirotoClass(){const st=S.step; if(st<8) return "B班"; if(st<12) return "A班"; return "B班";}
+function renderHome(){
+const step=STEPS[S.step];
+if(S.finished){$("#story-badge").textContent="第1部 完"; $("#story-title").textContent="第1部は完結しました"; $("#story-desc").textContent="記録を見返す · 第2部は制作中です";}
+else if(step){$("#story-badge").textContent=step.badge||""; $("#story-title").textContent=step.title||"ストーリーを進める"; $("#story-desc").textContent=step.desc||"";}
+const unreadW=S.weibo.filter(w=>!S.seenWeibo.includes(w)).length;
+const unreadN=S.news.filter(n=>!S.seenNews.includes(n)).length;
+$("#apps").innerHTML=APPS.map(a=>`<button class="appicon" data-app="${a.id}"><div class="ic">${a.ic}</div><span>${a.n}</span>${a.id==="weibo"&&unreadW?`<span class="bdg">${unreadW}</span>`:""}${a.id==="news"&&unreadN?`<span class="bdg">${unreadN}</span>`:""}</button>`).join("");
+document.querySelectorAll(".appicon").forEach(b=>b.onclick=()=>APPS.find(a=>a.id===b.dataset.app).go());
+const bar=(v)=>`<span class="bar"><i style="width:${Math.max(0,Math.min(100,v))}%"></i></span>`;
+$("#stat-strip").innerHTML=`担当：<b>井汲大翔</b>（${hirotoClass()}）　愛称：<b>吉祥弟弟</b><br>信頼度 ${bar(S.trust)} ${S.trust}　メンタル ${bar(S.mental)} ${S.mental}<br>注目度 ${bar(S.pop)} ${S.pop}　裏側サポートpt <b>${S.score}</b>${S.rankResult?`<br>第1回順位発表：<b>${S.rankResult.rank}位</b>（${S.rankResult.votes.toLocaleString()}票／史実17位）`:""}`;
+}
+$("#story-banner").onclick=()=>{ if(S.finished){toast("第1部は完結済みです。第2部をお楽しみに"); return;} startStep();};
+/* ---------- steps ---------- */
+let pageIdx=0, talkDone=false;
+function applyFx(fx){ if(!fx) return; if(fx.trust) S.trust=Math.min(100,S.trust+fx.trust); if(fx.mental) S.mental=Math.min(100,S.mental+fx.mental); if(fx.pop) S.pop=Math.min(100,S.pop+fx.pop); if(fx.score) S.score+=fx.score;}
+function completeStep(){ const step=STEPS[S.step];
+if(step.addWeibo) step.addWeibo.forEach(w=>{if(!S.weibo.includes(w)) S.weibo.push(w);});
+if(step.addNews) step.addNews.forEach(n=>{if(!S.news.includes(n)) S.news.push(n);});
+S.step++; S.stepApplied=false; if(S.step>=STEPS.length){S.finished=true;} save(); stopMusic(); goHome();
+if(step.addWeibo||step.addNews) toast("新しい投稿・記事が届きました");}
+function startStep(){ const step=STEPS[S.step]; if(!step) return;
+if(step.type==="scene"||step.type==="stage"){ pageIdx=0; renderScenePage(); show("screen-scene",{t:step.title,s:step.desc}); if(step.music) playTrack(step.music);}
+else if(step.type==="talk"){ if(!S.stepApplied){ step.msgs.forEach(m=>S.chats[step.thread].push(m)); S.stepApplied=true; save();} talkDone=false; openChat(step.thread,true);}
+else if(step.type==="support"){ renderSupport(step.phase); show("screen-support",{t:step.title,s:step.desc});}
+else if(step.type==="call"){ startCall(step);}
+else if(step.type==="rank"){ doRank(step);}
+else if(step.type==="fin"){ renderFin(); show("screen-scene",{t:"第1部 完",s:"おつかれさまでした"});}
+}
+function renderScenePage(){ const step=STEPS[S.step]; const pages=step.pages;
+$("#scene-body").innerHTML=`<div class="scene-loc">${step.loc||""}</div><div class="scene-text">${pages[pageIdx]}</div>`;
+const ch=$("#scene-choices"); ch.innerHTML="";
+const last=pageIdx>=pages.length-1;
+$("#scene-next").style.display=last?"none":"block";
+if(last&&step.choices){ ch.innerHTML=step.choices.map((c,i)=>`<button data-ci="${i}">${esc(c.label)}</button>`).join("");
+ch.querySelectorAll("button").forEach(b=>b.onclick=()=>{const c=step.choices[+b.dataset.ci]; applyFx(c.fx); save(); if(c.note||c.replyNote) toast(c.note||c.replyNote); completeStep();});}
+else if(last){ $("#scene-next").style.display="block"; $("#scene-next").textContent="すすむ";}
+$("#main").scrollTop=0;}
+$("#scene-next").onclick=()=>{ const step=STEPS[S.step]; if(!step) return;
+if(step.type==="fin"){ S.finished=true; save(); goHome(); return;}
+ if(step.type==="rank"){ completeStep(); return;}
+if(pageIdx<step.pages.length-1){ pageIdx++; renderScenePage();} else if(!step.choices){ completeStep();}};
+/* ---------- chat ---------- */
+let curThread=null;
+function renderChatList(){ const order=["hiroto","jboyz","loverboy","nihon"];
+$("#chat-list").innerHTML=order.map(tid=>{const th=THREADS[tid]; const msgs=S.chats[tid]; const last=msgs[msgs.length-1];
+const pv=last?(last.v?`🎙 ${VOICES[last.v].text}`:last.t):"（まだメッセージがありません）";
+const av=th.members.length===1?avHTML(th.members[0]):avInitGroup(th);
+return `<div class="thread" data-tid="${tid}">${av}<div class="meta"><div class="nm">${th.title}</div><div class="pv">${esc(pv)}</div></div><div class="tm">${msgs.length?"":""}</div></div>`;}).join("");
+document.querySelectorAll("#chat-list.thread").forEach(el=>el.onclick=()=>openChat(el.dataset.tid,false));}
+function avInitGroup(th){ return `<div class="av-init">${th.title.charAt(0)}</div>`;}
+function openChat(tid,isStep){ curThread=tid; const th=THREADS[tid]; renderChat();
+show("screen-chat",{t:th.title,s:th.sub});
+const step=STEPS[S.step];
+const chBox=$("#chat-choices"); chBox.innerHTML="";
+if(isStep&&step&&step.type==="talk"&&step.thread===tid&&step.choices&&!talkDone){
+chBox.innerHTML=`<div class="choice-list" style="padding:0">${step.choices.map((c,i)=>`<button data-ci="${i}">${esc(c.label)}</button>`).join("")}</div>`;
+chBox.querySelectorAll("button").forEach(b=>b.onclick=()=>{ const c=step.choices[+b.dataset.ci];
+S.chats[tid].push({f:"me",t:c.label}); if(c.reply) c.reply.forEach(m=>S.chats[tid].push(m)); applyFx(c.fx); talkDone=true; chBox.innerHTML=""; renderChat(); save(); if(c.note) toast(c.note);
+setTimeout(()=>completeStep(),650);});}
+scrollChat();}
+function msgHTML(m,tid){ if(m.f==="sys") return `<div class="sysmsg">${esc(m.t)}</div>`;
+const group=THREADS[tid].members.length>1;
+if(m.f==="me"){ let inner;
+if(m.v) inner=voiceHTML(m.v,true); else inner=`<div class="bubble">${esc(m.t)}</div>`;
+return `<div class="msgrow me"><div class="msgcol">${inner}</div></div>`;}
+const c=CAST[m.f]; const nm=group?`<div class="msgname">${c?c.name:m.f}</div>`:"";
+let inner;
+if(m.v) inner=voiceHTML(m.v,false); else inner=`<div class="bubble">${esc(m.t)}${m.cn?`<span class="cn">${esc(m.cn)}</span>`:""}</div>`;
+return `<div class="msgrow">${avHTML(m.f,"sm")}<div class="msgcol">${nm}${inner}</div></div>`;}
+function voiceHTML(key,me){ const v=VOICES[key]; if(!VOICE_OK[key]) return `<div class="bubble">${esc(v.text)}</div>`;
+return `<div class="bubble voice-bub" data-voice="${key}"><span class="play">▶</span><span class="wave"></span><span>${v.label}</span></div>`;}
+function renderChat(){ const tid=curThread; $("#chat-body").innerHTML=S.chats[tid].map(m=>msgHTML(m,tid)).join("");
+document.querySelectorAll("[data-voice]").forEach(el=>el.onclick=()=>playVoice(el.dataset.voice,el));}
+function scrollChat(){ setTimeout(()=>{$("#main").scrollTop=$("#main").scrollHeight;},60);}
+const FREE_REPLIES=["うん、聞いてるで","ほんまに？　……ありがとう","中国語で言うたら、なんて言うんやろ","練習、もうちょい頑張るわ","なおさんの声聞いたら落ち着く","今度、食堂でおすすめ聞いてな","……内緒やけど、ちょっとだけ緊張してる","おやすみ、なおさん。また明日"];
+$("#chat-send").onclick=sendFree;
+$("#chat-text").addEventListener("keydown",e=>{if(e.key==="Enter") sendFree();});
+function sendFree(){ const inp=$("#chat-text"); const t=inp.value.trim(); if(!t||!curThread) return; inp.value="";
+S.chats[curThread].push({f:"me",t}); renderChat(); scrollChat();
+if(curThread==="hiroto"&&S.freeReplies<8){ S.freeReplies++; const r=FREE_REPLIES[Math.floor(Math.random()*FREE_REPLIES.length)];
+setTimeout(()=>{ S.chats.hiroto.push({f:"hiroto",t:r}); if(curThread==="hiroto"){renderChat(); scrollChat();} save();},700);}
+save();}
+/* ---------- weibo / news ---------- */
+function renderWeibo(){ $("#weibo-list").innerHTML=S.weibo.length?S.weibo.map(id=>{const p=WEIBO[id];
+return `<div class="post"><div class="ph">${`<div class="av-init sm">微</div>`}<div><div class="pn">${p.user}</div><div class="pt">${p.time} · 三亜</div></div></div><div class="pb">${p.body}</div><div class="pf"><span>🔁 転送</span><span>💬 コメント</span><span>👍 ${p.like}</span></div></div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ投稿がありません。ストーリーを進めると中国のSNSの反応が届きます。</p>`;
+S.weibo.forEach(w=>{if(!S.seenWeibo.includes(w)) S.seenWeibo.push(w);}); save();}
+function renderNews(){ $("#news-list").innerHTML=S.news.length?S.news.map(id=>{const n=NEWS[id];
+return `<div class="news-item" data-nid="${id}"><div class="nh">${n.h}</div><div class="nm2">${n.src} · ${n.time}</div><div class="nb">${n.b}</div></div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ記事がありません。</p>`;
+document.querySelectorAll(".news-item").forEach(el=>el.onclick=()=>el.classList.toggle("open"));
+S.news.forEach(n=>{if(!S.seenNews.includes(n)) S.seenNews.push(n);}); save();}
+/* ---------- support room ---------- */
+let supAlloc=null;
+function renderSupport(phase){ supAlloc={lang:0,weibo:0,jp:0,care:0,talk:0};
+$("#support-body").innerHTML=`<div class="sup-card"><h3>サポート作戦室（フェーズ${phase}）</h3>
+<p>残り時間とリソースは有限。10ptを5つの裏側サポートに配分してください。大翔の撑腰値（票）と、本人の状態に影響します。Weibo発信は票への効き目が大きい一方、ケアや語学も土台になります。</p>
+${SUPPORT_MENUS.map(mn=>`<div class="sup-row"><div class="inf"><div class="n">${mn.n}</div><div class="d">${mn.d}</div></div><div class="stepper"><button data-m="${mn.id}" data-d="-1">−</button><span class="val" id="sv-${mn.id}">0</span><button data-m="${mn.id}" data-d="1">＋</button></div></div>`).join("")}
+<div id="sup-pts">残り <b>10</b> pt</div></div>
+<button class="big-btn" id="sup-confirm" disabled style="opacity:.45">この配分で進める</button>`;
+const upd=()=>{ const used=Object.values(supAlloc).reduce((a,b)=>a+b,0); $("#sup-pts").innerHTML=`残り <b>${10-used}</b> pt`;
+const btn=$("#sup-confirm"); btn.disabled=used!==10; btn.style.opacity=used===10?"1":".45";};
+document.querySelectorAll(".stepper button").forEach(b=>b.onclick=()=>{ const id=b.dataset.m, d=+b.dataset.d; const used=Object.values(supAlloc).reduce((a,b)=>a+b,0);
+if(d>0&&used>=10) return; if(d<0&&supAlloc[id]<=0) return; supAlloc[id]+=d; $("#sv-"+id).textContent=supAlloc[id]; upd();});
+$("#sup-confirm").onclick=()=>{ let pts=0; SUPPORT_MENUS.forEach(mn=>{ pts+=supAlloc[mn.id]*mn.w;});
+S.sup[STEPS[S.step].phase]=Object.assign({},supAlloc); S.score+=pts;
+if(supAlloc.care>=3) S.mental=Math.min(100,S.mental+4);
+if(supAlloc.talk>=3) S.trust=Math.min(100,S.trust+4);
+if(supAlloc.weibo>=3) S.pop=Math.min(100,S.pop+5);
+save(); toast(`裏側サポート +${pts}pt が大翔の追い風になります`); completeStep();};
+upd();}
+function openSupportApp(){ const step=STEPS[S.step];
+if(step&&step.type==="support"){ startStep(); return;}
+const rows=Object.keys(S.sup).map(ph=>{const a=S.sup[ph]; return `<div class="sup-row"><div class="inf"><div class="n">フェーズ${ph}の配分</div><div class="d">${SUPPORT_MENUS.map(mn=>`${mn.n} ${a[mn.id]||0}`).join(" / ")}</div></div></div>`;}).join("");
+$("#support-body").innerHTML=`<div class="sup-card"><h3>サポート作戦室</h3><p>ストーリーの節目で、大翔への裏側サポート（通訳・発信・ケア・作戦会議）を配分します。配分は大翔の撑腰値に直結します。</p>${rows||'<p>まだ配分の記録がありません。</p>'}</div>`;
+show("screen-support",{t:"サポート室",s:"裏側の仕事の記録"});}
+/* ---------- ranking ---------- */
+function computeRank(){ const votes=Math.round(4820000 + 54600*S.score);
+const rows=FACT_RANK.map(r=>({rank:0,id:r[1],votes:r[2]})); rows.push({rank:0,id:"hiroto",votes});
+rows.sort((a,b)=>b.votes-a.votes); rows.forEach((r,i)=>r.rank=i+1);
+const hero=rows.find(r=>r.id==="hiroto"); return {votes,rank:hero.rank,rows};}
+function rankRowHTML(r){ const isHero=r.id==="hiroto"; const c=CAST[r.id]; const nm=isHero?"井汲大翔":(c?c.name:(EXTRA_NAMES[r.id]||r.id));
+const av=isHero||c?avHTML(r.id,"sm"):`<div class="av-init sm">${nm.charAt(0)}</div>`;
+return `<div class="rank-row ${r.rank<=3?"top3":""} ${isHero?"hero":""}"><div class="rk">${r.rank}</div>${av}<div class="inf"><div class="n">${nm}${isHero?"（担当）":""}</div><div class="a">${c?c.grp:""}</div></div><div class="vt">${r.votes.toLocaleString()}票</div></div>`;}
+function doRank(step){ const res=computeRank(); S.rankResult={rank:res.rank,votes:res.votes}; save();
+playTrack("tension");
+$("#scene-body").innerHTML=`<div class="scene-loc">第1回順位発表 · 2021年3月20日</div>
+<div class="scene-text">会場に、鄧超の声が響く。55人だけが残れる、最初の関門。
+史実では、大翔は17位・6,895,112票だった。――今回は、裏側で積み上げたものが数字になる。</div>
+<div style="margin-top:14px">${res.rows.map(rankRowHTML).join("")}
+<div class="rank-row out"><div class="rk">78</div>${avHTML("taguchi","sm")}<div class="inf"><div class="n">田口馨也</div><div class="a">RBW JBOYZ</div></div><div class="tag-out">離営</div></div>
+<div class="rank-row out"><div class="rk">87</div>${avHTML("sumida","sm")}<div class="inf"><div class="n">隅田隼平</div><div class="a">RBW JBOYZ</div></div><div class="tag-out">離営</div></div></div>
+<p class="rank-note">※上位の順位・票数は史実の第1回順位発表（2021年3月20日）に基づきます。大翔の順位・票数は、あなたの裏側サポートによって変動したIFの結果です（史実：17位・6,895,112票）。</p>
+<div class="scene-text"><span class="who">鄧超</span>「第${res.rank}位――井汲大翔！」
+呼ばれた。残れた。
+でも、隣の椅子に座るはずだった2人の姿は、もうここにはない。</div>`;
+$("#scene-choices").innerHTML=""; $("#scene-next").style.display="block"; $("#scene-next").textContent="結果を受け止める";
+show("screen-scene",{t:step.title,s:step.desc});}
+function renderRankApp(){ if(!S.rankResult){ $("#rank-body").innerHTML=`<div class="sup-card"><h3>第1回順位発表はまだ先です</h3><p>大翔のここまでの途中順位（史実）：29位 → 29位 → 18位 → 17位圏。発表はストーリー第6章で行われます。あなたの裏側サポートが、史実17位をどこまで押し上げるか――。</p></div>`; return;}
+const res=computeRank();
+$("#rank-body").innerHTML=`<p class="rank-note">第1回順位発表（2021年3月20日）の結果。大翔：<b style="color:var(--accent)">${S.rankResult.rank}位・${S.rankResult.votes.toLocaleString()}票</b>（史実17位・6,895,112票）</p>${res.rows.map(rankRowHTML).join("")}
+<div class="rank-row out"><div class="rk">78</div>${avHTML("taguchi","sm")}<div class="inf"><div class="n">田口馨也</div><div class="a">RBW JBOYZ</div></div><div class="tag-out">離営</div></div>
+<div class="rank-row out"><div class="rk">87</div>${avHTML("sumida","sm")}<div class="inf"><div class="n">隅田隼平</div><div class="a">RBW JBOYZ</div></div><div class="tag-out">離営</div></div>`;}
+/* ---------- members ---------- */
+function renderMembers(){ const mains=Object.keys(CAST).filter(id=>!CAST[id].mentor); const mentors=Object.keys(CAST).filter(id=>CAST[id].mentor);
+const cell=id=>{const c=CAST[id]; return `<button class="mem-cell" data-mid="${id}">${avHTML(id)}<span>${c.name}</span><small>${c.grp}</small></button>`;};
+$("#members-body").innerHTML=`<p class="rank-note">主要学員（タップでプロフィール）</p><div class="mem-grid">${mains.map(cell).join("")}</div><p class="rank-note">メンター陣</p><div class="mem-grid">${mentors.map(cell).join("")}</div>`;
+document.querySelectorAll(".mem-cell").forEach(b=>b.onclick=()=>openProfile(b.dataset.mid)); show("screen-members",{t:"メンバー",s:"主要学員・メンター"});}
+function openProfile(id){ const c=CAST[id]; const skn={vo:"ボーカル",da:"ダンス",ra:"ラップ",vi:"ビジュアル"};
+$("#pf-body").innerHTML=`<div class="pf-hero">${avHTML(id)}<div><div style="font-size:20px;font-weight:800">${c.name}</div><div style="color:var(--sub);font-size:12px;margin-top:3px">${c.sub}</div><div style="color:var(--sub);font-size:12px">${c.grp}｜${c.from}</div></div></div>
+<div class="pf-sec"><h3>クラス推移</h3><p>${c.cls}</p></div>
+<div class="pf-sec"><h3>能力</h3>${Object.keys(skn).map(k=>`<div class="skill"><span class="sn">${skn[k]}</span><span class="bar"><i style="width:${c.sk[k]}%"></i></span><span>${c.sk[k]}</span></div>`).join("")}<div class="skill"><span class="sn">注目度</span><span class="bar"><i style="width:${c.pop}%"></i></span><span>${c.pop}</span></div></div>
+<div class="pf-sec"><h3>プロフィール</h3><p>${c.prof}</p></div>
+<div class="pf-sec"><h3>大翔との関係</h3><p>${c.rel}</p></div>`;
+show("screen-profile",{t:c.name,s:c.grp});}
+/* ---------- call ---------- */
+let callStep=null, callIdx=0;
+function startCall(step){ callStep=step; callIdx=0; $("#call-av-wrap").innerHTML=avHTML("hiroto"); $("#call-name").textContent="井汲大翔"; $("#call-status").textContent="通話中… 00:00"; $("#call-choices").innerHTML="";
+show("screen-call",{t:"通話",s:"順位発表の前夜"}); renderCallLine();}
+function renderCallLine(){ const line=callStep.script[callIdx]; if(!line){ finishCall(); return;}
+$("#call-sub").innerHTML=line.who==="me"?`<span style="color:var(--me)">${esc(line.text)}</span>`:`${esc(line.text)}`;
+$("#call-sub").style.cursor="pointer";}
+$("#call-sub").onclick=()=>{ if(curScreen!=="screen-call") return; callIdx++; renderCallLine();};
+$("#call-end").onclick=()=>{ if(curScreen!=="screen-call") return; if(callStep&&callIdx<callStep.script.length){ callIdx=callStep.script.length; finishCall();}};
+function finishCall(){ callStep=null; completeStep();}
+/* ---------- fin ---------- */
+function renderFin(){ const r=S.rankResult||{rank:17,votes:HIROTO_BASE_VOTES};
+$("#scene-body").innerHTML=`<div class="fin-card"><div style="font-size:30px">🌴</div><h3>第1部 完</h3>
+<p>第1回順位発表、大翔は <b style="color:var(--accent)">${r.rank}位・${r.votes.toLocaleString()}票</b> で残留しました（史実：17位・6,895,112票）。<br>
+JBOYZは大翔ひとりに。それでも「今度は最後まで行く」という言葉は、まだ生きています。</p>
+<p>信頼度 ${S.trust}｜メンタル ${S.mental}｜注目度 ${S.pop}｜裏側サポート ${S.score}pt</p>
+<p style="color:var(--sub);font-size:12px">――第2部へつづく：第二次公演「Therefore I Am」、第2回順位発表（史実では自己最高12位）、そして決勝・成団夜へ。目標はINTO1の11人。</p></div>`;
+$("#scene-choices").innerHTML=""; const nx=$("#scene-next"); nx.style.display="block"; nx.textContent="ホームへ戻る";}
+/* ---------- settings ---------- */
+function renderSettings(){ $("#settings-body").innerHTML=`
+<div class="set-row"><div class="grow">サウンド（音楽）</div><button class="switch ${settings.sound?"on":""}" id="set-sound"></button></div>
+<div class="set-row"><div>音量</div><input type="range" id="set-vol" min="0" max="100" value="${Math.round(settings.vol*100)}"></div>
+<button class="ghost-btn" id="set-about">この作品について</button>
+<div class="about-txt" id="about-box" style="display:none">
+『担当をデビューさせる件』は、実在の番組『創造営2021』（2021・テンセントビデオ）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。<br>
+音楽：課題曲はiTunes公式プレビュー（30秒）を使用しています（HIP -Japanese ver.-／MAMAMOO、Lover Boy 88（纯享版）／進步男孩兒、我們一起闖／創造営2021学員）。順位発表BGM："The Descent" by Kevin MacLeod (CC-BY)。写真はPinterest等で流通している各学員の写真を使用しています（本人の最終確認は実機目視によります）。<br>
+ボイスは大翔役の音声生成によるものです。</div>
+<button class="ghost-btn" id="set-reset" style="color:#ff8296">セーブデータを消して最初から</button>`;
+$("#set-sound").onclick=e=>{ settings.sound=!settings.sound; e.target.classList.toggle("on",settings.sound); saveSettings(); if(!settings.sound) stopMusic();};
+$("#set-vol").oninput=e=>{ settings.vol=+e.target.value/100; saveSettings(); const a=$("#music-audio"); if(a) a.volume=settings.vol;};
+$("#set-about").onclick=()=>{ const b=$("#about-box"); b.style.display=b.style.display==="none"?"block":"none";};
+$("#set-reset").onclick=()=>{ if(confirm("セーブデータを消して最初からやり直しますか？")){ localStorage.removeItem(SAVE_KEY); S=freshState(); save(); goHome(); toast("データをリセットしました");}};}
+function saveSettings(){ localStorage.setItem(SET_KEY,JSON.stringify(settings));}
+/* ---------- music & voice ---------- */
+const ma=$("#music-audio"), va=$("#voice-audio");
+let curTrack=null;
+function playTrack(key){ if(!settings.sound) {curTrack=key; return;} const t=TRACKS[key]; if(!t) return; curTrack=key;
+ma.src=t.src; ma.loop=!!t.loop; ma.volume=settings.vol; ma.play().catch(()=>{});
+$("#music-title").textContent=t.title; $("#music-sub").textContent=t.sub; $("#music-bar").classList.add("on"); $("#music-toggle").textContent="⏸";}
+function stopMusic(){ if(ma){ma.pause();} $("#music-bar").classList.remove("on"); curTrack=null;}
+$("#music-toggle").onclick=()=>{ if(!curTrack) return; if(ma.paused){ if(!settings.sound){settings.sound=true; saveSettings();} ma.volume=settings.vol; ma.play().catch(()=>{}); $("#music-toggle").textContent="⏸";} else { ma.pause(); $("#music-toggle").textContent="▶";}};
+$("#music-stop").onclick=stopMusic;
+function playVoice(key,el){ const v=VOICES[key]; if(!v) return; duck(true);
+va.src=v.src; va.volume=Math.min(1,settings.vol+0.1); va.play().catch(()=>{duck(false);});
+const pl=el?el.querySelector(".play"):null; if(pl) pl.textContent="⏸";
+va.onended=()=>{ duck(false); if(pl) pl.textContent="▶";};}
+function stopVoice(){ if(va){va.pause();} duck(false);}
+function duck(on){ if(curTrack&&ma&&!ma.paused) ma.volume=on?settings.vol*0.25:settings.vol;}
+/* ---------- init ---------- */
+function tickClock(){ const d=new Date(); $("#sb-time").textContent=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");}
+setInterval(tickClock,20000); tickClock();
+if(window.visualViewport){ window.visualViewport.addEventListener("resize",()=>{ if(curScreen==="screen-chat") scrollChat();});}
+$("#chat-text").addEventListener("focus",()=>{ if(curScreen==="screen-chat") setTimeout(scrollChat,300);});
+load();
+Object.keys(VOICES).forEach(k=>{ fetch(VOICES[k].src,{method:"HEAD"}).then(r=>{ VOICE_OK[k]=r.ok;}).catch(()=>{ VOICE_OK[k]=false;});});
+renderHome();
+</script>
+</body>
+</html>
