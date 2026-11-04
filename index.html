@@ -185,6 +185,8 @@ main::-webkit-scrollbar{display:none}
 .rank-note{margin:12px 16px;color:var(--sub);font-size:11.5px;line-height:1.75}
 .rank-row{display:flex;align-items:center;gap:11px;margin:0 16px;padding:10px;border-bottom:1px solid rgba(36,64,107,.4);animation:rankIn .55s cubic-bezier(.22,.8,.32,1) both;animation-delay:var(--d,0s)}
 @keyframes rankIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+/* v11: 順位表アプリ側（見返し）の行はフェードイン自体も切る。rankRowHTML の {noDelay:true} と対で使う */
+.rank-row.noanim{animation:none}
 .rank-row .rk{width:32px;text-align:center;font-weight:800;font-size:16.5px;color:var(--sub);font-variant-numeric:tabular-nums}
 .rank-row.top3 .rk{color:var(--accent);font-size:19px}
 .rank-row .inf{flex:1;min-width:0}
@@ -383,6 +385,20 @@ input,textarea{font-size:16px!important}
 .telop .ts{color:#f5c518;font-size:11px;margin-left:auto;white-space:nowrap}
 .wx-ic{width:34px;height:34px;border:1.5px solid #b9b9b9;border-radius:50%;color:#7a7a7a;display:flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 auto;background:transparent}
 
+/* ===== v11: タイトル画面（日プ編・ボイプラ編の作法） ===== */
+#screen-title{height:100%;box-sizing:border-box}
+#screen-title.active{display:flex;flex-direction:column;padding:34px 0 20px}
+.ttl-logo{justify-content:center;margin-bottom:6px}
+.ttl-date{text-align:center;color:var(--sub);font-size:12px;letter-spacing:.18em}
+.ttl-av{display:flex;justify-content:center;margin:20px 0 6px}
+.ttl-av .av,.ttl-av .av-init{width:96px;height:96px;border:2px solid rgba(255,184,77,.65);box-shadow:0 12px 30px rgba(2,8,20,.5);font-size:36px}
+.ttl-name{font-size:27px;font-weight:900;text-align:center;letter-spacing:.04em;margin:12px 16px 4px;color:var(--txt)}
+.ttl-sub{text-align:center;color:var(--accent);font-weight:800;letter-spacing:.34em;font-size:13px;text-indent:.34em}
+.ttl-desc{font-size:13.5px;line-height:2;color:#d7e5f8;text-align:center;padding:0 30px;margin-top:16px}
+.ttl-btns{margin-top:28px}
+.ttl-foot{margin-top:auto;padding:20px 30px 2px;text-align:center}
+.ttl-ver{color:var(--sub2);font-size:11.5px;letter-spacing:.22em;margin-bottom:8px}
+.ttl-fic{font-size:11px;line-height:1.9;color:var(--sub2);margin:0}
 </style>
 </head>
 <body>
@@ -393,8 +409,10 @@ input,textarea{font-size:16px!important}
 <div style="flex:1;min-width:0"><h1 id="head-title">ホーム</h1><div class="sub" id="head-sub"></div></div>
 </header>
 <main id="main">
+<!-- TITLE -->
+<section class="screen active" id="screen-title"></section>
 <!-- HOME -->
-<section class="screen active" id="screen-home">
+<section class="screen" id="screen-home">
 <div id="home-hero">
 <div class="chuang-logo"><span class="cl-a">▲</span><span class="cl-t">创造营2021</span><span class="cl-e">CHUANG 2021</span></div>
 <div class="date" id="home-date">2021年2月 · 中国・三亜</div>
@@ -1319,6 +1337,23 @@ const h=$("#app-head"); if(head){h.style.display="flex"; $("#head-title").textCo
 $("#main").scrollTop=0; if(id!=="screen-scene") stopMusic(); document.getElementById("phone").dataset.screen=id;}
 $("#head-back").onclick=()=>{stopVoice(); if(typeof stopCallTimer==="function") stopCallTimer(); goHome();};
 function goHome(){renderHome(); show("screen-home",null);}
+/* ---------- title ---------- */
+/* v11: タイトル画面を新設（日プ編・ボイプラ編の作法にそろえる）。起動時はタイトルを表示し、「はじめから」「つづきから」からホームへ入る。進行の有無は localStorage の生データを読んで判定し（ボイプラ編 titleHasProgress と同じ作法）、セーブ形式（chuang-uragawa-save-v1）には一切触れない。タイトルを経由しても、load() 済みの S のまま goHome() で入るだけなので、従来の開始フローと結果は変わらない */
+function titleHasProgress(){ try{const r=localStorage.getItem(SAVE_KEY); if(!r) return false; const p=JSON.parse(r); if(!p) return false;
+return !!(p.step>0||p.part1Done||p.finished||p.ending||p.score>0||(p.sup&&Object.keys(p.sup).length)||(p.chats&&Object.values(p.chats).some(a=>a&&a.length)));}catch(e){return false;} }
+function titleStart(){ if(titleHasProgress()){ if(confirm("進行中のセーブデータがあります。最初から始めるとセーブは消去されます。よろしいですか？")){ localStorage.removeItem(SAVE_KEY); location.reload(); } return; } goHome(); }
+function renderTitle(){ const has=titleHasProgress();
+$("#screen-title").innerHTML=`
+<div class="chuang-logo ttl-logo"><span class="cl-a">▲</span><span class="cl-t">创造营2021</span><span class="cl-e">CHUANG 2021</span></div>
+<div class="ttl-date">2021年2月 · 中国・三亜</div>
+<div class="ttl-av">${avHTML("hiroto")}</div>
+<h2 class="ttl-name">担当をデビューさせる件</h2>
+<div class="ttl-sub">【 創造営編 】</div>
+<p class="ttl-desc">2019年の約束から2年――中国のオーディション『創造営2021』に挑む井汲大翔を、日本人学員サポートスタッフとして裏側から支える物語。史実の最終15位を覆し、INTO1の11人に届くか。</p>
+<div class="ttl-btns"><button class="big-btn" id="ttl-start">はじめから</button>${has?`<button class="ghost-btn" id="ttl-cont">つづきから</button>`:""}</div>
+<div class="ttl-foot"><div class="ttl-ver">v11</div><p class="ttl-fic">※本作品は実在の番組『創造営2021』（2021・テンセント）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。</p></div>`;
+$("#ttl-start").onclick=titleStart;
+const cb=$("#ttl-cont"); if(cb) cb.onclick=()=>goHome(); }
 /* ---------- home ---------- */
 const APPS=[
 {id:"talk",ic:"<svg viewBox='0 0 48 48' width='34' height='34' aria-hidden='true'><ellipse cx='34' cy='33' rx='11' ry='8.5' fill='#fff' opacity='.45'/><path d='M40 39.5l1.4 5.2-5.6-2.8z' fill='#fff' opacity='.45'/><ellipse cx='19.5' cy='19' rx='15' ry='11.5' fill='#fff'/><path d='M10.2 27.2L8.4 35.2l6.6-3.5z' fill='#fff'/><circle cx='13.2' cy='18' r='2' fill='#12bd5f'/><circle cx='25.2' cy='18' r='2' fill='#12bd5f'/></svg>",n:"トーク",go:()=>{renderChatList(); show("screen-chatlist",{t:"トーク",s:"担当学員との連絡"});}},
@@ -1388,6 +1423,7 @@ if(pageIdx<step.pages.length-1){ pageIdx++; renderScenePage();} else if(!step.ch
 let curThread=null;
 /* v8点検：トーク一覧の時刻ラベル（.tm）は空のまま据え置く。WeChat実物の出し分け（当日=時刻／昨日=「昨日」／1週間以内=曜日／それ以前=日付）は、メッセージの送信日時と作中の「今日」が前提になるが、本作にはそのどちらのデータもない（実在する日付アンカーは順位発表・放送日など一部のみ）。全スレッドの最終活動日時を埋めるには日付の創作が要り、v6で確立した「データのない数字・日付は作らない」作法とセーブ形式不変の線に反するため、ラベルは作らず空欄のままにするのが実物寄せとして正しいと判断した */
 /* v9: トーク一覧の並びを実物WeChat寄りに、最終活動が新しい順へ。最終活動ステップはセーブに持たず、STEPS定義と現在地から導出する：そのスレッドのtalkステップのうち、現在地より前にあるもの（到達済み）と、現在のステップで適用済み（stepApplied）のものの最大値。同点は従来の固定順で安定させる。分岐で通らないtalkステップ（非デビュー側では41「成団夜のあとで」）が候補に入っても、実際に届いた側（46「帰国後の連絡」）の方が番号が大きく最大値では負けないため、並びは実態と一致する。時刻ラベルはv8の判断どおり作らない */
+/* v11点検：トーク一覧の未読バッジは付けない（据え置き）。実物WeChatのバッジは「スレッドを開いていない間に届いた件数」だが、本作ではメッセージの到着と閲覧が常に同時で、「届いたのに未読」という状態が発生しない。到着経路は3つだけ――(1)talkステップは startStep で msgs を S.chats に積むのと同時に openChat でそのスレッドを開く、(2)選択肢の返信はチャット画面の中で積まれる、(3)自由送信への返信も送信直後に同じ画面へ届く（700ms遅延の間に画面を離れた場合だけ理論上は未読になりうるが、単発の例外を件数バッジの体系にはできない）。スレッドごとの既読位置はセーブにもなく、ステップ適用タイミングから未読件数を組み立てると、すでに読んだ物語の場面を未読と偽る数字の創作になる。v6以来の「データのない数字は作らない」作法とセーブ形式不変を優先する。ホームの他アプリ（Weibo／ニュース／Twitter）は completeStep でアプリを開かずに届くため未読が実在し、バッジの扱いはそちらと分ける。結論はここに恒常記録する */
 function lastChatStep(tid){ let last=-1; for(let i=0;i<STEPS.length;i++){ const st=STEPS[i]; if(st.type!=="talk"||st.thread!==tid) continue; if(i<S.step||(i===S.step&&S.stepApplied)) last=i; } return last; }
 function renderChatList(){ const base=["hiroto","weixing","yuleyuan","jboyz","loverboy","nihon"];
 const order=base.filter(tid=>tid==="hiroto"||(S.chats[tid]&&S.chats[tid].length)).map((tid,i)=>({tid,i,act:lastChatStep(tid)})).sort((a,b)=>(b.act-a.act)||(a.i-b.i)).map(x=>x.tid);
@@ -1436,6 +1472,7 @@ if(curThread==="hiroto"&&S.freeReplies<30){ S.freeReplies++; const pool=S.ending
 setTimeout(()=>{ S.chats.hiroto.push({f:"hiroto",t:r}); if(curThread==="hiroto"){renderChat(); scrollChat();} save();},700);}
 save();}
 /* ---------- weibo / news ---------- */
+/* v11点検：Weibo／ニュースの時刻表記は相対表示（○分前／○時間前／昨日）にせず、現行の日付表記のまま据え置く。理由は2点。(1)投稿・記事のデータは日付のみで時刻を持たない（Weiboは「2月17日」、ニュースは「2021年2月17日」）。実物の相対表示は実時刻のタイムスタンプが前提で、○分前・○時間前を付けるには時刻の創作が要る。(2)相対化には作中の「今日」が必要だが、本作の「今日」はセーブに記録されておらず、実在する日付アンカーは順位発表日や一部の場面の loc などに点在するだけ。最後に届いた投稿の日付を「今日」と仮置きしても、見返し時点の物語時間とはずれ続け、「○日前」が実態と合わない表示になる。日付ラベルはデータそのもので正確なため、そのまま使うのが実物寄せとして正しい（v8のWeChat時刻ラベル判断と同根。Twitterも同じ日付のみの形式のため同様に据え置く） */
 /* v7: 「来自」表記は投稿者の立場で出し分ける。公式とメディア・まとめ等の運用アカウントはPC運用＝微博网页版、ファン系は端末にばらつきを持たせる（全員同じ端末は実物らしくない）。投稿の文面には触れない */
 const WB_SRC={"創造営2021公式":"微博网页版","创造营2021公式":"微博网页版","鹅厂追星日记":"微博网页版","下班倒计时（利路修bot）":"微博网页版","选秀显微镜":"iPhone 12 Pro","鹅岛气象站":"iPhone 11","岛民小薯条":"iPhone 12"};
 /* v8: 認証バッジ（V）の付与範囲を棚卸し。実物では公式だけでなくメディア・まとめ系の運用アカウント（鹅厂追星日记＝テンセント系メディア、选秀显微镜＝選秀まとめ）も認証済みが普通なので付ける。ファン・パロディ系（岛民小薯条、鹅岛气象站、下班倒计时（利路修bot））は実物でも未認証が普通なので付けない。表記のみの是正で投稿の文面は不変 */
@@ -1590,11 +1627,12 @@ const rows=FACT_RANK.map(r=>({rank:0,id:r[1],votes:r[2]})); rows.push({rank:0,id
 rows.sort((a,b)=>b.votes-a.votes); rows.forEach((r,i)=>r.rank=i+1);
 const hero=rows.find(r=>r.id==="hiroto"); return {votes,rank:hero.rank,rows};}
 /* v10: rankRowHTML は発表シーンと順位表アプリの共用。シーン側は行が順に現れる式典の遅延演出（--d）が核なのでデフォルトのまま、アプリ側（見返し）だけ {noDelay:true} で遅延ずらしをなくし、全行が即時に出る実物の順位表アプリ寄りの挙動に分けた */
+/* v11: アプリ側は行のフェードイン（rankIn .55s）自体も切る分離を追加。v10 で遅延ずらしをなくしても、全行が一斉に0.55秒フェードする見え方がタブ切替のたびに残っていた。実物の順位表アプリは即時表示が普通なので、{noDelay:true} の行には noanim クラスも付けて animation そのものを無効化する（.rank-row.noanim）。発表シーン側（--d 遅延＋フェードの式典演出）は不変 */
 function rankRowHTML(r,i,opt){ const isHero=r.id==="hiroto"; const c=CAST[r.id]; const m90=MEMBERS90_MAP[r.id];
 const nm=isHero?"井汲大翔":(c?c.name:(m90?m90.name:(EXTRA_NAMES[r.id]||r.id)));
 const av=(isHero||c)?avHTML(r.id,"sm"):(m90?`<img class="av sm" src="assets/cast90/${r.id}.jpg" alt="${nm}" onerror="this.outerHTML=avInit90('${r.id}','sm')">`:`<div class="av-init sm">${nm.charAt(0)}</div>`);
 const d=(opt&&opt.noDelay)?"0":Math.min((i||0)*0.055,0.95).toFixed(2);
-return `<div class="rank-row ${r.rank<=3?"top3":""} ${isHero?"hero":""} ${r.zone||""}" style="--d:${d}s"><div class="rk">${r.rank}</div>${av}<div class="inf"><div class="n">${nm}${isHero?"（担当）":""}</div><div class="a">${c?c.grp:(m90?m90.grp:"")}</div></div><div class="vt">${r.votes.toLocaleString()}票</div></div>`;}
+return `<div class="rank-row ${r.rank<=3?"top3":""} ${isHero?"hero":""} ${r.zone||""}${(opt&&opt.noDelay)?" noanim":""}" style="--d:${d}s"><div class="rk">${r.rank}</div>${av}<div class="inf"><div class="n">${nm}${isHero?"（担当）":""}</div><div class="a">${c?c.grp:(m90?m90.grp:"")}</div></div><div class="vt">${r.votes.toLocaleString()}票</div></div>`;}
 function telopHTML(t,s2){ return `<div class="telop"><span class="live">LIVE</span><span class="tt">${t}</span><span class="ts">${s2}</span></div>`;}
 /* v9点検：順位発表シーン（doRank／doRank2／doRank3／doFinalRank）内の順位リストには、順位表アプリのような初期スクロール（大翔の行への寄せ）は入れない。発表シーンは物語の式典であり、行が順位順に --d 遅延（最大約1秒）で現れる演出と、上位の顔ぶれから離営ラインまでを上から読む流れが核で、開幕直後に大翔の行へ寄せるとその読みを飛ばしてしまう。結果の「見返し」は順位表アプリが担い、そちらにはv8で初期スクロールを実装済み。役割が違うため、発表シーン側は演出優先で据え置く（変更なし） */
 function doRank(step){ const res=computeRank(); S.rankResult={rank:res.rank,votes:res.votes}; save();
@@ -1691,7 +1729,7 @@ function renderSettings(){ $("#settings-body").innerHTML=`
 <div class="about-txt" id="about-box" style="display:none">
 『担当をデビューさせる件』は、実在の番組『創造営2021』（2021・テンセントビデオ）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。<br>
 音楽：課題曲はiTunes公式プレビュー（30秒）を使用しています（HIP -Japanese ver.-／MAMAMOO、Lover Boy 88（纯享版）／進步男孩兒、我們一起闖／創造営2021学員）。順位発表BGM："The Descent" by Kevin MacLeod (CC-BY)。写真はPinterest等で流通している各学員の写真を使用しています（本人の最終確認は実機目視によります）。<br>
-ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。<br>v4追記：物語の内容を増補しました（主題曲考核後の廊下、二創「如獅添翼」の稽古、第2回順位発表後の控室、決勝1週間の夜練、第3回発表で離営する夜の場面に会話を追加。第2回発表前夜の通話とトーク4件に往復を追加し、Weibo／Twitter／ニュースにも新規の投稿・記事を追加）。史実の背骨・数値設計・セーブデータの形式はv3から不変です。<br>v5追記：完結後の見返し面「思い出」を追加しました（各順位発表の結果とエンディングの記録、完結画面や各アプリへの導線）。あわせて各アプリの操作の挙動を2021年当時の実物寄りに整えました――Weiboのいいね（取り消し可）とコメントの開閉・投稿、Twitterのいいね・リツイート（件数の増減つき、取り消し可）、WeChatのスレッドごとの下書き保持（一覧に[草稿]と表示され、開き直すと復元されます。WeChatに既読表示がない仕様は当時の実物どおりです）。これらの操作状態はセーブデータには含まれず、再読み込みでリセットされます。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v6追記：アプリの挙動のリアル化を続けました――ニュースは報道アプリ寄りに（新しい記事が上に並び、既読は記事を開いた時点で記事ごとに残って見出しが落ち着いた色になります。開ける記事は同時に1件だけ）。「思い出」の各順位発表カードからは、該当回の順位表へ直接ジャンプできるようになりました。Weiboの「転送」は、件数データがないため数字は作らず、タップで「転送済み」の表示とトーストだけが返ります（再タップで取り消し。状態はセッション内のみでセーブには含まれません）。あわせて各アプリのアイコンを2021年当時の実物に合わせて棚卸ししました――WeChatは鮮やかな緑に白の二重吹き出し、微博は橙から赤のグラデーションに白い目のロゴ、Twitterは当時の青（#1DA1F2）に白い鳥（Xロゴではありません）。ニュース・設定など当時のままのものは据え置きです。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v7追記：表記と初期表示の細部を実物寄りに整えました――順位表は、ホームから開いたときは最新の到達回のタブで開くようになりました（「思い出」からのジャンプ時だけ、その回のタブで開きます）。Weiboの投稿元（来自）表記は投稿者の立場で出し分けるようにしました（公式やメディアの運用アカウントは微博网页版、ファン系の投稿は端末にばらつきを持たせています）。ニュースの出典表記も、媒体名の形式にそろえました。いずれも記事・投稿の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v8追記：アプリのリアル化を続けました――Weiboの認証バッジ（V）は、公式だけでなくメディア・まとめ系のアカウント（鹅厂追星日记、选秀显微镜）にも付くよう実物にそろえました（ファン系のアカウントには付けていません）。順位表は、開いたときに大翔の行が見える位置まで自動で寄るようになりました。トーク一覧の時刻ラベルは点検の結果、据え置きです――WeChat実物の「当日は時刻／昨日は『昨日』／それ以前は日付」という出し分けにはメッセージの送信日時のデータが必要ですが、本作にはそのデータがなく、日付を作らない方針のため空欄のままにしています。いずれも表示と挙動のみの変更で、記事・投稿の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v9追記：アプリのリアル化を続けました――トーク一覧は実物WeChatと同じく、最後にメッセージが届いたスレッドが上に来る並びになりました（並び順は進行状況から導出するため、セーブデータの形式は不変です）。Twitterの認証バッジは点検の結果、付けていません――表示されるアカウントはすべてファンの方のもので、2021年当時の認証バッジは公式・メディア等が対象だったためです（Weibo側でファン系に付けなかった判断と同じです）。順位発表シーンの順位リストも点検し、行が順に現れる発表の演出を優先して、順位表アプリのような自動スクロールは入れないことにしました。いずれも記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v10追記：アプリのリアル化を続けました――グループトークの一覧プレビューは、実物WeChatどおり「送信者名：メッセージ」の形になりました（自分の送信には名前は付きません。1対1は従来どおり）。順位表アプリでは行の遅延ずらし表示をなくし、開いたときに全行がすぐ表示されるようにしました（順位発表シーンの演出は従来どおりです）。チャット画面の日付区切りは点検の結果、入れていません――メッセージの日時データが本作になく、ステップの境目もセーブに残らないため、付けると日付の創作になってしまうためです（v8の時刻ラベルの判断と同じ考え方です）。いずれも表示と挙動のみの変更で、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。</div>
+ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。<br>v4追記：物語の内容を増補しました（主題曲考核後の廊下、二創「如獅添翼」の稽古、第2回順位発表後の控室、決勝1週間の夜練、第3回発表で離営する夜の場面に会話を追加。第2回発表前夜の通話とトーク4件に往復を追加し、Weibo／Twitter／ニュースにも新規の投稿・記事を追加）。史実の背骨・数値設計・セーブデータの形式はv3から不変です。<br>v5追記：完結後の見返し面「思い出」を追加しました（各順位発表の結果とエンディングの記録、完結画面や各アプリへの導線）。あわせて各アプリの操作の挙動を2021年当時の実物寄りに整えました――Weiboのいいね（取り消し可）とコメントの開閉・投稿、Twitterのいいね・リツイート（件数の増減つき、取り消し可）、WeChatのスレッドごとの下書き保持（一覧に[草稿]と表示され、開き直すと復元されます。WeChatに既読表示がない仕様は当時の実物どおりです）。これらの操作状態はセーブデータには含まれず、再読み込みでリセットされます。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v6追記：アプリの挙動のリアル化を続けました――ニュースは報道アプリ寄りに（新しい記事が上に並び、既読は記事を開いた時点で記事ごとに残って見出しが落ち着いた色になります。開ける記事は同時に1件だけ）。「思い出」の各順位発表カードからは、該当回の順位表へ直接ジャンプできるようになりました。Weiboの「転送」は、件数データがないため数字は作らず、タップで「転送済み」の表示とトーストだけが返ります（再タップで取り消し。状態はセッション内のみでセーブには含まれません）。あわせて各アプリのアイコンを2021年当時の実物に合わせて棚卸ししました――WeChatは鮮やかな緑に白の二重吹き出し、微博は橙から赤のグラデーションに白い目のロゴ、Twitterは当時の青（#1DA1F2）に白い鳥（Xロゴではありません）。ニュース・設定など当時のままのものは据え置きです。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v7追記：表記と初期表示の細部を実物寄りに整えました――順位表は、ホームから開いたときは最新の到達回のタブで開くようになりました（「思い出」からのジャンプ時だけ、その回のタブで開きます）。Weiboの投稿元（来自）表記は投稿者の立場で出し分けるようにしました（公式やメディアの運用アカウントは微博网页版、ファン系の投稿は端末にばらつきを持たせています）。ニュースの出典表記も、媒体名の形式にそろえました。いずれも記事・投稿の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v8追記：アプリのリアル化を続けました――Weiboの認証バッジ（V）は、公式だけでなくメディア・まとめ系のアカウント（鹅厂追星日记、选秀显微镜）にも付くよう実物にそろえました（ファン系のアカウントには付けていません）。順位表は、開いたときに大翔の行が見える位置まで自動で寄るようになりました。トーク一覧の時刻ラベルは点検の結果、据え置きです――WeChat実物の「当日は時刻／昨日は『昨日』／それ以前は日付」という出し分けにはメッセージの送信日時のデータが必要ですが、本作にはそのデータがなく、日付を作らない方針のため空欄のままにしています。いずれも表示と挙動のみの変更で、記事・投稿の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v9追記：アプリのリアル化を続けました――トーク一覧は実物WeChatと同じく、最後にメッセージが届いたスレッドが上に来る並びになりました（並び順は進行状況から導出するため、セーブデータの形式は不変です）。Twitterの認証バッジは点検の結果、付けていません――表示されるアカウントはすべてファンの方のもので、2021年当時の認証バッジは公式・メディア等が対象だったためです（Weibo側でファン系に付けなかった判断と同じです）。順位発表シーンの順位リストも点検し、行が順に現れる発表の演出を優先して、順位表アプリのような自動スクロールは入れないことにしました。いずれも記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v10追記：アプリのリアル化を続けました――グループトークの一覧プレビューは、実物WeChatどおり「送信者名：メッセージ」の形になりました（自分の送信には名前は付きません。1対1は従来どおり）。順位表アプリでは行の遅延ずらし表示をなくし、開いたときに全行がすぐ表示されるようにしました（順位発表シーンの演出は従来どおりです）。チャット画面の日付区切りは点検の結果、入れていません――メッセージの日時データが本作になく、ステップの境目もセーブに残らないため、付けると日付の創作になってしまうためです（v8の時刻ラベルの判断と同じ考え方です）。いずれも表示と挙動のみの変更で、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v11追記：タイトル画面を新設しました――日プ編・ボイプラ編と作法をそろえ、起動するとまずタイトル（作品名・版数表示）が表示され、「はじめから」「つづきから（セーブがある場合）」からホームへ入ります。セーブデータの形式は不変で、タイトルを経由しても物語の始まり方や結果は従来どおりです。順位表アプリの行は、フェードインも切って開いた瞬間にそのまま表示されるようにしました（順位発表シーンの演出は従来どおりです）。トーク一覧の未読バッジと、Weibo・ニュースの「○分前」のような相対時刻の表記は、点検の結果入れていません――トークはメッセージが届くと同時にその画面が開く作りのため「届いたのに未読」という状態が発生せず、投稿・記事には日付だけがあって時刻のデータがなく、作中の「今日」も定まらないため、付けると日付・時刻の創作になってしまうためです（v8の時刻ラベルの判断と同じ考え方です）。いずれも表示と挙動のみの変更で、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。</div>
 <button class="ghost-btn" id="set-reset" style="color:#ff8296">セーブデータを消して最初から</button>`;
 $("#set-sound").onclick=e=>{ settings.sound=!settings.sound; e.target.classList.toggle("on",settings.sound); saveSettings(); if(!settings.sound) stopMusic();};
 $("#set-vol").oninput=e=>{ settings.vol=+e.target.value/100; saveSettings(); const a=$("#music-audio"); if(a) a.volume=settings.vol;};
@@ -1721,7 +1759,9 @@ if(window.visualViewport){ window.visualViewport.addEventListener("resize",()=>{
 $("#chat-text").addEventListener("focus",()=>{ if(curScreen==="screen-chat") setTimeout(scrollChat,300);});
 load();
 Object.keys(VOICES).forEach(k=>{ fetch(VOICES[k].src,{method:"HEAD"}).then(r=>{ VOICE_OK[k]=r.ok;}).catch(()=>{ VOICE_OK[k]=false;});});
-renderHome();
+/* v11: 起動時はタイトル画面から入る。ホームの描画はタイトルのボタン（はじめから／つづきから）から goHome() 経由で行う */
+renderTitle();
+show("screen-title",null);
 </script>
 </body>
 </html>
