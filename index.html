@@ -615,7 +615,7 @@ n7:{src:"創造営ニュース",time:"2021年4月4日",h:"二公：遊楽園チ�
 n8:{src:"創造営ニュース",time:"2021年4月11日",h:"第2回順位発表：井汲大翔が自己最高位を更新　33人が三公へ",b:"第2回順位発表で井汲大翔は自己最高位を更新し残留（史実では12位・8,856,294票）。55人から33人に絞られ、第三次公演「主題考核」へと進む。同じ日本組の贊多・力丸らも順当に残留した。"},
 n9:{src:"創造営ニュース",time:"2021年4月18日",h:"三公「衛星XL」　慶憐センター、Amberが助陣學姐で合流",b:"第三次公演のオリジナル曲「衛星XL」は、慶憐（センター）・胡燁韜・井汲大翔・俞更寅・栄耀の「六六六星球」に、助陣學姐としてAmber（劉逸雲）が合流。現場票は胡燁韜148票、慶憐142票、俞更寅135票、井汲大翔108票、栄耀101票だった。"},
 n10:{src:"創造営ニュース",time:"2021年4月25日",h:"成団夜：INTO1が誕生　創造営2021が閉幕",b:"4月24日の成団夜で、25人の決勝進出者から11人のデビューメンバーが決定し、期間限定グループ「INTO1」が誕生した。井汲大翔はグループ曲「定義」と個人展示「Fun」で最後のステージを務めた。2月から約2か月にわたった三亜での戦いは幕を閉じた。"},
-n11:{src:"モデルプレス風まとめ",time:"2021年4月27日",h:"井汲大翔、中国ファンへの直筆の手紙が話題「本当に中国に来て良かった」",b:"井汲大翔がInstagramに直筆の手紙を公開した。中国語でしたためられた手紙には、創始人（ファン）への感謝と「本当に中国に来て良かった」という言葉が綴られ、中国・日本双方のファンの間で大きな反響を呼んでいる。（※手紙の文面は実際の投稿の主旨に基づく要約）"},
+n11:{src:"日中エンタメ通信",time:"2021年4月27日",h:"井汲大翔、中国ファンへの直筆の手紙が話題「本当に中国に来て良かった」",b:"井汲大翔がInstagramに直筆の手紙を公開した。中国語でしたためられた手紙には、創始人（ファン）への感謝と「本当に中国に来て良かった」という言葉が綴られ、中国・日本双方のファンの間で大きな反響を呼んでいる。（※手紙の文面は実際の投稿の主旨に基づく要約）"},
 n12:{src:"創造営ニュース",time:"2021年3月16日",h:"主題曲二創「如獅添翼」、獅子舞アレンジで魅せる　伯遠・井汲大翔ら8人",b:"主題曲の二創（二時創作）ステージで、伯遠・井汲大翔・頼耀翔・佐藤永翔ら8人のチーム「如獅添翼」が、主題曲を獅子舞（舞獅）のパフォーマンスにアレンジして披露した。中国の伝統芸能と主題曲のダンスを融合させた構成は、番組レポートでも取り上げられている。"}
 };
 const TWITTER = {
@@ -1429,10 +1429,13 @@ if(curThread==="hiroto"&&S.freeReplies<30){ S.freeReplies++; const pool=S.ending
 setTimeout(()=>{ S.chats.hiroto.push({f:"hiroto",t:r}); if(curThread==="hiroto"){renderChat(); scrollChat();} save();},700);}
 save();}
 /* ---------- weibo / news ---------- */
+/* v7: 「来自」表記は投稿者の立場で出し分ける。公式とメディア・まとめ等の運用アカウントはPC運用＝微博网页版、ファン系は端末にばらつきを持たせる（全員同じ端末は実物らしくない）。投稿の文面には触れない */
+const WB_SRC={"創造営2021公式":"微博网页版","创造营2021公式":"微博网页版","鹅厂追星日记":"微博网页版","下班倒计时（利路修bot）":"微博网页版","选秀显微镜":"iPhone 12 Pro","鹅岛气象站":"iPhone 11","岛民小薯条":"iPhone 12"};
+const wbSrc=u=>WB_SRC[u]||"iPhone客户端";
 function renderWeibo(){ const tabs=`<div class="wb-tabs"><span>关注</span><span class="on">热门</span><span>超话</span><span>三亜</span></div>`;
 $("#weibo-list").innerHTML=tabs+(S.weibo.length?S.weibo.map(id=>{const p=WEIBO[id]; if(!p) return "";
 const body=p.body.replace(/#([^#]+)#/g,'<span class="tag">#$1#</span>');
-return `<div class="post"><div class="ph"><div class="av-init sm">微</div><div><div class="pn">${p.user}${p.user.includes("公式")?'<i class="vbadge">V</i>':""}</div><div class="pt">${p.time} · ${p.user.includes("公式")?"来自 微博网页版":"来自 iPhone 12"}</div></div></div><div class="pb">${body}</div><div class="pf"><span data-wbre="${id}" class="${SES.wbRe[id]?"wb-re-on":""}"><svg viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.2em;fill:currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg> 転送${SES.wbRe[id]?"済み":""}</span><span data-wbcmt="${id}">💬 コメント${SES.wbCmt[id]&&SES.wbCmt[id].length?` ${SES.wbCmt[id].length}`:""}</span><span data-wblike="${id}" class="${SES.wbLike[id]?"wb-on":""}">👍 ${p.like}</span></div>${SES.wbOpen[id]?`<div class="wb-cmts">${(SES.wbCmt[id]||[]).map(c=>`<div class="wb-cmt"><b>なお</b> ${esc(c)}</div>`).join("")}<div class="wb-cmt-form"><input data-wbin="${id}" type="text" placeholder="コメントを書く" autocomplete="off"><button data-wbsend="${id}">送信</button></div></div>`:""}</div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ投稿がありません。ストーリーを進めると中国のSNSの反応が届きます。</p>`);
+return `<div class="post"><div class="ph"><div class="av-init sm">微</div><div><div class="pn">${p.user}${p.user.includes("公式")?'<i class="vbadge">V</i>':""}</div><div class="pt">${p.time} · 来自 ${wbSrc(p.user)}</div></div></div><div class="pb">${body}</div><div class="pf"><span data-wbre="${id}" class="${SES.wbRe[id]?"wb-re-on":""}"><svg viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.2em;fill:currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg> 転送${SES.wbRe[id]?"済み":""}</span><span data-wbcmt="${id}">💬 コメント${SES.wbCmt[id]&&SES.wbCmt[id].length?` ${SES.wbCmt[id].length}`:""}</span><span data-wblike="${id}" class="${SES.wbLike[id]?"wb-on":""}">👍 ${p.like}</span></div>${SES.wbOpen[id]?`<div class="wb-cmts">${(SES.wbCmt[id]||[]).map(c=>`<div class="wb-cmt"><b>なお</b> ${esc(c)}</div>`).join("")}<div class="wb-cmt-form"><input data-wbin="${id}" type="text" placeholder="コメントを書く" autocomplete="off"><button data-wbsend="${id}">送信</button></div></div>`:""}</div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ投稿がありません。ストーリーを進めると中国のSNSの反応が届きます。</p>`);
 document.querySelectorAll("[data-wblike]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wblike; SES.wbLike[id]=!SES.wbLike[id]; renderWeibo();});
 /* v6: 転送は件数データを持たないため、数字は作らずトグル＋トーストの感触だけを返す（セッション内のみ） */
 document.querySelectorAll("[data-wbre]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wbre; SES.wbRe[id]=!SES.wbRe[id]; toast(SES.wbRe[id]?"転送しました":"転送を取り消しました"); renderWeibo();});
@@ -1541,7 +1544,7 @@ html+=`<div class="mem-links"><button id="mem-go-rank">順位表を見る</butto
 $("#mem-body").innerHTML=html;
 $("#mem-go-rank").onclick=()=>APPS.find(a=>a.id==="rank").go();
 /* v6: 各発表カードから該当回の順位表タブへ直接ジャンプ */
-document.querySelectorAll("[data-memrank]").forEach(b=>b.onclick=()=>{ rankTab=b.dataset.memrank; APPS.find(a=>a.id==="rank").go(); });
+document.querySelectorAll("[data-memrank]").forEach(b=>b.onclick=()=>{ rankJumpTab=b.dataset.memrank; APPS.find(a=>a.id==="rank").go(); });
 $("#mem-go-sup").onclick=()=>APPS.find(a=>a.id==="support").go();
 $("#mem-go-talk").onclick=()=>APPS.find(a=>a.id==="talk").go();
 const finBtn=$("#mem-go-fin"); if(finBtn) finBtn.onclick=()=>{ renderGrandFin(); show("screen-scene",{t:"完結",s:"おつかれさまでした"});};}
@@ -1596,10 +1599,12 @@ $("#scene-body").innerHTML=`${telopHTML("創造営2021 第1回順位発表","腾
 でも、隣の椅子に座るはずだった2人の姿は、もうここにはない。</div>`;
 $("#scene-choices").innerHTML=""; $("#scene-next").style.display="block"; $("#scene-next").textContent="結果を受け止める";
 show("screen-scene",{t:step.title,s:step.desc});}
-let rankTab=null;
-function renderRankApp(){ const resMap={r1:S.rankResult,r2:S.rank2Result,r3:S.rank3Result,fin:S.finalResult};
+let rankTab=null, rankJumpTab=null;
+function renderRankApp(keepTab){ const resMap={r1:S.rankResult,r2:S.rank2Result,r3:S.rank3Result,fin:S.finalResult};
 const played=["r1","r2","r3","fin"].filter(k=>resMap[k]);
-if(!rankTab) rankTab=played.length?played[played.length-1]:"r1";
+/* v7: ホームから開いたときは最新の到達回タブに戻す。「思い出」からのジャンプ時だけ rankJumpTab のタブで開く。アプリ内のタブ切替（keepTab）はそのまま維持。いずれもセッション内のみでセーブには含めない */
+if(rankJumpTab){ rankTab=rankJumpTab; rankJumpTab=null; }
+else if(!keepTab||!rankTab) rankTab=played.length?played[played.length-1]:"r1";
 const META={r1:{date:"2021年3月20日",cut:55,factRank:17,fact:6895112},r2:{date:"2021年4月10日",cut:33,factRank:12,fact:8856294},r3:{date:"2021年4月21日",cut:25,factRank:14,fact:3441630},fin:{date:"2021年4月24日",cut:11,factRank:15,fact:5477202}};
 const TABS=[["r1","第1回"],["r2","第2回"],["r3","第3回"],["fin","決勝"]];
 const key=rankTab, meta=META[key], res=resMap[key];
@@ -1609,7 +1614,7 @@ const head=`<div class="rank-tabs">${TABS.map(t=>`<button data-rt="${t[0]}" clas
 <p class="rank-note">${meta.date}の順位表（全${rows.length}人）。${res?`大翔はあなたのサポートで <b style="color:var(--accent)">${res.rank}位・${res.votes.toLocaleString()}票</b>（史実${meta.factRank}位・${meta.fact.toLocaleString()}票）。他の学員の順位・票数は史実データです。`:`この発表はまだ迎えていないため、史実データ（大翔：${meta.factRank}位・${meta.fact.toLocaleString()}票）を表示しています。`}</p>`;
 const bodyHtml=rows.map((r,i)=>{ let zone=""; if(key==="fin"&&r.rank===1) zone=`<div class="rank-zone">INTO1 デビュー圏（11位まで）</div>`; else if(key==="fin"&&r.rank===12) zone=`<div class="rank-zone">デビュー圏外</div>`; else if(key!=="fin"&&r.rank===meta.cut+1) zone=`<div class="rank-zone">―― ここより下は離営 ――</div>`; return zone+rankRowHTML(r,i);}).join("");
 $("#rank-body").innerHTML=head+bodyHtml;
-document.querySelectorAll("[data-rt]").forEach(b=>b.onclick=()=>{rankTab=b.dataset.rt; renderRankApp();});}
+document.querySelectorAll("[data-rt]").forEach(b=>b.onclick=()=>{rankTab=b.dataset.rt; renderRankApp(true);});}
 /* ---------- members ---------- */
 function renderMembers(){ const mains=Object.keys(CAST).filter(id=>!CAST[id].mentor); const mentors=Object.keys(CAST).filter(id=>CAST[id].mentor);
 const cell=id=>{const c=CAST[id]; return `<button class="mem-cell" data-mid="${id}">${avHTML(id)}<span>${c.name}</span><small>${c.grp}</small></button>`;};
@@ -1671,7 +1676,7 @@ function renderSettings(){ $("#settings-body").innerHTML=`
 <div class="about-txt" id="about-box" style="display:none">
 『担当をデビューさせる件』は、実在の番組『創造営2021』（2021・テンセントビデオ）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。<br>
 音楽：課題曲はiTunes公式プレビュー（30秒）を使用しています（HIP -Japanese ver.-／MAMAMOO、Lover Boy 88（纯享版）／進步男孩兒、我們一起闖／創造営2021学員）。順位発表BGM："The Descent" by Kevin MacLeod (CC-BY)。写真はPinterest等で流通している各学員の写真を使用しています（本人の最終確認は実機目視によります）。<br>
-ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。<br>v4追記：物語の内容を増補しました（主題曲考核後の廊下、二創「如獅添翼」の稽古、第2回順位発表後の控室、決勝1週間の夜練、第3回発表で離営する夜の場面に会話を追加。第2回発表前夜の通話とトーク4件に往復を追加し、Weibo／Twitter／ニュースにも新規の投稿・記事を追加）。史実の背骨・数値設計・セーブデータの形式はv3から不変です。<br>v5追記：完結後の見返し面「思い出」を追加しました（各順位発表の結果とエンディングの記録、完結画面や各アプリへの導線）。あわせて各アプリの操作の挙動を2021年当時の実物寄りに整えました――Weiboのいいね（取り消し可）とコメントの開閉・投稿、Twitterのいいね・リツイート（件数の増減つき、取り消し可）、WeChatのスレッドごとの下書き保持（一覧に[草稿]と表示され、開き直すと復元されます。WeChatに既読表示がない仕様は当時の実物どおりです）。これらの操作状態はセーブデータには含まれず、再読み込みでリセットされます。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v6追記：アプリの挙動のリアル化を続けました――ニュースは報道アプリ寄りに（新しい記事が上に並び、既読は記事を開いた時点で記事ごとに残って見出しが落ち着いた色になります。開ける記事は同時に1件だけ）。「思い出」の各順位発表カードからは、該当回の順位表へ直接ジャンプできるようになりました。Weiboの「転送」は、件数データがないため数字は作らず、タップで「転送済み」の表示とトーストだけが返ります（再タップで取り消し。状態はセッション内のみでセーブには含まれません）。あわせて各アプリのアイコンを2021年当時の実物に合わせて棚卸ししました――WeChatは鮮やかな緑に白の二重吹き出し、微博は橙から赤のグラデーションに白い目のロゴ、Twitterは当時の青（#1DA1F2）に白い鳥（Xロゴではありません）。ニュース・設定など当時のままのものは据え置きです。史実の背骨・数値設計・セーブデータの形式は不変です。</div>
+ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。<br>v4追記：物語の内容を増補しました（主題曲考核後の廊下、二創「如獅添翼」の稽古、第2回順位発表後の控室、決勝1週間の夜練、第3回発表で離営する夜の場面に会話を追加。第2回発表前夜の通話とトーク4件に往復を追加し、Weibo／Twitter／ニュースにも新規の投稿・記事を追加）。史実の背骨・数値設計・セーブデータの形式はv3から不変です。<br>v5追記：完結後の見返し面「思い出」を追加しました（各順位発表の結果とエンディングの記録、完結画面や各アプリへの導線）。あわせて各アプリの操作の挙動を2021年当時の実物寄りに整えました――Weiboのいいね（取り消し可）とコメントの開閉・投稿、Twitterのいいね・リツイート（件数の増減つき、取り消し可）、WeChatのスレッドごとの下書き保持（一覧に[草稿]と表示され、開き直すと復元されます。WeChatに既読表示がない仕様は当時の実物どおりです）。これらの操作状態はセーブデータには含まれず、再読み込みでリセットされます。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v6追記：アプリの挙動のリアル化を続けました――ニュースは報道アプリ寄りに（新しい記事が上に並び、既読は記事を開いた時点で記事ごとに残って見出しが落ち着いた色になります。開ける記事は同時に1件だけ）。「思い出」の各順位発表カードからは、該当回の順位表へ直接ジャンプできるようになりました。Weiboの「転送」は、件数データがないため数字は作らず、タップで「転送済み」の表示とトーストだけが返ります（再タップで取り消し。状態はセッション内のみでセーブには含まれません）。あわせて各アプリのアイコンを2021年当時の実物に合わせて棚卸ししました――WeChatは鮮やかな緑に白の二重吹き出し、微博は橙から赤のグラデーションに白い目のロゴ、Twitterは当時の青（#1DA1F2）に白い鳥（Xロゴではありません）。ニュース・設定など当時のままのものは据え置きです。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v7追記：表記と初期表示の細部を実物寄りに整えました――順位表は、ホームから開いたときは最新の到達回のタブで開くようになりました（「思い出」からのジャンプ時だけ、その回のタブで開きます）。Weiboの投稿元（来自）表記は投稿者の立場で出し分けるようにしました（公式やメディアの運用アカウントは微博网页版、ファン系の投稿は端末にばらつきを持たせています）。ニュースの出典表記も、媒体名の形式にそろえました。いずれも記事・投稿の文面、史実の背骨・数値設計・セーブデータの形式は不変です。</div>
 <button class="ghost-btn" id="set-reset" style="color:#ff8296">セーブデータを消して最初から</button>`;
 $("#set-sound").onclick=e=>{ settings.sound=!settings.sound; e.target.classList.toggle("on",settings.sound); saveSettings(); if(!settings.sound) stopMusic();};
 $("#set-vol").oninput=e=>{ settings.vol=+e.target.value/100; saveSettings(); const a=$("#music-audio"); if(a) a.volume=settings.vol;};
