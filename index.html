@@ -44,8 +44,8 @@ main::-webkit-scrollbar{display:none}
 .appicon{display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;position:relative;background:none;border:none;color:var(--txt);padding:2px 0;user-select:none}
 .appicon .ic{width:58px;height:58px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:27px;background:linear-gradient(150deg,var(--panel3),var(--panel2));border:1px solid var(--line-soft);box-shadow:0 6px 16px rgba(2,8,20,.35),inset 0 1px 0 rgba(255,255,255,.07);transition:transform .12s}
 .appicon:active .ic{transform:scale(.9)}
-.appicon[data-app="talk"] .ic{background:linear-gradient(150deg,#14532d,#0f3d33)}
-.appicon[data-app="weibo"] .ic{background:linear-gradient(150deg,#5e1f36,#3d1428)}
+.appicon[data-app="talk"] .ic{background:linear-gradient(150deg,#2bd96b,#07b759)}
+.appicon[data-app="weibo"] .ic{background:linear-gradient(160deg,#ff9d2e,#f43a1e 55%,#e61a2e)}
 .appicon[data-app="news"] .ic{background:linear-gradient(150deg,#173f6e,#122c50)}
 .appicon[data-app="support"] .ic{background:linear-gradient(150deg,#6b4210,#45300f)}
 .appicon[data-app="rank"] .ic{background:linear-gradient(150deg,#6e5410,#453a0d)}
@@ -262,7 +262,7 @@ input,textarea{font-size:16px!important}
 .cl-a{font-size:15px;background:linear-gradient(120deg,#22d3ee,#a78bfa,#f472b6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .cl-t{font-size:21px;font-weight:900;letter-spacing:.14em;background:linear-gradient(100deg,#67e8f9,#c4b5fd 55%,#f9a8d4);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .cl-e{font-size:10px;font-weight:800;letter-spacing:.3em;color:#e0e7ff;opacity:.85}
-.appicon[data-app="twitter"] .ic{background:linear-gradient(150deg,#1d6fb8,#144e85)}
+.appicon[data-app="twitter"] .ic{background:linear-gradient(150deg,#31a9f5,#1a91da)}
 /* WeChat 2021 風（トーク画面） */
 #phone[data-screen="screen-chat"] header.app-head,#phone[data-screen="screen-chatlist"] header.app-head{background:rgba(237,237,237,.94);border-bottom-color:#dcdcdc}
 #phone[data-screen="screen-chat"] header.app-head h1,#phone[data-screen="screen-chatlist"] header.app-head h1{color:#191919}
@@ -1321,10 +1321,10 @@ $("#head-back").onclick=()=>{stopVoice(); if(typeof stopCallTimer==="function") 
 function goHome(){renderHome(); show("screen-home",null);}
 /* ---------- home ---------- */
 const APPS=[
-{id:"talk",ic:"💬",n:"トーク",go:()=>{renderChatList(); show("screen-chatlist",{t:"トーク",s:"担当学員との連絡"});}},
-{id:"weibo",ic:"👁️",n:"微博",go:()=>{renderWeibo(); show("screen-weibo",{t:"微博 Weibo",s:"中国のSNSの反応"});}},
+{id:"talk",ic:"<svg viewBox='0 0 48 48' width='34' height='34' aria-hidden='true'><ellipse cx='34' cy='33' rx='11' ry='8.5' fill='#fff' opacity='.45'/><path d='M40 39.5l1.4 5.2-5.6-2.8z' fill='#fff' opacity='.45'/><ellipse cx='19.5' cy='19' rx='15' ry='11.5' fill='#fff'/><path d='M10.2 27.2L8.4 35.2l6.6-3.5z' fill='#fff'/><circle cx='13.2' cy='18' r='2' fill='#12bd5f'/><circle cx='25.2' cy='18' r='2' fill='#12bd5f'/></svg>",n:"トーク",go:()=>{renderChatList(); show("screen-chatlist",{t:"トーク",s:"担当学員との連絡"});}},
+{id:"weibo",ic:"<svg viewBox='0 0 48 48' width='34' height='34' aria-hidden='true'><path d='M33 7A10 10 0 0 1 41 15' fill='none' stroke='#fff' stroke-width='3' stroke-linecap='round'/><path d='M37.5 2.5A15.5 15.5 0 0 1 46 12' fill='none' stroke='#fff' stroke-width='3' stroke-linecap='round'/><path d='M24 16c8 0 15.5 4.3 19.5 10C39.5 31.7 32 36 24 36S8.5 31.7 4.5 26C8.5 20.3 16 16 24 16z' fill='#fff'/><circle cx='24' cy='26' r='6' fill='#f43a1e'/></svg>",n:"微博",go:()=>{renderWeibo(); show("screen-weibo",{t:"微博 Weibo",s:"中国のSNSの反応"});}},
 {id:"news",ic:"📰",n:"ニュース",go:()=>{renderNews(); show("screen-news",{t:"ニュース",s:"番組関連の報道"});}},
-{id:"twitter",ic:"🐦",n:"Twitter",go:()=>{renderTwitter(); show("screen-twitter",{t:"Twitter",s:"日本のファンの声（2021）"});}},
+{id:"twitter",ic:"<svg viewBox='0 0 24 24' width='31' height='31' fill='#fff' aria-hidden='true'><path d='M23.953 4.57a10 10 0 0 1-2.825.775 4.958 4.958 0 0 0 2.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 0 0-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 0 0-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 0 1-2.228-.616v.06a4.923 4.923 0 0 0 3.946 4.827 4.996 4.996 0 0 1-2.212.085 4.936 4.936 0 0 0 4.604 3.417 9.867 9.867 0 0 1-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 0 0 7.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0 0 24 4.59l-.047-.02z'/></svg>",n:"Twitter",go:()=>{renderTwitter(); show("screen-twitter",{t:"Twitter",s:"日本のファンの声（2021）"});}},
 {id:"support",ic:"🛠️",n:"サポート室",go:()=>{openSupportApp();}},
 {id:"rank",ic:"🏆",n:"順位表",go:()=>{renderRankApp(); show("screen-rank",{t:"順位表",s:"創造営2021"});}},
 {id:"members",ic:"👥",n:"メンバー",go:()=>{renderMembers(); show("screen-members",{t:"メンバー",s:"主要学員・メンター"});}},
@@ -1671,7 +1671,7 @@ function renderSettings(){ $("#settings-body").innerHTML=`
 <div class="about-txt" id="about-box" style="display:none">
 『担当をデビューさせる件』は、実在の番組『創造営2021』（2021・テンセントビデオ）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。<br>
 音楽：課題曲はiTunes公式プレビュー（30秒）を使用しています（HIP -Japanese ver.-／MAMAMOO、Lover Boy 88（纯享版）／進步男孩兒、我們一起闖／創造営2021学員）。順位発表BGM："The Descent" by Kevin MacLeod (CC-BY)。写真はPinterest等で流通している各学員の写真を使用しています（本人の最終確認は実機目視によります）。<br>
-ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。<br>v4追記：物語の内容を増補しました（主題曲考核後の廊下、二創「如獅添翼」の稽古、第2回順位発表後の控室、決勝1週間の夜練、第3回発表で離営する夜の場面に会話を追加。第2回発表前夜の通話とトーク4件に往復を追加し、Weibo／Twitter／ニュースにも新規の投稿・記事を追加）。史実の背骨・数値設計・セーブデータの形式はv3から不変です。<br>v5追記：完結後の見返し面「思い出」を追加しました（各順位発表の結果とエンディングの記録、完結画面や各アプリへの導線）。あわせて各アプリの操作の挙動を2021年当時の実物寄りに整えました――Weiboのいいね（取り消し可）とコメントの開閉・投稿、Twitterのいいね・リツイート（件数の増減つき、取り消し可）、WeChatのスレッドごとの下書き保持（一覧に[草稿]と表示され、開き直すと復元されます。WeChatに既読表示がない仕様は当時の実物どおりです）。これらの操作状態はセーブデータには含まれず、再読み込みでリセットされます。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v6追記：アプリの挙動のリアル化を続けました――ニュースは報道アプリ寄りに（新しい記事が上に並び、既読は記事を開いた時点で記事ごとに残って見出しが落ち着いた色になります。開ける記事は同時に1件だけ）。「思い出」の各順位発表カードからは、該当回の順位表へ直接ジャンプできるようになりました。Weiboの「転送」は、件数データがないため数字は作らず、タップで「転送済み」の表示とトーストだけが返ります（再タップで取り消し。状態はセッション内のみでセーブには含まれません）。史実の背骨・数値設計・セーブデータの形式は不変です。</div>
+ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。<br>v4追記：物語の内容を増補しました（主題曲考核後の廊下、二創「如獅添翼」の稽古、第2回順位発表後の控室、決勝1週間の夜練、第3回発表で離営する夜の場面に会話を追加。第2回発表前夜の通話とトーク4件に往復を追加し、Weibo／Twitter／ニュースにも新規の投稿・記事を追加）。史実の背骨・数値設計・セーブデータの形式はv3から不変です。<br>v5追記：完結後の見返し面「思い出」を追加しました（各順位発表の結果とエンディングの記録、完結画面や各アプリへの導線）。あわせて各アプリの操作の挙動を2021年当時の実物寄りに整えました――Weiboのいいね（取り消し可）とコメントの開閉・投稿、Twitterのいいね・リツイート（件数の増減つき、取り消し可）、WeChatのスレッドごとの下書き保持（一覧に[草稿]と表示され、開き直すと復元されます。WeChatに既読表示がない仕様は当時の実物どおりです）。これらの操作状態はセーブデータには含まれず、再読み込みでリセットされます。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v6追記：アプリの挙動のリアル化を続けました――ニュースは報道アプリ寄りに（新しい記事が上に並び、既読は記事を開いた時点で記事ごとに残って見出しが落ち着いた色になります。開ける記事は同時に1件だけ）。「思い出」の各順位発表カードからは、該当回の順位表へ直接ジャンプできるようになりました。Weiboの「転送」は、件数データがないため数字は作らず、タップで「転送済み」の表示とトーストだけが返ります（再タップで取り消し。状態はセッション内のみでセーブには含まれません）。あわせて各アプリのアイコンを2021年当時の実物に合わせて棚卸ししました――WeChatは鮮やかな緑に白の二重吹き出し、微博は橙から赤のグラデーションに白い目のロゴ、Twitterは当時の青（#1DA1F2）に白い鳥（Xロゴではありません）。ニュース・設定など当時のままのものは据え置きです。史実の背骨・数値設計・セーブデータの形式は不変です。</div>
 <button class="ghost-btn" id="set-reset" style="color:#ff8296">セーブデータを消して最初から</button>`;
 $("#set-sound").onclick=e=>{ settings.sound=!settings.sound; e.target.classList.toggle("on",settings.sound); saveSettings(); if(!settings.sound) stopMusic();};
 $("#set-vol").oninput=e=>{ settings.vol=+e.target.value/100; saveSettings(); const a=$("#music-audio"); if(a) a.volume=settings.vol;};
