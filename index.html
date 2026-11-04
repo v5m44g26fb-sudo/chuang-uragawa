@@ -132,6 +132,7 @@ main::-webkit-scrollbar{display:none}
 .post .pf{color:var(--sub);font-size:12px;margin-top:11px;padding-top:10px;border-top:1px solid rgba(36,64,107,.5);display:flex;gap:20px}
 .post .pf span{cursor:pointer;user-select:none}
 .post .pf .wb-on{color:#ff6a3d;font-weight:700}
+.post .pf .wb-re-on{color:#17bf63;font-weight:700}
 .wb-cmts{margin-top:10px;border-top:1px dashed rgba(36,64,107,.5);padding-top:9px}
 .wb-cmt{font-size:12.5px;line-height:1.7;color:#cfe0f5;padding:3px 0}
 .wb-cmt b{color:var(--txt)}
@@ -151,6 +152,8 @@ main::-webkit-scrollbar{display:none}
 .mem-chip{display:inline-block;font-size:11px;font-weight:700;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin-left:8px;color:var(--accent);vertical-align:2px}
 .mem-links{display:flex;gap:9px;margin:4px 16px 18px;flex-wrap:wrap}
 .mem-links button{flex:1;min-width:100px;background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:12px;padding:11px 6px;font-size:13px;font-weight:700;cursor:pointer}
+.mem-jump{margin-top:11px;background:none;border:1px solid var(--line);color:var(--accent);border-radius:99px;padding:6px 14px;font-size:12.5px;font-weight:700;cursor:pointer}
+.mem-jump:active{transform:scale(.97)}
 .news-item{margin:14px 16px;background:linear-gradient(170deg,rgba(30,53,96,.5),var(--panel));border:1px solid var(--line-soft);border-radius:18px;padding:16px;cursor:pointer;box-shadow:0 6px 18px rgba(2,8,20,.28);position:relative;transition:transform .12s}
 .news-item:active{transform:scale(.985)}
 .news-item .nh{font-weight:700;font-size:15px;line-height:1.65;padding-right:18px}
@@ -159,6 +162,9 @@ main::-webkit-scrollbar{display:none}
 .news-item .nm2{color:var(--sub2);font-size:11px;margin-top:6px}
 .news-item .nb{font-size:13.5px;line-height:1.95;color:#cfe0f5;margin-top:9px;display:none}
 .news-item.open .nb{display:block;animation:msgIn .3s ease both}
+.news-item.read:not(.open) .nh{color:var(--sub)}
+.news-item.read:not(.open) .nm2{opacity:.65}
+.news-item.read:not(.open){box-shadow:none}
 /* support room */
 .sup-card{margin:14px 16px;background:linear-gradient(170deg,rgba(30,53,96,.55),var(--panel));border:1px solid var(--line-soft);border-radius:18px;padding:17px 16px;box-shadow:var(--shadow)}
 .sup-card h3{margin:0 0 5px;font-size:16px;font-weight:800}
@@ -1297,8 +1303,8 @@ if(!Array.isArray(S.twitter)) S.twitter=[];
 if(!Array.isArray(S.seenTwitter)) S.seenTwitter=[];
 if(S.finished&&S.step===18&&!S.ending){S.part1Done=true; S.finished=false; S.step=19;}
 return;}}catch(e){} S=freshState();}
-/* v5: セッション内だけの操作状態（いいね・コメント・下書き）。セーブ形式には含めない */
-const SES={wbLike:{},wbOpen:{},wbCmt:{},twFav:{},twRt:{},drafts:{}};
+/* v5: セッション内だけの操作状態（いいね・コメント・下書き）。セーブ形式には含めない。v6: 転送（wbRe）も同じ扱い */
+const SES={wbLike:{},wbOpen:{},wbCmt:{},wbRe:{},twFav:{},twRt:{},drafts:{}};
 function toast(t){const el=$("#toast"); el.textContent=t; el.classList.add("show"); clearTimeout(el._h); el._h=setTimeout(()=>el.classList.remove("show"),2300);}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
 function avHTML(id,cls){const c=CAST[id]; if(!c) return `<div class="av-init ${cls||''}">？</div>`;
@@ -1426,15 +1432,21 @@ save();}
 function renderWeibo(){ const tabs=`<div class="wb-tabs"><span>关注</span><span class="on">热门</span><span>超话</span><span>三亜</span></div>`;
 $("#weibo-list").innerHTML=tabs+(S.weibo.length?S.weibo.map(id=>{const p=WEIBO[id]; if(!p) return "";
 const body=p.body.replace(/#([^#]+)#/g,'<span class="tag">#$1#</span>');
-return `<div class="post"><div class="ph"><div class="av-init sm">微</div><div><div class="pn">${p.user}${p.user.includes("公式")?'<i class="vbadge">V</i>':""}</div><div class="pt">${p.time} · ${p.user.includes("公式")?"来自 微博网页版":"来自 iPhone 12"}</div></div></div><div class="pb">${body}</div><div class="pf"><span><svg viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.2em;fill:currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg> 転送</span><span data-wbcmt="${id}">💬 コメント${SES.wbCmt[id]&&SES.wbCmt[id].length?` ${SES.wbCmt[id].length}`:""}</span><span data-wblike="${id}" class="${SES.wbLike[id]?"wb-on":""}">👍 ${p.like}</span></div>${SES.wbOpen[id]?`<div class="wb-cmts">${(SES.wbCmt[id]||[]).map(c=>`<div class="wb-cmt"><b>なお</b> ${esc(c)}</div>`).join("")}<div class="wb-cmt-form"><input data-wbin="${id}" type="text" placeholder="コメントを書く" autocomplete="off"><button data-wbsend="${id}">送信</button></div></div>`:""}</div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ投稿がありません。ストーリーを進めると中国のSNSの反応が届きます。</p>`);
+return `<div class="post"><div class="ph"><div class="av-init sm">微</div><div><div class="pn">${p.user}${p.user.includes("公式")?'<i class="vbadge">V</i>':""}</div><div class="pt">${p.time} · ${p.user.includes("公式")?"来自 微博网页版":"来自 iPhone 12"}</div></div></div><div class="pb">${body}</div><div class="pf"><span data-wbre="${id}" class="${SES.wbRe[id]?"wb-re-on":""}"><svg viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.2em;fill:currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg> 転送${SES.wbRe[id]?"済み":""}</span><span data-wbcmt="${id}">💬 コメント${SES.wbCmt[id]&&SES.wbCmt[id].length?` ${SES.wbCmt[id].length}`:""}</span><span data-wblike="${id}" class="${SES.wbLike[id]?"wb-on":""}">👍 ${p.like}</span></div>${SES.wbOpen[id]?`<div class="wb-cmts">${(SES.wbCmt[id]||[]).map(c=>`<div class="wb-cmt"><b>なお</b> ${esc(c)}</div>`).join("")}<div class="wb-cmt-form"><input data-wbin="${id}" type="text" placeholder="コメントを書く" autocomplete="off"><button data-wbsend="${id}">送信</button></div></div>`:""}</div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ投稿がありません。ストーリーを進めると中国のSNSの反応が届きます。</p>`);
 document.querySelectorAll("[data-wblike]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wblike; SES.wbLike[id]=!SES.wbLike[id]; renderWeibo();});
+/* v6: 転送は件数データを持たないため、数字は作らずトグル＋トーストの感触だけを返す（セッション内のみ） */
+document.querySelectorAll("[data-wbre]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wbre; SES.wbRe[id]=!SES.wbRe[id]; toast(SES.wbRe[id]?"転送しました":"転送を取り消しました"); renderWeibo();});
 document.querySelectorAll("[data-wbcmt]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wbcmt; SES.wbOpen[id]=!SES.wbOpen[id]; renderWeibo();});
 document.querySelectorAll("[data-wbsend]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wbsend; const inp=document.querySelector(`[data-wbin="${id}"]`); const t=inp?inp.value.trim():""; if(!t) return; (SES.wbCmt[id]=SES.wbCmt[id]||[]).push(t); renderWeibo();});
 S.weibo.forEach(w=>{if(!S.seenWeibo.includes(w)) S.seenWeibo.push(w);}); save();}
-function renderNews(){ $("#news-list").innerHTML=S.news.length?S.news.map(id=>{const n=NEWS[id];
-return `<div class="news-item" data-nid="${id}"><div class="nh">${n.h}</div><div class="nm2">${n.src} · ${n.time}</div><div class="nb">${n.b}</div></div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ記事がありません。</p>`;
-document.querySelectorAll(".news-item").forEach(el=>el.onclick=()=>el.classList.toggle("open"));
-S.news.forEach(n=>{if(!S.seenNews.includes(n)) S.seenNews.push(n);}); save();}
+/* v6: 報道アプリ寄りの挙動――一覧は新しい記事が上、既読は「記事を開いた時点」で記事ごとに残り（既存の seenNews をそのまま使う）、開ける記事は同時に1件だけ。記事の文面は不変 */
+function renderNews(){ const ids=S.news.slice().reverse();
+$("#news-list").innerHTML=ids.length?ids.map(id=>{const n=NEWS[id]; if(!n) return "";
+return `<div class="news-item${S.seenNews.includes(id)?" read":""}" data-nid="${id}"><div class="nh">${n.h}</div><div class="nm2">${n.src} · ${n.time}</div><div class="nb">${n.b}</div></div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ記事がありません。</p>`;
+document.querySelectorAll(".news-item").forEach(el=>el.onclick=()=>{ const id=el.dataset.nid; const opening=!el.classList.contains("open");
+document.querySelectorAll(".news-item.open").forEach(o=>{if(o!==el) o.classList.remove("open");});
+el.classList.toggle("open");
+if(opening&&!S.seenNews.includes(id)){ S.seenNews.push(id); save(); el.classList.add("read");}});}
 /* ---------- twitter ---------- */
 function renderTwitter(){ $("#twitter-list").innerHTML=S.twitter.length?S.twitter.map(id=>{const t=TWITTER[id]; if(!t) return "";
 const body=t.body.replace(/#([^\s#]+)/g,'<span class="tag">#$1</span>');
@@ -1513,12 +1525,12 @@ $("#scene-choices").innerHTML=""; const nx=$("#scene-next"); nx.style.display="b
 
 /* ---------- memories (v5) ---------- */
 function renderMemories(){
-const card=(res,ttl,date,fact,chip)=>res?`<div class="mem-card"><div class="mt">${date}</div><div class="mh">${ttl}${chip?`<span class="mem-chip">${chip}</span>`:""}</div><div class="mr">第${res.rank}位</div><div class="mf">${res.votes.toLocaleString()}票（撑腰値）<br>${fact}</div></div>`:`<div class="mem-card lock"><div class="mt">${date}</div><div class="mh">${ttl}</div><div class="mf">―― まだ到達していません。物語を進めると、ここに結果が残ります。</div></div>`;
+const card=(res,ttl,date,fact,chip,key)=>res?`<div class="mem-card"><div class="mt">${date}</div><div class="mh">${ttl}${chip?`<span class="mem-chip">${chip}</span>`:""}</div><div class="mr">第${res.rank}位</div><div class="mf">${res.votes.toLocaleString()}票（撑腰値）<br>${fact}</div><button class="mem-jump" data-memrank="${key}">この回の順位表を見る ›</button></div>`:`<div class="mem-card lock"><div class="mt">${date}</div><div class="mh">${ttl}</div><div class="mf">―― まだ到達していません。物語を進めると、ここに結果が残ります。</div></div>`;
 let html=`<p class="about-txt" style="padding:14px 16px 0">三亜での2か月間の記録です。各順位発表の結果が、到達した順にここへ残ります。</p>`;
-html+=card(S.rankResult,"第1回順位発表","2021年3月20日","史実：17位・6,895,112票",S.rankResult?"残留":null);
-html+=card(S.rank2Result,"第2回順位発表","2021年4月10日","史実：12位・8,856,294票",S.rank2Result?"残留":null);
-html+=card(S.rank3Result,"第3回順位発表","2021年4月21日","史実：14位・3,441,630票",S.rank3Result?(S.rank3Result.rank<=25?"決勝進出":"離営"):null);
-html+=card(S.finalResult,"決勝 · 成団夜","2021年4月24日","史実：15位・5,477,202票",S.finalResult?(S.finalResult.debut?"INTO1デビュー":"あと一歩"):null);
+html+=card(S.rankResult,"第1回順位発表","2021年3月20日","史実：17位・6,895,112票",S.rankResult?"残留":null,"r1");
+html+=card(S.rank2Result,"第2回順位発表","2021年4月10日","史実：12位・8,856,294票",S.rank2Result?"残留":null,"r2");
+html+=card(S.rank3Result,"第3回順位発表","2021年4月21日","史実：14位・3,441,630票",S.rank3Result?(S.rank3Result.rank<=25?"決勝進出":"離営"):null,"r3");
+html+=card(S.finalResult,"決勝 · 成団夜","2021年4月24日","史実：15位・5,477,202票",S.finalResult?(S.finalResult.debut?"INTO1デビュー":"あと一歩"):null,"fin");
 if(S.finished){ const e=S.ending||"almost"; const fr=S.finalResult||{}; const r3=S.rank3Result||{};
 let title,body;
 if(e==="debut"){ title="完結 ― INTO1デビュー"; body=`決勝・成団夜、大翔は <b style="color:var(--accent)">第${fr.rank}位・${(fr.votes||0).toLocaleString()}票</b> でINTO1の11人に選ばれました（史実：15位・5,477,202票）。<br>史実では約780万票あったデビュー圏との差を、あなたの裏側サポートが覆しました。`;}
@@ -1528,6 +1540,8 @@ html+=`<div class="fin-card" style="margin:14px 16px"><div style="font-size:30px
 html+=`<div class="mem-links"><button id="mem-go-rank">順位表を見る</button><button id="mem-go-sup">サポートの記録</button><button id="mem-go-talk">トークを見返す</button>${S.finished&&STEPS[S.step]&&STEPS[S.step].type==="grandfin"?`<button id="mem-go-fin">完結画面をもう一度見る</button>`:""}</div>`;
 $("#mem-body").innerHTML=html;
 $("#mem-go-rank").onclick=()=>APPS.find(a=>a.id==="rank").go();
+/* v6: 各発表カードから該当回の順位表タブへ直接ジャンプ */
+document.querySelectorAll("[data-memrank]").forEach(b=>b.onclick=()=>{ rankTab=b.dataset.memrank; APPS.find(a=>a.id==="rank").go(); });
 $("#mem-go-sup").onclick=()=>APPS.find(a=>a.id==="support").go();
 $("#mem-go-talk").onclick=()=>APPS.find(a=>a.id==="talk").go();
 const finBtn=$("#mem-go-fin"); if(finBtn) finBtn.onclick=()=>{ renderGrandFin(); show("screen-scene",{t:"完結",s:"おつかれさまでした"});};}
@@ -1657,7 +1671,7 @@ function renderSettings(){ $("#settings-body").innerHTML=`
 <div class="about-txt" id="about-box" style="display:none">
 『担当をデビューさせる件』は、実在の番組『創造営2021』（2021・テンセントビデオ）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。<br>
 音楽：課題曲はiTunes公式プレビュー（30秒）を使用しています（HIP -Japanese ver.-／MAMAMOO、Lover Boy 88（纯享版）／進步男孩兒、我們一起闖／創造営2021学員）。順位発表BGM："The Descent" by Kevin MacLeod (CC-BY)。写真はPinterest等で流通している各学員の写真を使用しています（本人の最終確認は実機目視によります）。<br>
-ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。<br>v4追記：物語の内容を増補しました（主題曲考核後の廊下、二創「如獅添翼」の稽古、第2回順位発表後の控室、決勝1週間の夜練、第3回発表で離営する夜の場面に会話を追加。第2回発表前夜の通話とトーク4件に往復を追加し、Weibo／Twitter／ニュースにも新規の投稿・記事を追加）。史実の背骨・数値設計・セーブデータの形式はv3から不変です。<br>v5追記：完結後の見返し面「思い出」を追加しました（各順位発表の結果とエンディングの記録、完結画面や各アプリへの導線）。あわせて各アプリの操作の挙動を2021年当時の実物寄りに整えました――Weiboのいいね（取り消し可）とコメントの開閉・投稿、Twitterのいいね・リツイート（件数の増減つき、取り消し可）、WeChatのスレッドごとの下書き保持（一覧に[草稿]と表示され、開き直すと復元されます。WeChatに既読表示がない仕様は当時の実物どおりです）。これらの操作状態はセーブデータには含まれず、再読み込みでリセットされます。史実の背骨・数値設計・セーブデータの形式は不変です。</div>
+ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。<br>v4追記：物語の内容を増補しました（主題曲考核後の廊下、二創「如獅添翼」の稽古、第2回順位発表後の控室、決勝1週間の夜練、第3回発表で離営する夜の場面に会話を追加。第2回発表前夜の通話とトーク4件に往復を追加し、Weibo／Twitter／ニュースにも新規の投稿・記事を追加）。史実の背骨・数値設計・セーブデータの形式はv3から不変です。<br>v5追記：完結後の見返し面「思い出」を追加しました（各順位発表の結果とエンディングの記録、完結画面や各アプリへの導線）。あわせて各アプリの操作の挙動を2021年当時の実物寄りに整えました――Weiboのいいね（取り消し可）とコメントの開閉・投稿、Twitterのいいね・リツイート（件数の増減つき、取り消し可）、WeChatのスレッドごとの下書き保持（一覧に[草稿]と表示され、開き直すと復元されます。WeChatに既読表示がない仕様は当時の実物どおりです）。これらの操作状態はセーブデータには含まれず、再読み込みでリセットされます。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v6追記：アプリの挙動のリアル化を続けました――ニュースは報道アプリ寄りに（新しい記事が上に並び、既読は記事を開いた時点で記事ごとに残って見出しが落ち着いた色になります。開ける記事は同時に1件だけ）。「思い出」の各順位発表カードからは、該当回の順位表へ直接ジャンプできるようになりました。Weiboの「転送」は、件数データがないため数字は作らず、タップで「転送済み」の表示とトーストだけが返ります（再タップで取り消し。状態はセッション内のみでセーブには含まれません）。史実の背骨・数値設計・セーブデータの形式は不変です。</div>
 <button class="ghost-btn" id="set-reset" style="color:#ff8296">セーブデータを消して最初から</button>`;
 $("#set-sound").onclick=e=>{ settings.sound=!settings.sound; e.target.classList.toggle("on",settings.sound); saveSettings(); if(!settings.sound) stopMusic();};
 $("#set-vol").oninput=e=>{ settings.vol=+e.target.value/100; saveSettings(); const a=$("#music-audio"); if(a) a.volume=settings.vol;};
