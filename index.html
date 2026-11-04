@@ -594,7 +594,10 @@ const TRACKS = {
  therefore:{src:"assets/music/therefore.mp3",title:"Therefore I Am",sub:"Billie Eilish｜第二次公演（公式プレビュー30秒）"},
  weixing:{src:"assets/music/weixing.mp3",title:"衛星XL（纯享版）",sub:"慶憐・胡燁韜・井汲大翔・俞更寅・栄耀 ft. Amber｜第三次公演（公式プレビュー30秒）"},
  dingyi:{src:"assets/music/dingyi.mp3",title:"定義（纯享版）",sub:"決勝グループ曲｜伯遠・甘望星・胡燁韜・井汲大翔・任胤蓬・俞更寅・羽生田挙武・張欣堯・張星特（公式プレビュー30秒）"},
- tension:{src:"assets/music/bgm-tension.mp3",title:"The Descent",sub:"順位発表BGM｜Kevin MacLeod (CC-BY)",loop:true}
+ tension:{src:"assets/music/bgm-tension.mp3",title:"The Descent",sub:"順位発表BGM｜Kevin MacLeod (CC-BY)",loop:true},
+ /* v13: 場面BGM（メディア追加フェーズ第1便）。音楽のなかった scene ステップへ、シンセサイズ生成のみのオリジナルBGM 2曲（24秒ループ）を空気で割り当てた：sanya＝日常・昼の場面、yoru＝夜・静かな場面。著作権のある楽曲そのものは使っていない。生成スクリプトとマスターは music-src/ に保管 */
+ sanya:{src:"assets/music/bgm-sanya.mp3",title:"三亜の風",sub:"場面BGM（日常）｜オリジナル生成",loop:true},
+ yoru:{src:"assets/music/bgm-yoru.mp3",title:"合宿の夜",sub:"場面BGM（夜・静かな場面）｜オリジナル生成",loop:true}
 };
 const VOICES = {
  line1:{src:"new-voices/line1-reunion.mp3",label:"0:04",text:"……なおさん？　なんでここにおるん……いや、夢ちゃうよな"},
@@ -658,7 +661,7 @@ const M = (f,t,cn)=>({f,t,cn});
 const V = (f,v)=>({f,v});
 const SYS = t=>({f:"sys",t});
 const STEPS = [
-{type:"scene",badge:"プロローグ",title:"三亜到着",desc:"2021年2月、中国・三亜。2年ぶりの再会。",
+{type:"scene",badge:"プロローグ",title:"三亜到着",desc:"2021年2月、中国・三亜。2年ぶりの再会。",music:"sanya",
 loc:"2021年2月 · 中国・三亜（海南島）創造営の合宿施設",
 pages:[
 `南国の日差し。ヤシの木と、白い合宿棟。
@@ -704,7 +707,7 @@ choices:[
 {label:"「中国語、困ったらすぐ頼って。通訳も仕事のうち」",fx:{trust:5,pop:2},reply:[M("hiroto","頼りにしてる。……ありがとう、なおさん")],note:"信頼度が上がった"},
 {label:"「愛称に負けないくらい、実力で呼ばれるようになろう」",fx:{mental:4,score:3},reply:[M("hiroto","……うん。それが一番かっこいいよな")],note:"本人の闘志に火がついた"}
 ]},
-{type:"scene",badge:"第1章",title:"JBOYZ集結",desc:"田口馨也・隅田隼平と合流",
+{type:"scene",badge:"第1章",title:"JBOYZ集結",desc:"田口馨也・隅田隼平と合流",music:"sanya",
 loc:"合宿棟 · ロビー",
 pages:[
 `荷物を置いてロビーに出ると、聞き覚えのある声。
@@ -771,7 +774,7 @@ choices:[
 {label:"「大翔は大翔の武器で戦おう」と声をかける",fx:{trust:4,mental:2},reply:[M("hiroto","うん。……俺は俺のやり方で")],note:"信頼度が上がった"}
 ]},
 {type:"support",phase:1,badge:"裏側の仕事",title:"サポート作戦室（1）",desc:"第一次公演に向けて、裏側の手を配分しよう"},
-{type:"scene",badge:"第3章",title:"一公の練習",desc:"「Lover Boy 88」進步男孩兒",
+{type:"scene",badge:"第3章",title:"一公の練習",desc:"「Lover Boy 88」進步男孩兒",music:"sanya",
 loc:"練習室 · 第一次公演チーム「進步男孩兒」",
 pages:[
 `第一次公演のチーム分け。大翔が選ばれたのは「Lover Boy 88」。
@@ -836,7 +839,7 @@ choices:[
 {label:"チームの集合写真を公式SNS用に手配する",fx:{pop:5},reply:[M("jiayuan","やった！　思い出残る！")],note:"チームの注目度が上がった"},
 {label:"「次は主題曲。今日は早く休んで」",fx:{mental:4},reply:[M("xingte","はーい、寝ます")],note:"コンディションが整った"}
 ]},
-{type:"scene",badge:"第4章",title:"バックステージ",desc:"慶憐・胡燁韜・周柯宇と",
+{type:"scene",badge:"第4章",title:"バックステージ",desc:"慶憐・胡燁韜・周柯宇と",music:"sanya",
 loc:"公演後 · バックステージ",
 pages:[
 `公演後のバックステージ。対戦相手だった「Radio」組の慶憐が、大翔に声をかけた。
@@ -877,7 +880,7 @@ choices:[
 {label:"「落ちたのはクラスだけ。票はこれから取り返す」",fx:{mental:6,score:2},replyNote:"落ち込みから立て直した"},
 {label:"何も言わず、温かい飲み物を差し入れる",fx:{trust:6},replyNote:"静かな支えが届いた"}
 ],addWeibo:["w7"]},
-{type:"scene",badge:"第5章",title:"二創と獅子舞",desc:"伯遠たちと「如獅添翼」",
+{type:"scene",badge:"第5章",title:"二創と獅子舞",desc:"伯遠たちと「如獅添翼」",music:"sanya",
 loc:"練習棟 · 主題曲二創ステージ準備",
 pages:[
 `主題曲の二創（二時創作）ステージ。大翔は伯遠、佐藤永翔、頼耀翔らと「如獅添翼」チームを組み、主題曲を獅子舞（舞獅）のパフォーマンスにアレンジした。
@@ -909,7 +912,7 @@ script:[
 {who:"hiroto",text:"……ありがとう。ほんまに、ここまで来れたのは――いや、明日ちゃんと、結果で返すわ。おやすみ、なおさん"}
 ]},
 {type:"rank",badge:"第6章",title:"第1回順位発表",desc:"運命の55人残留発表",music:"tension"},
-{type:"scene",badge:"第6章",title:"別れと約束",desc:"JBOYZの3人で",
+{type:"scene",badge:"第6章",title:"別れと約束",desc:"JBOYZの3人で",music:"yoru",
 loc:"発表後 · 合宿棟の入口",
 pages:[
 `順位発表が終わった。
@@ -925,7 +928,7 @@ pages:[
 addWeibo:["w9","w10"],addNews:["n5"],addTwitter:["tw11"]},
 {type:"fin",badge:"第1部 完",title:"第1部 完",desc:"物語は第2部へ――"},
 /* ================= 第2部 ================= */
-{type:"scene",badge:"第2部・第7章",title:"位置測評、二公の組分け",desc:"舞蹈位置で「Therefore I Am」へ",
+{type:"scene",badge:"第2部・第7章",title:"位置測評、二公の組分け",desc:"舞蹈位置で「Therefore I Am」へ",music:"sanya",
 loc:"合宿棟 · 第二次公演チーム分け",
 pages:[
 `第1回順位発表が終わり、残ったのは55人。
@@ -958,7 +961,7 @@ choices:[
 {label:"「嘉元のセンターを全員で支える形にしよう」",fx:{trust:4,score:3},reply:[M("jiayuan","ありがとう！　絶対決める")],note:"チームの結束が強まった"},
 {label:"大翔のダンスブレイクを提案する",fx:{score:4,pop:2},reply:[M("hiroto","そこ、俺の見せ場にするわ")],note:"本番の見せ場ができた"}
 ]},
-{type:"scene",badge:"第7章",title:"練習室の夜",desc:"利路修の問いかけ",
+{type:"scene",badge:"第7章",title:"練習室の夜",desc:"利路修の問いかけ",music:"yoru",
 loc:"練習室 · 夜",
 pages:[
 `練習の日々。張嘉元のギターの音色から始まる導入、5人の隊形移動、ダンスブレイク。
@@ -1039,7 +1042,7 @@ script:[
 {who:"hiroto",text:"……うん。明日、いい報告ができたらいいな。おやすみ、なおさん"}
 ]},
 {type:"rank2",badge:"第9章",title:"第2回順位発表",desc:"33人への関門",music:"tension"},
-{type:"scene",badge:"第9章",title:"自己最高の先へ",desc:"発表後の控室",
+{type:"scene",badge:"第9章",title:"自己最高の先へ",desc:"発表後の控室",music:"sanya",
 loc:"発表後 · 控室",
 pages:[
 `第2回順位発表が終わった。
@@ -1061,7 +1064,7 @@ choices:[
 {label:"浮かれず、三公の準備をすぐ始める",fx:{score:4},note:"気持ちが引き締まった"},
 {label:"今夜だけは素直に喜ぶ",fx:{mental:5,trust:2},note:"いい緊張感に変わった"}
 ],addWeibo:["w13","w14"],addNews:["n8"],addTwitter:["tw4"]},
-{type:"scene",badge:"第10章",title:"三公・主題考核の組分け",desc:"オリジナル曲「衛星XL」",
+{type:"scene",badge:"第10章",title:"三公・主題考核の組分け",desc:"オリジナル曲「衛星XL」",music:"sanya",
 loc:"合宿棟 · 第三次公演チーム分け",
 pages:[
 `残り33人。第三次公演は「主題考核」。
@@ -1124,7 +1127,7 @@ choices:[
 {label:"「大丈夫、ここまで来たんだから」",fx:{trust:5},reply:[M("hiroto","ありがとう。……信じてる")],note:"信頼度が上がった"}
 ]},
 {type:"rank3",badge:"第12章",title:"第3回順位発表",desc:"決勝へは25人",music:"tension"},
-{type:"scene",badge:"第13章",title:"決勝まで1週間",desc:"「定義」チームと、ソロ「Fun」",
+{type:"scene",badge:"第13章",title:"決勝まで1週間",desc:"「定義」チームと、ソロ「Fun」",music:"sanya",
 loc:"合宿棟 · 決勝準備期間",
 pages:[
 `決勝進出、25人。成団夜は<span class="who">2021年4月24日</span>。
@@ -1174,7 +1177,7 @@ pages:[
 あとは、結果を待つだけだ。`],
 addWeibo:["w18"],addNews:["n10"],addTwitter:["tw7"]},
 {type:"finalrank",badge:"第14章",title:"成団夜・結果発表",desc:"INTO1の11人が決まる",music:"tension"},
-{type:"scene",badge:"成団夜",title:"名前が呼ばれた夜",desc:"INTO1として",
+{type:"scene",badge:"成団夜",title:"名前が呼ばれた夜",desc:"INTO1として",music:"yoru",
 loc:"成団夜 · 控室",
 pages:[
 `発表が終わった。控室は、涙と笑顔と抱擁で溢れている。
@@ -1201,7 +1204,7 @@ choices:[
 {label:"「これからも、担当として支えるよ」",fx:{trust:6},reply:[M("hiroto","……うん。よろしくお願いします")],note:"新しい約束が生まれた"},
 {label:"「今日は仲間と喜んで。おめでとう」",fx:{mental:4},reply:[M("hiroto","ありがとう。……ほんまに、ありがとう")],note:"喜びを分かち合った"}
 ]},
-{type:"scene",badge:"後日談",title:"INTO1、始動",desc:"新しい日々と、次の約束",
+{type:"scene",badge:"後日談",title:"INTO1、始動",desc:"新しい日々と、次の約束",music:"sanya",
 loc:"成団夜の翌日以降 · 三亜",
 pages:[
 `翌日からの日々は、目まぐるしかった。
@@ -1217,7 +1220,7 @@ INTO1としての初仕事、宿舍での新しい生活、メディア対応の
 ――でも、確かに一歩、近づいていた。`],
 addTwitter:["tw8"]},
 {type:"grandfin",badge:"完",title:"完結",desc:""},
-{type:"scene",badge:"成団夜",title:"呼ばれなかった名前",desc:"11人の発表のあとで",
+{type:"scene",badge:"成団夜",title:"呼ばれなかった名前",desc:"11人の発表のあとで",music:"yoru",
 loc:"成団夜 · 控室",
 pages:[
 `成団夜。11人の名前が、すべて呼ばれた。
@@ -1233,7 +1236,7 @@ pages:[
 2年前の36位の日とは違う。今日の悔しさは、「あと少し」の悔しさだ。
 その差を埋めるものが何なのか、彼も、なおも、もう知っている。`],
 },
-{type:"scene",badge:"後日談",title:"手紙",desc:"Instagramに投稿された直筆の手紙",
+{type:"scene",badge:"後日談",title:"手紙",desc:"Instagramに投稿された直筆の手紙",music:"yoru",
 loc:"成団夜の数日後",
 pages:[
 `数日後、大翔はInstagramに一枚の写真を投稿した。
@@ -1256,7 +1259,7 @@ choices:[
 {label:"「次のステージ、必ずあるよ」",fx:{trust:5},reply:[M("hiroto","うん。……その言葉、信じて進むわ")],note:"前を向く力になった"},
 {label:"「まずは少し休んで。走り続けてきたんだから」",fx:{mental:4},reply:[M("hiroto","……ありがとう。なおさんも、休んでな")],note:"互いを労った"}
 ]},
-{type:"scene",badge:"後日談",title:"写真集『灼熱』",desc:"物語は続いていく",
+{type:"scene",badge:"後日談",title:"写真集『灼熱』",desc:"物語は続いていく",music:"sanya",
 loc:"2021年5月 · 日本",
 pages:[
 `2021年5月。大翔の1st写真集<span class="who">『灼熱』</span>が発売された。
@@ -1271,7 +1274,7 @@ pages:[
 次のステージで、また会おう。`],
 addTwitter:["tw9"]},
 {type:"grandfin",badge:"完",title:"完結",desc:""},
-{type:"scene",badge:"第12章",title:"33人の夜",desc:"第3回順位発表のあとで",jumpTo:45,
+{type:"scene",badge:"第12章",title:"33人の夜",desc:"第3回順位発表のあとで",music:"yoru",jumpTo:45,
 loc:"発表後 · 合宿棟",
 pages:[
 `第3回順位発表。大翔の名前は、決勝に進む25人の中に呼ばれなかった。
@@ -1364,7 +1367,7 @@ $("#screen-title").innerHTML=`
 <div class="ttl-sub">【 創造営編 】</div>
 <p class="ttl-desc">2019年の約束から2年――中国のオーディション『創造営2021』に挑む井汲大翔を、日本人学員サポートスタッフとして裏側から支える物語。史実の最終15位を覆し、INTO1の11人に届くか。</p>
 <div class="ttl-btns"><button class="big-btn" id="ttl-start">はじめから</button>${has?`<button class="ghost-btn" id="ttl-cont">つづきから</button>`:""}${has?`<div class="ttl-sum">${titleProgressSummary()}</div>`:""}</div>
-<div class="ttl-foot"><div class="ttl-ver">v12</div><p class="ttl-fic">※本作品は実在の番組『創造営2021』（2021・テンセント）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。</p></div>`;
+<div class="ttl-foot"><div class="ttl-ver">v13</div><p class="ttl-fic">※本作品は実在の番組『創造営2021』（2021・テンセント）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。</p></div>`;
 $("#ttl-start").onclick=titleStart;
 const cb=$("#ttl-cont"); if(cb) cb.onclick=()=>goHome(); }
 /* ---------- home ---------- */
@@ -1405,7 +1408,7 @@ let nxt=S.step+1;
 if(step.jumpTo!=null) nxt=step.jumpTo;
 if(S.pendingJump!=null){ nxt=S.pendingJump; S.pendingJump=null;}
 S.step=nxt; S.stepApplied=false; if(S.step>=STEPS.length){S.finished=true;} save(); stopMusic(); goHome();
-if(step.addWeibo||step.addNews||step.addTwitter) toast("新しい投稿・記事が届きました");}
+if(step.addWeibo||step.addNews||step.addTwitter){ playSE("recv"); toast("新しい投稿・記事が届きました");}}
 function startStep(){ const step=STEPS[S.step]; if(!step) return;
 if(step.type==="scene"||step.type==="stage"){ pageIdx=0; renderScenePage(); show("screen-scene",{t:step.title,s:step.desc}); if(step.music) playTrack(step.music);}
 else if(step.type==="talk"){ if(!S.stepApplied){ if(!S.chats[step.thread]) S.chats[step.thread]=[]; step.msgs.forEach(m=>S.chats[step.thread].push(m)); S.stepApplied=true; save();} talkDone=false; openChat(step.thread,true);}
@@ -1430,7 +1433,7 @@ $("#main").scrollTop=0;}
 $("#scene-next").onclick=()=>{ const step=STEPS[S.step]; if(!step) return;
 if(step.type==="fin"){ S.part1Done=true; S.step++; save(); goHome(); toast("第2部が解放されました"); return;}
 if(step.type==="grandfin"){ S.finished=true; save(); goHome(); return;}
- if(step.type==="rank"||step.type==="rank2"||step.type==="rank3"||step.type==="finalrank"){ completeStep(); return;}
+ if(step.type==="rank"||step.type==="rank2"||step.type==="rank3"||step.type==="finalrank"){ playSE("done"); completeStep(); return;}
 if(pageIdx<step.pages.length-1){ pageIdx++; renderScenePage();} else if(!step.choices){ completeStep();}};
 /* ---------- chat ---------- */
 let curThread=null;
@@ -1457,7 +1460,7 @@ const chBox=$("#chat-choices"); chBox.innerHTML="";
 if(isStep&&step&&step.type==="talk"&&step.thread===tid&&step.choices&&!talkDone){
 chBox.innerHTML=`<div class="choice-list" style="padding:0">${step.choices.map((c,i)=>`<button data-ci="${i}">${esc(c.label)}</button>`).join("")}</div>`;
 chBox.querySelectorAll("button").forEach(b=>b.onclick=()=>{ const c=step.choices[+b.dataset.ci];
-S.chats[tid].push({f:"me",t:c.label}); if(c.reply) c.reply.forEach(m=>S.chats[tid].push(m)); applyFx(c.fx); talkDone=true; chBox.innerHTML=""; renderChat(); save(); if(c.note) toast(c.note);
+S.chats[tid].push({f:"me",t:c.label}); playSE("send"); if(c.reply) c.reply.forEach(m=>S.chats[tid].push(m)); applyFx(c.fx); talkDone=true; chBox.innerHTML=""; renderChat(); save(); if(c.note) toast(c.note);
 setTimeout(()=>completeStep(),650);});}
 scrollChat();}
 function msgHTML(m,tid){ if(m.f==="sys") return `<div class="sysmsg">${esc(m.t)}</div>`;
@@ -1480,9 +1483,9 @@ $("#chat-send").onclick=sendFree;
 $("#chat-text").addEventListener("input",e=>{ if(curThread) SES.drafts[curThread]=e.target.value; });
 $("#chat-text").addEventListener("keydown",e=>{if(e.key==="Enter") sendFree();});
 function sendFree(){ const inp=$("#chat-text"); const t=inp.value.trim(); if(!t||!curThread) return; inp.value=""; SES.drafts[curThread]="";
-S.chats[curThread].push({f:"me",t}); renderChat(); scrollChat();
+S.chats[curThread].push({f:"me",t}); playSE("send"); renderChat(); scrollChat();
 if(curThread==="hiroto"&&S.freeReplies<30){ S.freeReplies++; const pool=S.ending==="debut"?["INTO1の仕事、始まったとこや","合宿とはまた違う忙しさやな","……なおさんの声、聞きたかったねん","次のステージ、見に来てな","約束、まだ続いてるからな"]:FREE_REPLIES; const r=pool[Math.floor(Math.random()*pool.length)];
-setTimeout(()=>{ S.chats.hiroto.push({f:"hiroto",t:r}); if(curThread==="hiroto"){renderChat(); scrollChat();} save();},700);}
+setTimeout(()=>{ S.chats.hiroto.push({f:"hiroto",t:r}); playSE("recv"); if(curThread==="hiroto"){renderChat(); scrollChat();} save();},700);}
 save();}
 /* ---------- weibo / news ---------- */
 /* v11点検：Weibo／ニュースの時刻表記は相対表示（○分前／○時間前／昨日）にせず、現行の日付表記のまま据え置く。理由は2点。(1)投稿・記事のデータは日付のみで時刻を持たない（Weiboは「2月17日」、ニュースは「2021年2月17日」）。実物の相対表示は実時刻のタイムスタンプが前提で、○分前・○時間前を付けるには時刻の創作が要る。(2)相対化には作中の「今日」が必要だが、本作の「今日」はセーブに記録されておらず、実在する日付アンカーは順位発表日や一部の場面の loc などに点在するだけ。最後に届いた投稿の日付を「今日」と仮置きしても、見返し時点の物語時間とはずれ続け、「○日前」が実態と合わない表示になる。日付ラベルはデータそのもので正確なため、そのまま使うのが実物寄せとして正しい（v8のWeChat時刻ラベル判断と同根。Twitterも同じ日付のみの形式のため同様に据え置く） */
@@ -1499,7 +1502,7 @@ document.querySelectorAll("[data-wblike]").forEach(el=>el.onclick=()=>{ const id
 /* v6: 転送は件数データを持たないため、数字は作らずトグル＋トーストの感触だけを返す（セッション内のみ） */
 document.querySelectorAll("[data-wbre]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wbre; SES.wbRe[id]=!SES.wbRe[id]; toast(SES.wbRe[id]?"転送しました":"転送を取り消しました"); renderWeibo();});
 document.querySelectorAll("[data-wbcmt]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wbcmt; SES.wbOpen[id]=!SES.wbOpen[id]; renderWeibo();});
-document.querySelectorAll("[data-wbsend]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wbsend; const inp=document.querySelector(`[data-wbin="${id}"]`); const t=inp?inp.value.trim():""; if(!t) return; (SES.wbCmt[id]=SES.wbCmt[id]||[]).push(t); renderWeibo();});
+document.querySelectorAll("[data-wbsend]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wbsend; const inp=document.querySelector(`[data-wbin="${id}"]`); const t=inp?inp.value.trim():""; if(!t) return; (SES.wbCmt[id]=SES.wbCmt[id]||[]).push(t); playSE("send"); renderWeibo();});
 S.weibo.forEach(w=>{if(!S.seenWeibo.includes(w)) S.seenWeibo.push(w);}); save();}
 /* v6: 報道アプリ寄りの挙動――一覧は新しい記事が上、既読は「記事を開いた時点」で記事ごとに残り（既存の seenNews をそのまま使う）、開ける記事は同時に1件だけ。記事の文面は不変 */
 function renderNews(){ const ids=S.news.slice().reverse();
@@ -1627,7 +1630,7 @@ S.sup[STEPS[S.step].phase]=Object.assign({},supAlloc); S.score+=pts;
 if(supAlloc.care>=3) S.mental=Math.min(100,S.mental+4);
 if(supAlloc.talk>=3) S.trust=Math.min(100,S.trust+4);
 if(supAlloc.weibo>=3) S.pop=Math.min(100,S.pop+5);
-save(); toast(`裏側サポート +${pts}pt が大翔の追い風になります`); completeStep();};
+save(); playSE("done"); toast(`裏側サポート +${pts}pt が大翔の追い風になります`); completeStep();};
 upd();}
 function openSupportApp(){ const step=STEPS[S.step];
 if(step&&step.type==="support"){ startStep(); return;}
@@ -1737,14 +1740,16 @@ $("#scene-choices").innerHTML=""; const nx=$("#scene-next"); nx.style.display="b
 /* ---------- settings ---------- */
 function renderSettings(){ $("#settings-body").innerHTML=`
 <div class="set-row"><div class="grow">サウンド（音楽）</div><button class="switch ${settings.sound?"on":""}" id="set-sound"></button></div>
+<div class="set-row"><div class="grow">効果音</div><button class="switch ${settings.se!==false?"on":""}" id="set-se"></button></div>
 <div class="set-row"><div>音量</div><input type="range" id="set-vol" min="0" max="100" value="${Math.round(settings.vol*100)}"></div>
 <button class="ghost-btn" id="set-about">この作品について</button>
 <div class="about-txt" id="about-box" style="display:none">
 『担当をデビューさせる件』は、実在の番組『創造営2021』（2021・テンセントビデオ）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。<br>
 音楽：課題曲はiTunes公式プレビュー（30秒）を使用しています（HIP -Japanese ver.-／MAMAMOO、Lover Boy 88（纯享版）／進步男孩兒、我們一起闖／創造営2021学員）。順位発表BGM："The Descent" by Kevin MacLeod (CC-BY)。写真はPinterest等で流通している各学員の写真を使用しています（本人の最終確認は実機目視によります）。<br>
-ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。<br>v4追記：物語の内容を増補しました（主題曲考核後の廊下、二創「如獅添翼」の稽古、第2回順位発表後の控室、決勝1週間の夜練、第3回発表で離営する夜の場面に会話を追加。第2回発表前夜の通話とトーク4件に往復を追加し、Weibo／Twitter／ニュースにも新規の投稿・記事を追加）。史実の背骨・数値設計・セーブデータの形式はv3から不変です。<br>v5追記：完結後の見返し面「思い出」を追加しました（各順位発表の結果とエンディングの記録、完結画面や各アプリへの導線）。あわせて各アプリの操作の挙動を2021年当時の実物寄りに整えました――Weiboのいいね（取り消し可）とコメントの開閉・投稿、Twitterのいいね・リツイート（件数の増減つき、取り消し可）、WeChatのスレッドごとの下書き保持（一覧に[草稿]と表示され、開き直すと復元されます。WeChatに既読表示がない仕様は当時の実物どおりです）。これらの操作状態はセーブデータには含まれず、再読み込みでリセットされます。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v6追記：アプリの挙動のリアル化を続けました――ニュースは報道アプリ寄りに（新しい記事が上に並び、既読は記事を開いた時点で記事ごとに残って見出しが落ち着いた色になります。開ける記事は同時に1件だけ）。「思い出」の各順位発表カードからは、該当回の順位表へ直接ジャンプできるようになりました。Weiboの「転送」は、件数データがないため数字は作らず、タップで「転送済み」の表示とトーストだけが返ります（再タップで取り消し。状態はセッション内のみでセーブには含まれません）。あわせて各アプリのアイコンを2021年当時の実物に合わせて棚卸ししました――WeChatは鮮やかな緑に白の二重吹き出し、微博は橙から赤のグラデーションに白い目のロゴ、Twitterは当時の青（#1DA1F2）に白い鳥（Xロゴではありません）。ニュース・設定など当時のままのものは据え置きです。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v7追記：表記と初期表示の細部を実物寄りに整えました――順位表は、ホームから開いたときは最新の到達回のタブで開くようになりました（「思い出」からのジャンプ時だけ、その回のタブで開きます）。Weiboの投稿元（来自）表記は投稿者の立場で出し分けるようにしました（公式やメディアの運用アカウントは微博网页版、ファン系の投稿は端末にばらつきを持たせています）。ニュースの出典表記も、媒体名の形式にそろえました。いずれも記事・投稿の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v8追記：アプリのリアル化を続けました――Weiboの認証バッジ（V）は、公式だけでなくメディア・まとめ系のアカウント（鹅厂追星日记、选秀显微镜）にも付くよう実物にそろえました（ファン系のアカウントには付けていません）。順位表は、開いたときに大翔の行が見える位置まで自動で寄るようになりました。トーク一覧の時刻ラベルは点検の結果、据え置きです――WeChat実物の「当日は時刻／昨日は『昨日』／それ以前は日付」という出し分けにはメッセージの送信日時のデータが必要ですが、本作にはそのデータがなく、日付を作らない方針のため空欄のままにしています。いずれも表示と挙動のみの変更で、記事・投稿の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v9追記：アプリのリアル化を続けました――トーク一覧は実物WeChatと同じく、最後にメッセージが届いたスレッドが上に来る並びになりました（並び順は進行状況から導出するため、セーブデータの形式は不変です）。Twitterの認証バッジは点検の結果、付けていません――表示されるアカウントはすべてファンの方のもので、2021年当時の認証バッジは公式・メディア等が対象だったためです（Weibo側でファン系に付けなかった判断と同じです）。順位発表シーンの順位リストも点検し、行が順に現れる発表の演出を優先して、順位表アプリのような自動スクロールは入れないことにしました。いずれも記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v10追記：アプリのリアル化を続けました――グループトークの一覧プレビューは、実物WeChatどおり「送信者名：メッセージ」の形になりました（自分の送信には名前は付きません。1対1は従来どおり）。順位表アプリでは行の遅延ずらし表示をなくし、開いたときに全行がすぐ表示されるようにしました（順位発表シーンの演出は従来どおりです）。チャット画面の日付区切りは点検の結果、入れていません――メッセージの日時データが本作になく、ステップの境目もセーブに残らないため、付けると日付の創作になってしまうためです（v8の時刻ラベルの判断と同じ考え方です）。いずれも表示と挙動のみの変更で、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v11追記：タイトル画面を新設しました――日プ編・ボイプラ編と作法をそろえ、起動するとまずタイトル（作品名・版数表示）が表示され、「はじめから」「つづきから（セーブがある場合）」からホームへ入ります。セーブデータの形式は不変で、タイトルを経由しても物語の始まり方や結果は従来どおりです。順位表アプリの行は、フェードインも切って開いた瞬間にそのまま表示されるようにしました（順位発表シーンの演出は従来どおりです）。トーク一覧の未読バッジと、Weibo・ニュースの「○分前」のような相対時刻の表記は、点検の結果入れていません――トークはメッセージが届くと同時にその画面が開く作りのため「届いたのに未読」という状態が発生せず、投稿・記事には日付だけがあって時刻のデータがなく、作中の「今日」も定まらないため、付けると日付・時刻の創作になってしまうためです（v8の時刻ラベルの判断と同じ考え方です）。いずれも表示と挙動のみの変更で、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v12追記：タイトル画面の「つづきから」に、いまの進行（第○部と現在の場面名、完結済みならエンディング名）が表示されるようになりました。表示はセーブデータの実データの言い換えだけで、新しい数字・日付は作っていません。ホームからタイトルへ戻る導線は点検の結果、作っていません――起動時は常にタイトルから入るためいつでも再読み込みで戻れ、「最初から」は設定のデータ消去で代替でき、姉妹作（ボイプラ編・日プ編）にも一般導線としては存在しない作法にそろえています。ステータスバーの時刻も点検の結果、実時刻のままです――姉妹作のステータスバーも実時刻で、作中の時刻を使うのはロック画面だけですが本作にロック画面はなく、場面に時刻のデータ自体がないため、作ると時刻の創作になってしまいます（v8・v11の判断と同じ考え方です）。あわせて表示デザインの棚卸しを行いました――明るい画面（トークやWeiboなど）は背景が画面いっぱいに届くようにし、ホームのアプリのアイコンは、作中オリジナルの6つ（ニュース／サポート室／順位表／メンバー／思い出／設定）を絵文字から白い描画アイコンに替えてタイルの色も澄んだ色合いにそろえました。タイトル画面には金の光だまりと罫を足し、ボタン類にも面の陰影を付けています。世界観（濃紺×金）と2021年当時の仕様はそのままに、作りの丁寧さだけを姉妹作の水準に寄せたもので、物語の文面や機能の挙動には触れていません。いずれも表示と判断のみで、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。</div>
+ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。<br>v4追記：物語の内容を増補しました（主題曲考核後の廊下、二創「如獅添翼」の稽古、第2回順位発表後の控室、決勝1週間の夜練、第3回発表で離営する夜の場面に会話を追加。第2回発表前夜の通話とトーク4件に往復を追加し、Weibo／Twitter／ニュースにも新規の投稿・記事を追加）。史実の背骨・数値設計・セーブデータの形式はv3から不変です。<br>v5追記：完結後の見返し面「思い出」を追加しました（各順位発表の結果とエンディングの記録、完結画面や各アプリへの導線）。あわせて各アプリの操作の挙動を2021年当時の実物寄りに整えました――Weiboのいいね（取り消し可）とコメントの開閉・投稿、Twitterのいいね・リツイート（件数の増減つき、取り消し可）、WeChatのスレッドごとの下書き保持（一覧に[草稿]と表示され、開き直すと復元されます。WeChatに既読表示がない仕様は当時の実物どおりです）。これらの操作状態はセーブデータには含まれず、再読み込みでリセットされます。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v6追記：アプリの挙動のリアル化を続けました――ニュースは報道アプリ寄りに（新しい記事が上に並び、既読は記事を開いた時点で記事ごとに残って見出しが落ち着いた色になります。開ける記事は同時に1件だけ）。「思い出」の各順位発表カードからは、該当回の順位表へ直接ジャンプできるようになりました。Weiboの「転送」は、件数データがないため数字は作らず、タップで「転送済み」の表示とトーストだけが返ります（再タップで取り消し。状態はセッション内のみでセーブには含まれません）。あわせて各アプリのアイコンを2021年当時の実物に合わせて棚卸ししました――WeChatは鮮やかな緑に白の二重吹き出し、微博は橙から赤のグラデーションに白い目のロゴ、Twitterは当時の青（#1DA1F2）に白い鳥（Xロゴではありません）。ニュース・設定など当時のままのものは据え置きです。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v7追記：表記と初期表示の細部を実物寄りに整えました――順位表は、ホームから開いたときは最新の到達回のタブで開くようになりました（「思い出」からのジャンプ時だけ、その回のタブで開きます）。Weiboの投稿元（来自）表記は投稿者の立場で出し分けるようにしました（公式やメディアの運用アカウントは微博网页版、ファン系の投稿は端末にばらつきを持たせています）。ニュースの出典表記も、媒体名の形式にそろえました。いずれも記事・投稿の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v8追記：アプリのリアル化を続けました――Weiboの認証バッジ（V）は、公式だけでなくメディア・まとめ系のアカウント（鹅厂追星日记、选秀显微镜）にも付くよう実物にそろえました（ファン系のアカウントには付けていません）。順位表は、開いたときに大翔の行が見える位置まで自動で寄るようになりました。トーク一覧の時刻ラベルは点検の結果、据え置きです――WeChat実物の「当日は時刻／昨日は『昨日』／それ以前は日付」という出し分けにはメッセージの送信日時のデータが必要ですが、本作にはそのデータがなく、日付を作らない方針のため空欄のままにしています。いずれも表示と挙動のみの変更で、記事・投稿の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v9追記：アプリのリアル化を続けました――トーク一覧は実物WeChatと同じく、最後にメッセージが届いたスレッドが上に来る並びになりました（並び順は進行状況から導出するため、セーブデータの形式は不変です）。Twitterの認証バッジは点検の結果、付けていません――表示されるアカウントはすべてファンの方のもので、2021年当時の認証バッジは公式・メディア等が対象だったためです（Weibo側でファン系に付けなかった判断と同じです）。順位発表シーンの順位リストも点検し、行が順に現れる発表の演出を優先して、順位表アプリのような自動スクロールは入れないことにしました。いずれも記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v10追記：アプリのリアル化を続けました――グループトークの一覧プレビューは、実物WeChatどおり「送信者名：メッセージ」の形になりました（自分の送信には名前は付きません。1対1は従来どおり）。順位表アプリでは行の遅延ずらし表示をなくし、開いたときに全行がすぐ表示されるようにしました（順位発表シーンの演出は従来どおりです）。チャット画面の日付区切りは点検の結果、入れていません――メッセージの日時データが本作になく、ステップの境目もセーブに残らないため、付けると日付の創作になってしまうためです（v8の時刻ラベルの判断と同じ考え方です）。いずれも表示と挙動のみの変更で、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v11追記：タイトル画面を新設しました――日プ編・ボイプラ編と作法をそろえ、起動するとまずタイトル（作品名・版数表示）が表示され、「はじめから」「つづきから（セーブがある場合）」からホームへ入ります。セーブデータの形式は不変で、タイトルを経由しても物語の始まり方や結果は従来どおりです。順位表アプリの行は、フェードインも切って開いた瞬間にそのまま表示されるようにしました（順位発表シーンの演出は従来どおりです）。トーク一覧の未読バッジと、Weibo・ニュースの「○分前」のような相対時刻の表記は、点検の結果入れていません――トークはメッセージが届くと同時にその画面が開く作りのため「届いたのに未読」という状態が発生せず、投稿・記事には日付だけがあって時刻のデータがなく、作中の「今日」も定まらないため、付けると日付・時刻の創作になってしまうためです（v8の時刻ラベルの判断と同じ考え方です）。いずれも表示と挙動のみの変更で、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v12追記：タイトル画面の「つづきから」に、いまの進行（第○部と現在の場面名、完結済みならエンディング名）が表示されるようになりました。表示はセーブデータの実データの言い換えだけで、新しい数字・日付は作っていません。ホームからタイトルへ戻る導線は点検の結果、作っていません――起動時は常にタイトルから入るためいつでも再読み込みで戻れ、「最初から」は設定のデータ消去で代替でき、姉妹作（ボイプラ編・日プ編）にも一般導線としては存在しない作法にそろえています。ステータスバーの時刻も点検の結果、実時刻のままです――姉妹作のステータスバーも実時刻で、作中の時刻を使うのはロック画面だけですが本作にロック画面はなく、場面に時刻のデータ自体がないため、作ると時刻の創作になってしまいます（v8・v11の判断と同じ考え方です）。あわせて表示デザインの棚卸しを行いました――明るい画面（トークやWeiboなど）は背景が画面いっぱいに届くようにし、ホームのアプリのアイコンは、作中オリジナルの6つ（ニュース／サポート室／順位表／メンバー／思い出／設定）を絵文字から白い描画アイコンに替えてタイルの色も澄んだ色合いにそろえました。タイトル画面には金の光だまりと罫を足し、ボタン類にも面の陰影を付けています。世界観（濃紺×金）と2021年当時の仕様はそのままに、作りの丁寧さだけを姉妹作の水準に寄せたもので、物語の文面や機能の挙動には触れていません。いずれも表示と判断のみで、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v13追記：メディア追加を始めました――音楽のなかった場面に、生成したオリジナルBGM2曲（日常・昼の場面に「三亜の風」、夜や静かな場面に「合宿の夜」。いずれも合成生成のみの24秒ループで、著作権のある楽曲そのものは使っていません）を割り当てました。あわせて短い効果音3種（送信・受信・確定）も生成し、トークの送信と返信の到着、新しい投稿・記事の到着、サポート配分の確定と順位発表の「結果を受け止める」にだけ鳴るようにしました（設定に「効果音」のオン・オフを追加し、音量は音楽の音量に連動します。効果音の設定は設定データ側に持ち、セーブデータの形式は不変です）。本人の許可写真5枚は点検の結果、本作では使っていません――本作には、なお本人が自分の写真を投稿する面がなく（Twitterはファンの声専用、Weiboはコメントのみ、トークは学員との連絡）、裏側スタッフという設定のうえでも置き場がないためです（本人のアカウントのトプ画に使わない原則も不変です）。ボイスの追加候補（成団夜の台詞など）は棚卸しだけに留めました――音声生成の共有枠の残量がごくわずかで、新規生成は見送っています。いずれも音と判断の層のみで、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。</div>
 <button class="ghost-btn" id="set-reset" style="color:#ff8296">セーブデータを消して最初から</button>`;
 $("#set-sound").onclick=e=>{ settings.sound=!settings.sound; e.target.classList.toggle("on",settings.sound); saveSettings(); if(!settings.sound) stopMusic();};
+$("#set-se").onclick=e=>{ settings.se=!(settings.se!==false); e.target.classList.toggle("on",settings.se); saveSettings();};
 $("#set-vol").oninput=e=>{ settings.vol=+e.target.value/100; saveSettings(); const a=$("#music-audio"); if(a) a.volume=settings.vol;};
 $("#set-about").onclick=()=>{ const b=$("#about-box"); b.style.display=b.style.display==="none"?"block":"none";};
 $("#set-reset").onclick=()=>{ if(confirm("セーブデータを消して最初からやり直しますか？")){ localStorage.removeItem(SAVE_KEY); S=freshState(); save(); goHome(); toast("データをリセットしました");}};}
@@ -1765,6 +1770,12 @@ const pl=el?el.querySelector(".play"):null; if(pl) pl.textContent="⏸"; if(el) 
 va.onended=()=>{ duck(false); if(pl) pl.textContent="▶"; if(el) el.classList.remove("playing");};}
 function stopVoice(){ if(va){va.pause();} duck(false); document.querySelectorAll(".voice-bub.playing").forEach(b=>{b.classList.remove("playing"); const p=b.querySelector(".play"); if(p) p.textContent="▶";});}
 function duck(on){ if(curTrack&&ma&&!ma.paused) ma.volume=on?settings.vol*0.25:settings.vol;}
+/* ---------- sound effects ---------- */
+/* v13: 効果音（メディア追加フェーズ第1便）。本作で生成した短い合成音3種（送信 se-send 0.15秒／受信 se-recv 0.35秒／確定 se-done 0.65秒）を playSE で鳴らす。場面は節目に絞った：自分の送信（トークの選択肢送信・自由送信・Weiboコメント送信）、受信（自由送信への返信の到着・新しい投稿／記事／ツイートの到着）、確定（サポート配分の確定・順位発表の「結果を受け止める」）。音楽・ボイスとは別の Audio で鳴らすため、再生中の曲やボイスを妨げない。オン・オフは設定側（SET_KEY）の settings.se で持ち、セーブデータ（chuang-uragawa-save-v1）には入れない。旧設定データに se が無い場合はオン扱い（settings.se===false のときだけ鳴らさない）。音量は音楽の音量（settings.vol）×0.6 に連動する。
+   あわせて v13 の棚卸し結果を恒常記録する：(1) 本人の許可写真5枚は本作では使わない――本作には、なお本人が自分の写真を投稿する面が存在しない（Twitterは「日本のファンの声」専用で本人の投稿機能なし、Weiboはコメント投稿のみで写真添付なし、トークは学員との連絡で本人の私写真を送る場面が物語にない）。投稿面の新設は物語・機能の新設に踏み込むためメディア追加（音・画像の層）の範囲を超える。なお本人のアカウントのトプ画に使わない原則も不変。(2) ボイスの追加は棚卸しのみ――候補は成団夜（デビュー側）の「……なおさん。俺、デビューするんやな」（約4〜6秒見込み）と「次の約束、決めていい？　俺がもっと大きなステージに立つところを、見ててな」（約7〜10秒見込み）、非デビュー側「手紙」の「……見せるわ。必ず」（約2〜3秒見込み）。AnyVoice 共有枠の残量が残り約4秒しかなく、3本合計（約13〜19秒）はおろか大半の単体も入らないため、本便では生成しない。既存ボイス4本の再生成もしない */
+const SE_SRC={send:"assets/se/se-send.mp3",recv:"assets/se/se-recv.mp3",done:"assets/se/se-done.mp3"};
+const seCache={};
+function playSE(name){ if(settings.se===false) return; const src=SE_SRC[name]; if(!src) return; try{ let a=seCache[name]; if(!a){ a=new Audio(src); seCache[name]=a; } a.volume=Math.min(1,settings.vol*0.6); a.currentTime=0; a.play().catch(()=>{}); }catch(e){} }
 /* ---------- init ---------- */
 function tickClock(){ const d=new Date(); $("#sb-time").textContent=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");}
 setInterval(tickClock,20000); tickClock();
