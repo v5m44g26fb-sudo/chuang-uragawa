@@ -51,6 +51,7 @@ main::-webkit-scrollbar{display:none}
 .appicon[data-app="rank"] .ic{background:linear-gradient(150deg,#6e5410,#453a0d)}
 .appicon[data-app="members"] .ic{background:linear-gradient(150deg,#37306e,#241d4e)}
 .appicon[data-app="settings"] .ic{background:linear-gradient(150deg,#33506e,#1d3049)}
+.appicon[data-app="memories"] .ic{background:linear-gradient(150deg,#8e5a2b,#54340f)}
 .appicon span{font-size:11.5px;color:var(--sub);font-weight:500}
 .appicon .bdg{position:absolute;top:-5px;right:calc(50% - 36px);background:#ff4d5e;color:#fff;font-size:10.5px;border-radius:999px;padding:1.5px 6.5px;font-weight:800;border:2px solid #0b1a33;z-index:2}
 #stat-strip{margin:12px 16px 0;background:linear-gradient(165deg,rgba(30,53,96,.65),rgba(18,35,61,.9));border:1px solid var(--line-soft);border-radius:18px;padding:15px 16px 13px;font-size:12px;color:var(--sub);box-shadow:var(--shadow)}
@@ -129,6 +130,27 @@ main::-webkit-scrollbar{display:none}
 .post .pb{font-size:14px;line-height:1.85}
 .post .pb .tag{color:#6db3ff}
 .post .pf{color:var(--sub);font-size:12px;margin-top:11px;padding-top:10px;border-top:1px solid rgba(36,64,107,.5);display:flex;gap:20px}
+.post .pf span{cursor:pointer;user-select:none}
+.post .pf .wb-on{color:#ff6a3d;font-weight:700}
+.wb-cmts{margin-top:10px;border-top:1px dashed rgba(36,64,107,.5);padding-top:9px}
+.wb-cmt{font-size:12.5px;line-height:1.7;color:#cfe0f5;padding:3px 0}
+.wb-cmt b{color:var(--txt)}
+.wb-cmt-form{display:flex;gap:8px;margin-top:8px}
+.wb-cmt-form input{flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);border-radius:99px;color:var(--txt);padding:8px 13px;font-size:13px}
+.wb-cmt-form button{background:var(--accent);color:#201303;border:none;border-radius:99px;padding:8px 14px;font-weight:700;cursor:pointer}
+.tweet .ta span{cursor:pointer;user-select:none}
+.tweet .ta .tw-fav-on{color:#e0245e;font-weight:700}
+.tweet .ta .tw-rt-on{color:#17bf63;font-weight:700}
+.draft-tag{color:#e64340;font-weight:600}
+.mem-card{margin:14px 16px;background:linear-gradient(170deg,rgba(30,53,96,.55),var(--panel));border:1px solid var(--line-soft);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+.mem-card .mt{font-size:12px;color:var(--sub2)}
+.mem-card .mh{font-weight:800;font-size:16.5px;margin-top:2px}
+.mem-card .mr{font-size:26px;font-weight:800;color:var(--accent);margin-top:7px}
+.mem-card .mf{font-size:12.5px;color:var(--sub);line-height:1.75;margin-top:5px}
+.mem-card.lock{opacity:.55}
+.mem-chip{display:inline-block;font-size:11px;font-weight:700;border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin-left:8px;color:var(--accent);vertical-align:2px}
+.mem-links{display:flex;gap:9px;margin:4px 16px 18px;flex-wrap:wrap}
+.mem-links button{flex:1;min-width:100px;background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:12px;padding:11px 6px;font-size:13px;font-weight:700;cursor:pointer}
 .news-item{margin:14px 16px;background:linear-gradient(170deg,rgba(30,53,96,.5),var(--panel));border:1px solid var(--line-soft);border-radius:18px;padding:16px;cursor:pointer;box-shadow:0 6px 18px rgba(2,8,20,.28);position:relative;transition:transform .12s}
 .news-item:active{transform:scale(.985)}
 .news-item .nh{font-weight:700;font-size:15px;line-height:1.65;padding-right:18px}
@@ -411,6 +433,8 @@ input,textarea{font-size:16px!important}
 <section class="screen" id="screen-support"><div id="support-body"></div></section>
 <!-- RANK -->
 <section class="screen" id="screen-rank"><div id="rank-body"></div></section>
+<!-- MEMORIES -->
+<section class="screen" id="screen-memories"><div id="mem-body"></div></section>
 <!-- MEMBERS -->
 <section class="screen" id="screen-members"><div id="members-body"></div></section>
 <!-- PROFILE -->
@@ -1273,6 +1297,8 @@ if(!Array.isArray(S.twitter)) S.twitter=[];
 if(!Array.isArray(S.seenTwitter)) S.seenTwitter=[];
 if(S.finished&&S.step===18&&!S.ending){S.part1Done=true; S.finished=false; S.step=19;}
 return;}}catch(e){} S=freshState();}
+/* v5: セッション内だけの操作状態（いいね・コメント・下書き）。セーブ形式には含めない */
+const SES={wbLike:{},wbOpen:{},wbCmt:{},twFav:{},twRt:{},drafts:{}};
 function toast(t){const el=$("#toast"); el.textContent=t; el.classList.add("show"); clearTimeout(el._h); el._h=setTimeout(()=>el.classList.remove("show"),2300);}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
 function avHTML(id,cls){const c=CAST[id]; if(!c) return `<div class="av-init ${cls||''}">？</div>`;
@@ -1296,6 +1322,7 @@ const APPS=[
 {id:"support",ic:"🛠️",n:"サポート室",go:()=>{openSupportApp();}},
 {id:"rank",ic:"🏆",n:"順位表",go:()=>{renderRankApp(); show("screen-rank",{t:"順位表",s:"創造営2021"});}},
 {id:"members",ic:"👥",n:"メンバー",go:()=>{renderMembers(); show("screen-members",{t:"メンバー",s:"主要学員・メンター"});}},
+{id:"memories",ic:"🌺",n:"思い出",go:()=>{renderMemories(); show("screen-memories",{t:"思い出",s:"三亜の記録"});}},
 {id:"settings",ic:"⚙️",n:"設定",go:()=>{renderSettings(); show("screen-settings",{t:"設定",s:"サウンド・データ"});}}
 ];
 function hirotoClass(){ if(S.ending==="debut") return "INTO1"; const st=S.step; if(st<8) return "B班"; if(st<12) return "A班"; return "B班";}
@@ -1355,12 +1382,14 @@ if(pageIdx<step.pages.length-1){ pageIdx++; renderScenePage();} else if(!step.ch
 let curThread=null;
 function renderChatList(){ const order=["hiroto","weixing","yuleyuan","jboyz","loverboy","nihon"].filter(tid=>tid==="hiroto"||(S.chats[tid]&&S.chats[tid].length));
 $("#chat-list").innerHTML=order.map(tid=>{const th=THREADS[tid]; const msgs=S.chats[tid]; const last=msgs[msgs.length-1];
+const draft=SES.drafts[tid];
 const pv=last?(last.v?`🎙 ${VOICES[last.v].text}`:last.t):"（まだメッセージがありません）";
 const av=th.members.length===1?avHTML(th.members[0]):avInitGroup(th);
-return `<div class="thread" data-tid="${tid}">${av}<div class="meta"><div class="nm">${th.title}</div><div class="pv">${esc(pv)}</div></div><div class="tm">${msgs.length?"":""}</div></div>`;}).join("");
+return `<div class="thread" data-tid="${tid}">${av}<div class="meta"><div class="nm">${th.title}</div><div class="pv">${draft?`<span class="draft-tag">[草稿]</span> ${esc(draft)}`:esc(pv)}</div></div><div class="tm">${msgs.length?"":""}</div></div>`;}).join("");
 document.querySelectorAll("#chat-list .thread").forEach(el=>el.onclick=()=>openChat(el.dataset.tid,false));}
 function avInitGroup(th){ return `<div class="av-init">${th.title.charAt(0)}</div>`;}
 function openChat(tid,isStep){ curThread=tid; const th=THREADS[tid]; renderChat();
+const cinp=$("#chat-text"); if(cinp) cinp.value=SES.drafts[tid]||"";
 show("screen-chat",{t:th.title,s:th.sub});
 const step=STEPS[S.step];
 const chBox=$("#chat-choices"); chBox.innerHTML="";
@@ -1386,8 +1415,9 @@ document.querySelectorAll("[data-voice]").forEach(el=>el.onclick=()=>playVoice(e
 function scrollChat(){ setTimeout(()=>{$("#main").scrollTop=$("#main").scrollHeight;},60);}
 const FREE_REPLIES=["うん、聞いてるで","ほんまに？　……ありがとう","中国語で言うたら、なんて言うんやろ","練習、もうちょい頑張るわ","なおさんの声聞いたら落ち着く","今度、食堂でおすすめ聞いてな","……内緒やけど、ちょっとだけ緊張してる","おやすみ、なおさん。また明日"];
 $("#chat-send").onclick=sendFree;
+$("#chat-text").addEventListener("input",e=>{ if(curThread) SES.drafts[curThread]=e.target.value; });
 $("#chat-text").addEventListener("keydown",e=>{if(e.key==="Enter") sendFree();});
-function sendFree(){ const inp=$("#chat-text"); const t=inp.value.trim(); if(!t||!curThread) return; inp.value="";
+function sendFree(){ const inp=$("#chat-text"); const t=inp.value.trim(); if(!t||!curThread) return; inp.value=""; SES.drafts[curThread]="";
 S.chats[curThread].push({f:"me",t}); renderChat(); scrollChat();
 if(curThread==="hiroto"&&S.freeReplies<30){ S.freeReplies++; const pool=S.ending==="debut"?["INTO1の仕事、始まったとこや","合宿とはまた違う忙しさやな","……なおさんの声、聞きたかったねん","次のステージ、見に来てな","約束、まだ続いてるからな"]:FREE_REPLIES; const r=pool[Math.floor(Math.random()*pool.length)];
 setTimeout(()=>{ S.chats.hiroto.push({f:"hiroto",t:r}); if(curThread==="hiroto"){renderChat(); scrollChat();} save();},700);}
@@ -1396,7 +1426,10 @@ save();}
 function renderWeibo(){ const tabs=`<div class="wb-tabs"><span>关注</span><span class="on">热门</span><span>超话</span><span>三亜</span></div>`;
 $("#weibo-list").innerHTML=tabs+(S.weibo.length?S.weibo.map(id=>{const p=WEIBO[id]; if(!p) return "";
 const body=p.body.replace(/#([^#]+)#/g,'<span class="tag">#$1#</span>');
-return `<div class="post"><div class="ph"><div class="av-init sm">微</div><div><div class="pn">${p.user}${p.user.includes("公式")?'<i class="vbadge">V</i>':""}</div><div class="pt">${p.time} · ${p.user.includes("公式")?"来自 微博网页版":"来自 iPhone 12"}</div></div></div><div class="pb">${body}</div><div class="pf"><span><svg viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.2em;fill:currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg> 転送</span><span>💬 コメント</span><span>👍 ${p.like}</span></div></div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ投稿がありません。ストーリーを進めると中国のSNSの反応が届きます。</p>`);
+return `<div class="post"><div class="ph"><div class="av-init sm">微</div><div><div class="pn">${p.user}${p.user.includes("公式")?'<i class="vbadge">V</i>':""}</div><div class="pt">${p.time} · ${p.user.includes("公式")?"来自 微博网页版":"来自 iPhone 12"}</div></div></div><div class="pb">${body}</div><div class="pf"><span><svg viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.2em;fill:currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg> 転送</span><span data-wbcmt="${id}">💬 コメント${SES.wbCmt[id]&&SES.wbCmt[id].length?` ${SES.wbCmt[id].length}`:""}</span><span data-wblike="${id}" class="${SES.wbLike[id]?"wb-on":""}">👍 ${p.like}</span></div>${SES.wbOpen[id]?`<div class="wb-cmts">${(SES.wbCmt[id]||[]).map(c=>`<div class="wb-cmt"><b>なお</b> ${esc(c)}</div>`).join("")}<div class="wb-cmt-form"><input data-wbin="${id}" type="text" placeholder="コメントを書く" autocomplete="off"><button data-wbsend="${id}">送信</button></div></div>`:""}</div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ投稿がありません。ストーリーを進めると中国のSNSの反応が届きます。</p>`);
+document.querySelectorAll("[data-wblike]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wblike; SES.wbLike[id]=!SES.wbLike[id]; renderWeibo();});
+document.querySelectorAll("[data-wbcmt]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wbcmt; SES.wbOpen[id]=!SES.wbOpen[id]; renderWeibo();});
+document.querySelectorAll("[data-wbsend]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wbsend; const inp=document.querySelector(`[data-wbin="${id}"]`); const t=inp?inp.value.trim():""; if(!t) return; (SES.wbCmt[id]=SES.wbCmt[id]||[]).push(t); renderWeibo();});
 S.weibo.forEach(w=>{if(!S.seenWeibo.includes(w)) S.seenWeibo.push(w);}); save();}
 function renderNews(){ $("#news-list").innerHTML=S.news.length?S.news.map(id=>{const n=NEWS[id];
 return `<div class="news-item" data-nid="${id}"><div class="nh">${n.h}</div><div class="nm2">${n.src} · ${n.time}</div><div class="nb">${n.b}</div></div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ記事がありません。</p>`;
@@ -1405,8 +1438,12 @@ S.news.forEach(n=>{if(!S.seenNews.includes(n)) S.seenNews.push(n);}); save();}
 /* ---------- twitter ---------- */
 function renderTwitter(){ $("#twitter-list").innerHTML=S.twitter.length?S.twitter.map(id=>{const t=TWITTER[id]; if(!t) return "";
 const body=t.body.replace(/#([^\s#]+)/g,'<span class="tag">#$1</span>');
-return `<div class="tweet"><div class="tav">${t.user.charAt(0)}</div><div style="flex:1;min-width:0"><div><span class="tn">${t.user}</span> <span class="th">@${t.handle} · ${t.time}</span></div><div class="tb">${body}</div><div class="ta"><span>💬</span><span><svg viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.2em;fill:currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg> ${t.rt}</span><span>♡ ${t.fav}</span><span>↗</span></div></div></div>`;}).join(""):`<p class="about-txt" style="padding-top:20px;color:#536471">まだツイートがありません。ストーリーを進めると日本のファンの声が届きます。</p>`;
+return `<div class="tweet"><div class="tav">${t.user.charAt(0)}</div><div style="flex:1;min-width:0"><div><span class="tn">${t.user}</span> <span class="th">@${t.handle} · ${t.time}</span></div><div class="tb">${body}</div><div class="ta"><span>💬</span><span data-twrt="${id}" class="${SES.twRt[id]?"tw-rt-on":""}"><svg viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.2em;fill:currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg> ${twRtN(id,t)}</span><span data-twfv="${id}" class="${SES.twFav[id]?"tw-fav-on":""}">${SES.twFav[id]?"♥":"♡"} ${twFavN(id,t)}</span><span>↗</span></div></div></div>`;}).join(""):`<p class="about-txt" style="padding-top:20px;color:#536471">まだツイートがありません。ストーリーを進めると日本のファンの声が届きます。</p>`;
+document.querySelectorAll("[data-twfv]").forEach(el=>el.onclick=()=>{ const id=el.dataset.twfv; SES.twFav[id]=!SES.twFav[id]; renderTwitter();});
+document.querySelectorAll("[data-twrt]").forEach(el=>el.onclick=()=>{ const id=el.dataset.twrt; SES.twRt[id]=!SES.twRt[id]; renderTwitter();});
 (S.twitter||[]).forEach(t=>{if(!S.seenTwitter.includes(t)) S.seenTwitter.push(t);}); save();}
+function twFavN(id,t){ return (parseInt(String(t.fav).replace(/,/g,""),10)+(SES.twFav[id]?1:0)).toLocaleString(); }
+function twRtN(id,t){ return (parseInt(String(t.rt).replace(/,/g,""),10)+(SES.twRt[id]?1:0)).toLocaleString(); }
 /* ---------- 全学員データ helpers ---------- */
 const MEMBERS90_MAP={}; MEMBERS90.forEach(m=>MEMBERS90_MAP[m.id]=m);
 function avInit90(id,cls){ const m=MEMBERS90_MAP[id]; const ch=m?m.name.charAt(0):"？"; return `<div class="av-init ${cls||''}">${ch}</div>`;}
@@ -1474,6 +1511,26 @@ $("#scene-body").innerHTML=`<div class="fin-card"><div style="font-size:30px">�
 <p style="color:var(--sub);font-size:12px">『担当をデビューさせる件【創造営編】』はこれで完結です。各アプリから記録（順位表・全学員データ・Weibo・Twitter・ニュース）を見返せます。サポート配分や選択を変えると、結末も変わります。</p></div>`;
 $("#scene-choices").innerHTML=""; const nx=$("#scene-next"); nx.style.display="block"; nx.textContent="ホームへ戻る";}
 
+/* ---------- memories (v5) ---------- */
+function renderMemories(){
+const card=(res,ttl,date,fact,chip)=>res?`<div class="mem-card"><div class="mt">${date}</div><div class="mh">${ttl}${chip?`<span class="mem-chip">${chip}</span>`:""}</div><div class="mr">第${res.rank}位</div><div class="mf">${res.votes.toLocaleString()}票（撑腰値）<br>${fact}</div></div>`:`<div class="mem-card lock"><div class="mt">${date}</div><div class="mh">${ttl}</div><div class="mf">―― まだ到達していません。物語を進めると、ここに結果が残ります。</div></div>`;
+let html=`<p class="about-txt" style="padding:14px 16px 0">三亜での2か月間の記録です。各順位発表の結果が、到達した順にここへ残ります。</p>`;
+html+=card(S.rankResult,"第1回順位発表","2021年3月20日","史実：17位・6,895,112票",S.rankResult?"残留":null);
+html+=card(S.rank2Result,"第2回順位発表","2021年4月10日","史実：12位・8,856,294票",S.rank2Result?"残留":null);
+html+=card(S.rank3Result,"第3回順位発表","2021年4月21日","史実：14位・3,441,630票",S.rank3Result?(S.rank3Result.rank<=25?"決勝進出":"離営"):null);
+html+=card(S.finalResult,"決勝 · 成団夜","2021年4月24日","史実：15位・5,477,202票",S.finalResult?(S.finalResult.debut?"INTO1デビュー":"あと一歩"):null);
+if(S.finished){ const e=S.ending||"almost"; const fr=S.finalResult||{}; const r3=S.rank3Result||{};
+let title,body;
+if(e==="debut"){ title="完結 ― INTO1デビュー"; body=`決勝・成団夜、大翔は <b style="color:var(--accent)">第${fr.rank}位・${(fr.votes||0).toLocaleString()}票</b> でINTO1の11人に選ばれました（史実：15位・5,477,202票）。<br>史実では約780万票あったデビュー圏との差を、あなたの裏側サポートが覆しました。`;}
+else if(e==="elim3"){ title="完結 ― 第3回順位発表"; body=`大翔は第3回順位発表で <b style="color:var(--accent)">第${r3.rank}位</b>となり、決勝には届きませんでした（史実：14位で決勝進出）。<br>それでも三亜で得たものは大きく、直筆の手紙と写真集『灼熱』へと物語は続きました。`;}
+else { title="完結 ― あと一歩"; body=`決勝・成団夜、大翔は <b style="color:var(--accent)">最終 第${fr.rank}位・${(fr.votes||0).toLocaleString()}票</b>（史実：15位・5,477,202票）。<br>デビューには届かなかったけれど、直筆の手紙と写真集『灼熱』へ続く後日談まで、彼の物語を見届けました。`;}
+html+=`<div class="fin-card" style="margin:14px 16px"><div style="font-size:30px">🌴</div><h3>${title}</h3><p>${body}</p><p>信頼度 ${S.trust}｜メンタル ${S.mental}｜注目度 ${S.pop}｜裏側サポート ${S.score}pt</p></div>`;}
+html+=`<div class="mem-links"><button id="mem-go-rank">順位表を見る</button><button id="mem-go-sup">サポートの記録</button><button id="mem-go-talk">トークを見返す</button>${S.finished&&STEPS[S.step]&&STEPS[S.step].type==="grandfin"?`<button id="mem-go-fin">完結画面をもう一度見る</button>`:""}</div>`;
+$("#mem-body").innerHTML=html;
+$("#mem-go-rank").onclick=()=>APPS.find(a=>a.id==="rank").go();
+$("#mem-go-sup").onclick=()=>APPS.find(a=>a.id==="support").go();
+$("#mem-go-talk").onclick=()=>APPS.find(a=>a.id==="talk").go();
+const finBtn=$("#mem-go-fin"); if(finBtn) finBtn.onclick=()=>{ renderGrandFin(); show("screen-scene",{t:"完結",s:"おつかれさまでした"});};}
 /* ---------- support room ---------- */
 let supAlloc=null;
 function renderSupport(phase){ supAlloc={lang:0,weibo:0,jp:0,care:0,talk:0};
@@ -1600,7 +1657,7 @@ function renderSettings(){ $("#settings-body").innerHTML=`
 <div class="about-txt" id="about-box" style="display:none">
 『担当をデビューさせる件』は、実在の番組『創造営2021』（2021・テンセントビデオ）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。<br>
 音楽：課題曲はiTunes公式プレビュー（30秒）を使用しています（HIP -Japanese ver.-／MAMAMOO、Lover Boy 88（纯享版）／進步男孩兒、我們一起闖／創造営2021学員）。順位発表BGM："The Descent" by Kevin MacLeod (CC-BY)。写真はPinterest等で流通している各学員の写真を使用しています（本人の最終確認は実機目視によります）。<br>
-ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。<br>v4追記：物語の内容を増補しました（主題曲考核後の廊下、二創「如獅添翼」の稽古、第2回順位発表後の控室、決勝1週間の夜練、第3回発表で離営する夜の場面に会話を追加。第2回発表前夜の通話とトーク4件に往復を追加し、Weibo／Twitter／ニュースにも新規の投稿・記事を追加）。史実の背骨・数値設計・セーブデータの形式はv3から不変です。</div>
+ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。<br>v4追記：物語の内容を増補しました（主題曲考核後の廊下、二創「如獅添翼」の稽古、第2回順位発表後の控室、決勝1週間の夜練、第3回発表で離営する夜の場面に会話を追加。第2回発表前夜の通話とトーク4件に往復を追加し、Weibo／Twitter／ニュースにも新規の投稿・記事を追加）。史実の背骨・数値設計・セーブデータの形式はv3から不変です。<br>v5追記：完結後の見返し面「思い出」を追加しました（各順位発表の結果とエンディングの記録、完結画面や各アプリへの導線）。あわせて各アプリの操作の挙動を2021年当時の実物寄りに整えました――Weiboのいいね（取り消し可）とコメントの開閉・投稿、Twitterのいいね・リツイート（件数の増減つき、取り消し可）、WeChatのスレッドごとの下書き保持（一覧に[草稿]と表示され、開き直すと復元されます。WeChatに既読表示がない仕様は当時の実物どおりです）。これらの操作状態はセーブデータには含まれず、再読み込みでリセットされます。史実の背骨・数値設計・セーブデータの形式は不変です。</div>
 <button class="ghost-btn" id="set-reset" style="color:#ff8296">セーブデータを消して最初から</button>`;
 $("#set-sound").onclick=e=>{ settings.sound=!settings.sound; e.target.classList.toggle("on",settings.sound); saveSettings(); if(!settings.sound) stopMusic();};
 $("#set-vol").oninput=e=>{ settings.vol=+e.target.value/100; saveSettings(); const a=$("#music-audio"); if(a) a.volume=settings.vol;};
