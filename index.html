@@ -23,11 +23,11 @@ header.app-head h1{font-size:16.5px;font-weight:700;margin:0;flex:1;letter-spaci
 header.app-head .sub{font-size:11px;color:var(--sub);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .backbtn{background:none;border:none;color:var(--accent2);font-size:26px;cursor:pointer;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;margin-left:-8px;border-radius:12px;transition:background .15s,transform .1s}
 .backbtn:active{background:rgba(57,208,196,.12);transform:scale(.94)}
-main{flex:1;overflow-y:auto;position:relative;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+main{flex:1;overflow:hidden;position:relative;min-height:0}
 main::-webkit-scrollbar{display:none}
 /* v12 デザイン棚卸し（見た目の層のみ。濃紺×金・2021年仕様は維持）：(1) 明色画面（トーク／Weibo等）は背景が中身の高さまでしか伸びず下に紺が露出して未完成に見えたため、.screen に min-height:100% を与えて各画面の背景が表示領域いっぱいに届く形へ。(2) ホームのアイコンタイルは、作中オリジナルアプリが泥色グラデーション＋素の絵文字で、作り込まれたブランドSVGと並ぶと質感が断絶していたため、ニュース／サポート室／順位表／メンバー／思い出／設定のグリフを白のSVG描画に替え、タイルのグラデーションも各アプリの色相のまま明度・彩度を上げてそろえた。(3) タイトル画面は要素が小さく余白の死域が広かったため、金の radial グローを敷き、アバターを拡大して二重リングにし、ボタン群の上に金の罫を引いて締めた。(4) ゴーストボタンに面のグラデーションと影を足して平坦さを解消。物語の文面・機能の挙動・セーブ形式には触れていない */
-.screen{display:none;padding:0 0 calc(96px + env(safe-area-inset-bottom));min-height:100%;box-sizing:border-box}
-.screen.active{display:block;animation:scrIn .34s cubic-bezier(.22,.8,.32,1) both}
+.screen{position:absolute;inset:0;display:none;flex-direction:column;overflow:hidden;box-sizing:border-box;min-height:0}
+.screen.active{display:flex;animation:viewin .26s ease both}
 @keyframes scrIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 /* home */
 #home-hero{padding:26px 20px 6px;position:relative}
@@ -544,6 +544,45 @@ header.app-head{box-shadow:0 10px 26px rgba(2,8,20,.16)}
 /* .talkrow（一覧行部品）の寸法 */
 #chat-list .thread{padding:12px 14px 0;gap:11px}
 @media (prefers-reduced-motion: reduce){ .t-sheet .box,.ig-card{animation:none!important} .typing i{animation:none!important} }
+
+/* ===== v18: Tinder版ビュー基盤（.view）への載せ替え ===== */
+@keyframes viewin{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+.v-scroll{flex:1;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;min-height:0;padding-bottom:calc(22px + env(safe-area-inset-bottom));scrollbar-width:none}
+.v-scroll::-webkit-scrollbar{display:none}
+#screen-title.active{display:block;overflow-y:auto}
+#screen-title>*{position:relative;z-index:1}
+.ttl-kv{position:absolute!important;inset:0;z-index:0!important;background:url("assets/gen/title-kv.jpg") center/cover no-repeat;opacity:.62}
+.ttl-kv::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,20,38,.28),rgba(8,20,38,.52) 55%,rgba(8,20,38,.88))}
+#scene-choices{flex:none}
+#scene-next{flex:none}
+#chat-body{flex:1;overflow-y:auto;min-height:0;display:flex;flex-direction:column;gap:9px;padding:14px 12px 10px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#chat-body::-webkit-scrollbar{display:none}
+#chat-choices{flex:none}
+#chat-inputbar{flex:none}
+#screen-call{align-items:center}
+#screen-call #call-choices{align-self:stretch}
+/* .talkrow（一覧行部品） */
+.talkrow{display:flex;gap:11px;width:100%;padding:12px 14px 0;background:none;border:none;text-align:left;cursor:pointer;font-family:inherit;color:inherit}
+.talkrow .av,.talkrow .av-init{width:46px;height:46px;border-radius:6px;flex:none;font-size:19px}
+.talkrow .main{flex:1;min-width:0;border-bottom:1px solid #e9e9e9;padding-bottom:12px;display:block}
+#chat-list .talkrow:last-child .main{border-bottom:none}
+.talkrow .nm{display:block;font-size:15.5px;font-weight:600;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.talkrow .pv{display:block;font-size:12.5px;color:#8e8e93;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.talkrow:active{background:#ececec}
+/* .cmt（コメント行部品） */
+.cmt{display:flex;gap:8px;margin-top:8px;font-size:13px;line-height:1.5;color:#262626}
+.cmt-ava{width:26px;height:26px;border-radius:50%;background:#12315e;color:#f5c86e;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.cmt p{margin:0;flex:1;min-width:0}
+.cmt b{font-weight:700;margin-right:5px}
+/* .ig-prof（プロフィール頭部品） */
+.ig-prof{display:flex;gap:20px;align-items:center;padding:22px 18px 16px;background:linear-gradient(140deg,rgba(57,208,196,.13),rgba(255,184,77,.07) 55%,transparent);border-bottom:1px solid var(--line-soft);margin-bottom:14px}
+.ig-prof .av,.ig-prof .av-init{width:77px;height:77px;font-size:30px;flex:none;box-shadow:0 8px 22px rgba(2,8,20,.45)}
+.ig-prof .ig-name{font-size:19px;font-weight:800}
+.ig-prof .ig-sub{color:var(--sub);font-size:12px;margin-top:3px}
+.ig-stats{display:flex;gap:18px;margin-top:9px}
+.ig-stats span{font-size:11px;color:var(--sub);display:flex;flex-direction:column;gap:1px}
+.ig-stats b{font-size:14px;color:var(--ink);font-weight:800}
+@media (prefers-reduced-motion: reduce){ .screen.active{animation:none!important} }
 </style>
 </head>
 <body>
@@ -558,6 +597,7 @@ header.app-head{box-shadow:0 10px 26px rgba(2,8,20,.16)}
 <section class="screen active" id="screen-title"></section>
 <!-- HOME -->
 <section class="screen" id="screen-home">
+<div class="v-scroll" id="home-scroll">
 <div id="home-hero">
 <div class="chuang-logo"><span class="cl-a">▲</span><span class="cl-t">创造营2021</span><span class="cl-e">CHUANG 2021</span></div>
 <div class="date" id="home-date">2021年2月 · 中国・三亜</div>
@@ -572,18 +612,19 @@ header.app-head{box-shadow:0 10px 26px rgba(2,8,20,.16)}
 <div id="stat-strip"></div>
 <div id="apps"></div>
 <p class="about-txt">※本作品は実在の番組『創造営2021』（2021・テンセント）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。</p>
+</div>
 </section>
 <!-- SCENE -->
 <section class="screen" id="screen-scene">
-<div id="scene-body"></div>
+<div id="scene-body" class="v-scroll"></div>
 <div class="choice-list" id="scene-choices"></div>
 <button class="big-btn" id="scene-next">つづける</button>
 </section>
 <!-- CHAT LIST -->
-<section class="screen" id="screen-chatlist"><div id="chat-list"></div></section>
+<section class="screen" id="screen-chatlist"><div id="chat-list" class="v-scroll"></div></section>
 <!-- CHAT -->
 <section class="screen" id="screen-chat">
-<div id="chat-body"></div>
+<div id="chat-body" class="chat-scroll"></div>
 <div id="chat-choices"></div>
 <div id="chat-inputbar">
 <span class="wx-ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="#7a7a7a" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM8.5 8C9.33 8 10 8.67 10 9.5S9.33 11 8.5 11 7 10.33 7 9.5 7.67 8 8.5 8zm7 0C16.33 8 17 8.67 17 9.5S16.33 11 15.5 11 14 10.33 14 9.5 14.67 8 15.5 8zm-3.5 10.5c-2.32 0-4.38-1.13-5.66-2.86-.09-.13-.26-.16-.38-.07-.13.09-.16.26-.07.39C7.36 18.03 9.53 19.5 12 19.5s4.64-1.47 6.11-3.54c.09-.13.06-.3-.07-.39-.12-.09-.29-.06-.38.07-1.28 1.73-3.34 2.86-5.66 2.86z"/></svg></span>
@@ -593,21 +634,21 @@ header.app-head{box-shadow:0 10px 26px rgba(2,8,20,.16)}
 </div>
 </section>
 <!-- WEIBO -->
-<section class="screen" id="screen-weibo"><div id="weibo-list"></div></section>
+<section class="screen" id="screen-weibo"><div id="weibo-list" class="v-scroll"></div></section>
 <!-- NEWS -->
-<section class="screen" id="screen-news"><div id="news-list"></div></section>
+<section class="screen" id="screen-news"><div id="news-list" class="v-scroll"></div></section>
 <!-- TWITTER -->
-<section class="screen" id="screen-twitter"><div id="twitter-list"></div></section>
+<section class="screen" id="screen-twitter"><div id="twitter-list" class="v-scroll"></div></section>
 <!-- SUPPORT -->
-<section class="screen" id="screen-support"><div id="support-body"></div></section>
+<section class="screen" id="screen-support"><div id="support-body" class="v-scroll"></div></section>
 <!-- RANK -->
-<section class="screen" id="screen-rank"><div id="rank-body"></div></section>
+<section class="screen" id="screen-rank"><div id="rank-body" class="v-scroll"></div></section>
 <!-- MEMORIES -->
-<section class="screen" id="screen-memories"><div id="mem-body"></div></section>
+<section class="screen" id="screen-memories"><div id="mem-body" class="v-scroll"></div></section>
 <!-- MEMBERS -->
-<section class="screen" id="screen-members"><div id="members-body"></div></section>
+<section class="screen" id="screen-members"><div id="members-body" class="v-scroll"></div></section>
 <!-- PROFILE -->
-<section class="screen" id="screen-profile"><div id="pf-body"></div></section>
+<section class="screen" id="screen-profile"><div id="pf-body" class="v-scroll"></div></section>
 <!-- CALL -->
 <section class="screen" id="screen-call">
 <div id="call-av-wrap"></div>
@@ -619,7 +660,7 @@ header.app-head{box-shadow:0 10px 26px rgba(2,8,20,.16)}
 <button id="call-end" aria-label="通話を終了"><svg viewBox="0 0 24 24" width="30" height="30" fill="#fff" aria-hidden="true"><path d="M12 9c-1.6 0-3.22.25-4.75.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08a.996.996 0 0 1 0-1.41C2.73 9.24 6.18 7.5 12 7.5s9.27 1.74 11.71 4.17c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28a11.27 11.27 0 0 0-2.67-1.85.996.996 0 0 1-.56-.9v-3.1C15.22 9.25 13.6 9 12 9z"/></svg></button>
 </section>
 <!-- SETTINGS -->
-<section class="screen" id="screen-settings"><div id="settings-body"></div></section>
+<section class="screen" id="screen-settings"><div id="settings-body" class="v-scroll"></div></section>
 </main>
 <div id="music-bar">
 <div class="note"><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg></div><div id="music-prog"><i></i></div>
@@ -1503,8 +1544,9 @@ function nameOf(id){ if(id==="me") return "なお"; if(id==="staff") return "制
 let curScreen="screen-home";
 const SES_SCROLL={};
 /* v16: スクロール主体は環境で #main とウィンドウに分かれる（v8の恒常メモと同根）ため、読み書きは両対応にする */
-function scY(){ const m=$("#main"); return Math.max(m?m.scrollTop:0, window.scrollY||0); }
-function scTo(y){ const m=$("#main"); if(m) m.scrollTop=y; window.scrollTo(0,y); }
+function scEl(){ return document.querySelector("#"+curScreen+" .v-scroll")||document.querySelector("#"+curScreen+" .chat-scroll")||null; }
+function scY(){ const e=scEl(); return e?e.scrollTop:0; }
+function scTo(y){ const e=scEl(); if(e) e.scrollTop=y; }
 function show(id,head){ if(curScreen&&curScreen!==id) SES_SCROLL[curScreen]=scY();
 document.querySelectorAll(".screen").forEach(e=>e.classList.remove("active")); $("#"+id).classList.add("active"); curScreen=id;
 const h=$("#app-head"); if(head){h.style.display="flex"; $("#head-title").textContent=head.t||""; $("#head-sub").textContent=head.s||"";} else h.style.display="none";
@@ -1527,6 +1569,7 @@ return (p.part1Done?"第2部":"第1部")+(nm?" ― "+nm:"");}catch(e){return "";
 function titleStart(){ if(titleHasProgress()){ if(confirm("進行中のセーブデータがあります。最初から始めるとセーブは消去されます。よろしいですか？")){ localStorage.removeItem(SAVE_KEY); location.reload(); } return; } goHome(); }
 function renderTitle(){ const has=titleHasProgress();
 $("#screen-title").innerHTML=`
+<div class="ttl-kv"></div>
 <div class="chuang-logo ttl-logo"><span class="cl-a">▲</span><span class="cl-t">创造营2021</span><span class="cl-e">CHUANG 2021</span></div>
 <div class="ttl-date">2021年2月 · 中国・三亜</div>
 <div class="ttl-av">${avHTML("hiroto")}</div>
@@ -1534,7 +1577,7 @@ $("#screen-title").innerHTML=`
 <div class="ttl-sub">【 創造営編 】</div>
 <p class="ttl-desc">2019年の約束から2年――中国のオーディション『創造営2021』に挑む井汲大翔を、日本人学員サポートスタッフとして裏側から支える物語。史実の最終15位を覆し、INTO1の11人に届くか。</p>
 <div class="ttl-btns"><button class="big-btn" id="ttl-start">はじめから</button>${has?`<button class="ghost-btn" id="ttl-cont">つづきから</button>`:""}${has?`<div class="ttl-sum">${titleProgressSummary()}</div>`:""}</div>
-<div class="ttl-foot"><div class="ttl-ver">v17</div><p class="ttl-fic">※本作品は実在の番組『創造営2021』（2021・テンセント）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。</p></div>`;
+<div class="ttl-foot"><div class="ttl-ver">v18</div><p class="ttl-fic">※本作品は実在の番組『創造営2021』（2021・テンセント）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。</p></div>`;
 $("#ttl-start").onclick=titleStart;
 const cb=$("#ttl-cont"); if(cb) cb.onclick=()=>goHome(); }
 /* ---------- home ---------- */
@@ -1597,7 +1640,7 @@ $("#scene-next").style.display=last?"none":"block";
 if(last&&step.choices){ ch.innerHTML=step.choices.map((c,i)=>`<button data-ci="${i}">${esc(c.label)}</button>`).join("");
 ch.querySelectorAll("button").forEach(b=>b.onclick=()=>{const c=step.choices[+b.dataset.ci]; applyFx(c.fx); save(); if(c.note||c.replyNote) toast(c.note||c.replyNote); completeStep();});}
 else if(last){ $("#scene-next").style.display="block"; $("#scene-next").textContent="すすむ";}
-$("#main").scrollTop=0;}
+{const _sb=$("#scene-body"); if(_sb) _sb.scrollTop=0;}}
 $("#scene-next").onclick=()=>{ const step=STEPS[S.step]; if(!step) return;
 if(step.type==="fin"){ S.part1Done=true; S.step++; save(); goHome(); toast("第2部が解放されました"); return;}
 if(step.type==="grandfin"){ S.finished=true; save(); goHome(); return;}
@@ -1617,8 +1660,8 @@ let pv=last?(last.v?`${IC.mic} ${VOICES[last.v].text}`:last.t):"（まだメッ�
 /* v10: グループ（複数メンバー）のプレビューは実物WeChatどおり「送信者名：本文」にする。自分の送信とシステム表示には名前を付けない（実物の出し分けどおり）。1対1は従来どおり本文のみ */
 if(last&&th.members.length>1&&last.f!=="me"&&last.f!=="sys") pv=`${nameOf(last.f)}：${pv}`;
 const av=th.members.length===1?avHTML(th.members[0]):avInitGroup(th);
-return `<div class="thread" data-tid="${tid}">${av}<div class="meta"><div class="nm">${th.title}</div><div class="pv">${draft?`<span class="draft-tag">[草稿]</span> ${esc(draft)}`:esc(pv)}</div></div><div class="tm">${msgs.length?"":""}</div></div>`;}).join("");
-document.querySelectorAll("#chat-list .thread").forEach(el=>el.onclick=()=>openChat(el.dataset.tid,false));}
+return `<button class="talkrow" data-tid="${tid}">${av}<span class="main"><span class="nm">${th.title}</span><span class="pv">${draft?`<span class="draft-tag">[草稿]</span> ${esc(draft)}`:esc(pv)}</span></span></button>`;}).join("");
+document.querySelectorAll("#chat-list .talkrow").forEach(el=>el.onclick=()=>openChat(el.dataset.tid,false));}
 function avInitGroup(th){ return `<div class="av-init">${th.title.charAt(0)}</div>`;}
 function openChat(tid,isStep){ curThread=tid; const th=THREADS[tid]; renderChat();
 const cinp=$("#chat-text"); if(cinp) cinp.value=SES.drafts[tid]||""; updSendBtn();
@@ -1645,7 +1688,7 @@ return `<div class="bubble voice-bub" data-voice="${key}"><span class="play">${I
 /* v10点検：チャット画面内の日付区切りセパレータは入れない（据え置き）。理由は3点。(1)メッセージに送信日時のデータがない（v8で時刻ラベルを見送ったのと同根）。(2)スレッド内の「ステップ境界」の位置はセーブに記録されておらず、選択肢で増える返信の数・自由送信（sendFree）の任意追加・分岐（pendingJump）があるため、既存セーブから境界を一意に復元できない。(3)talkステップ自体に日付フィールドがなく、実在の日付アンカーは順位発表などシーン側の loc に限られる。境界の大半（公演の夜・チーム結成など）には対応する日付データが実在せず、セパレータを付けると日付の創作になるため、v6以来の「データのない数字・日付は作らない」作法とセーブ形式不変を優先する。区切りの役割は既存の SYS 表示（物語上の区切り文）が担う現行のままとする */
 function renderChat(){ const tid=curThread; $("#chat-body").innerHTML=S.chats[tid].map(m=>msgHTML(m,tid)).join("");
 document.querySelectorAll("[data-voice]").forEach(el=>el.onclick=()=>playVoice(el.dataset.voice,el));}
-function scrollChat(){ setTimeout(()=>{ const m=$("#main"); m.scrollTop=m.scrollHeight; window.scrollTo(0,document.body.scrollHeight); },60);}
+function scrollChat(){ setTimeout(()=>{ const b=$("#chat-body"); if(b) b.scrollTop=b.scrollHeight; },60);}
 const FREE_REPLIES=["うん、ちゃんと聞いてるで","え、ほんまに？　……ありがとうな","それ中国語で言うたら、なんてなるんやろ","練習、あともうちょい粘るわ","なおさんと話すと、肩の力抜けるねん","今度、食堂のおすすめ教えてな","……ここだけの話、ちょっと緊張してる","おやすみ、なおさん。明日もよろしくな"];
 $("#chat-send").onclick=sendFree;
 function updSendBtn(){ const has=($("#chat-text").value||"").trim().length>0; $("#chat-send").style.display=has?"":"none"; const wp=$("#wx-plus"); if(wp) wp.style.display=has?"none":""; }
@@ -1668,7 +1711,7 @@ const wbSrc=u=>WB_SRC[u]||"iPhone客户端";
 function renderWeibo(){ const keepY=curScreen==="screen-weibo"?scY():null; const tabs=`<div class="wb-tabs"><span>关注</span><span class="on">热门</span><span>超话</span><span>三亜</span></div>`;
 $("#weibo-list").innerHTML=tabs+(S.weibo.length?S.weibo.map(id=>{const p=WEIBO[id]; if(!p) return "";
 const body=p.body.replace(/#([^#]+)#/g,'<span class="tag">#$1#</span>');
-return `<div class="post"><div class="ph"><div class="av-init sm">微</div><div><div class="pn">${p.user}${WB_V.has(p.user)?'<i class="vbadge">V</i>':""}</div><div class="pt">${p.time} · 来自 ${wbSrc(p.user)}</div></div></div><div class="pb">${body}</div><div class="pf"><span data-wbre="${id}" class="${SES.wbRe[id]?"wb-re-on":""}"><svg viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.2em;fill:currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg> 転送${SES.wbRe[id]?"済み":""}</span><span data-wbcmt="${id}">${IC.cmt} コメント${SES.wbCmt[id]&&SES.wbCmt[id].length?` ${SES.wbCmt[id].length}`:""}</span><span data-wblike="${id}" class="${SES.wbLike[id]?"wb-on":""}">${IC.thumb} ${p.like}</span></div>${SES.wbOpen[id]?`<div class="wb-cmts">${(SES.wbCmt[id]||[]).map(c=>`<div class="wb-cmt"><b>なお</b> ${esc(c)}</div>`).join("")}<div class="wb-cmt-form"><input data-wbin="${id}" type="text" placeholder="コメントを書く" autocomplete="off"><button data-wbsend="${id}">送信</button></div></div>`:""}</div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ投稿がありません。ストーリーを進めると中国のSNSの反応が届きます。</p>`);
+return `<div class="post"><div class="ph"><div class="av-init sm">微</div><div><div class="pn">${p.user}${WB_V.has(p.user)?'<i class="vbadge">V</i>':""}</div><div class="pt">${p.time} · 来自 ${wbSrc(p.user)}</div></div></div><div class="pb">${body}</div><div class="pf"><span data-wbre="${id}" class="${SES.wbRe[id]?"wb-re-on":""}"><svg viewBox="0 0 24 24" style="width:1.1em;height:1.1em;vertical-align:-0.2em;fill:currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg> 転送${SES.wbRe[id]?"済み":""}</span><span data-wbcmt="${id}">${IC.cmt} コメント${SES.wbCmt[id]&&SES.wbCmt[id].length?` ${SES.wbCmt[id].length}`:""}</span><span data-wblike="${id}" class="${SES.wbLike[id]?"wb-on":""}">${IC.thumb} ${p.like}</span></div>${SES.wbOpen[id]?`<div class="wb-cmts">${(SES.wbCmt[id]||[]).map(c=>`<div class="cmt"><span class="cmt-ava">な</span><p><b>なお</b>${esc(c)}</p></div>`).join("")}<div class="wb-cmt-form"><input data-wbin="${id}" type="text" placeholder="コメントを書く" autocomplete="off"><button data-wbsend="${id}">送信</button></div></div>`:""}</div>`;}).join(""):`<p class="about-txt" style="padding-top:20px">まだ投稿がありません。ストーリーを進めると中国のSNSの反応が届きます。</p>`);
 document.querySelectorAll("[data-wblike]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wblike; SES.wbLike[id]=!SES.wbLike[id]; renderWeibo();});
 /* v6: 転送は件数データを持たないため、数字は作らずトグル＋トーストの感触だけを返す（セッション内のみ） */
 document.querySelectorAll("[data-wbre]").forEach(el=>el.onclick=()=>{ const id=el.dataset.wbre; SES.wbRe[id]=!SES.wbRe[id]; toast(SES.wbRe[id]?"転送しました":"転送を取り消しました"); renderWeibo();});
@@ -1871,7 +1914,7 @@ function openProfile90(id){ const m=MEMBERS90_MAP[id]; if(!m) return;
 const rn=["第1回","第2回","第3回","最終"];
 const traj=m.r.map((v,i)=>v?`<span class="tj">${rn[i]} <b>${v}位</b></span>`:"").join("");
 const castId=(m.cast&&CAST[m.cast])?m.cast:(CAST[id]?id:null);
-$("#pf-body").innerHTML=`<div class="pf-hero"><img class="av" src="assets/cast90/${id}.jpg" alt="${m.name}" onerror="this.outerHTML=avInit90('${id}')"><div><div style="font-size:20px;font-weight:800">${m.name}</div><div style="color:var(--sub);font-size:12px;margin-top:3px">${m.yomi||""}</div><div style="color:var(--sub);font-size:12px">${m.grp||""}｜${m.from||m.region||""}</div></div></div>
+$("#pf-body").innerHTML=`<div class="ig-prof"><img class="av" src="assets/cast90/${id}.jpg" alt="${m.name}" onerror="this.outerHTML=avInit90('${id}')"><div><div class="ig-name">${m.name}</div><div class="ig-sub">${m.yomi||""}</div><div class="ig-sub">${m.grp||""}｜${m.from||m.region||""}</div></div></div>
 <div class="pf-sec"><h3>順位推移（史実）</h3><div class="traj">${traj||'<span class="tj">順位発表前に離脱</span>'}</div><p>${m.res||""}</p></div>
 <div class="pf-sec"><h3>プロフィール</h3><p>${m.age!=null?"当時"+m.age+"歳":""}${m.born?"（"+m.born+"生まれ）":""}｜${m.region||""}・${m.from||""}<br>所属：${m.grp||"―"}</p></div>
 <div class="pf-sec"><h3>クラス（分班）推移</h3><p>${m.cls||"―"}</p></div>
@@ -1880,7 +1923,7 @@ ${castId?`<button class="ghost-btn" id="pf90-cast">詳しいプロフィール�
 const b=$("#pf90-cast"); if(b) b.onclick=()=>openProfile(castId);
 show("screen-profile",{t:m.name,s:"全学員データ"});}
 function openProfile(id){ const c=CAST[id]; const skn={vo:"ボーカル",da:"ダンス",ra:"ラップ",vi:"ビジュアル"};
-$("#pf-body").innerHTML=`<div class="pf-hero">${avHTML(id)}<div><div style="font-size:20px;font-weight:800">${c.name}</div><div style="color:var(--sub);font-size:12px;margin-top:3px">${c.sub}</div><div style="color:var(--sub);font-size:12px">${c.grp}｜${c.from}</div></div></div>
+$("#pf-body").innerHTML=`<div class="ig-prof">${avHTML(id)}<div><div class="ig-name">${c.name}</div><div class="ig-sub">${c.sub}</div><div class="ig-sub">${c.grp}｜${c.from}</div><div class="ig-stats"><span><b>${c.pop}</b>人気</span><span><b>${c.cls}</b>クラス推移</span></div></div></div>
 <div class="pf-sec"><h3>クラス推移</h3><p>${c.cls}</p></div>
 <div class="pf-sec"><h3>能力</h3>${Object.keys(skn).map(k=>`<div class="skill"><span class="sn">${skn[k]}</span><span class="bar"><i style="width:${c.sk[k]}%"></i></span><span class="sv">${c.sk[k]}</span></div>`).join("")}<div class="skill"><span class="sn">注目度</span><span class="bar"><i style="width:${c.pop}%"></i></span><span class="sv">${c.pop}</span></div></div>
 <div class="pf-sec"><h3>プロフィール</h3><p>${c.prof}</p></div>
@@ -1918,7 +1961,7 @@ function renderSettings(){ $("#settings-body").innerHTML=`
 <div class="about-txt" id="about-box" style="display:none">
 『担当をデビューさせる件』は、実在の番組『創造営2021』（2021・テンセントビデオ）と実在の人物を題材にしたファンメイドのIF物語です。史実をもとにしていますが、登場人物の言動や順位の変動は創作を含みます。<br>
 音楽：課題曲はiTunes公式プレビュー（30秒）を使用しています（HIP -Japanese ver.-／MAMAMOO、Lover Boy 88（纯享版）／進步男孩兒、我們一起闖／創造営2021学員）。順位発表BGM："The Descent" by Kevin MacLeod (CC-BY)。写真はPinterest等で流通している各学員の写真を使用しています（本人の最終確認は実機目視によります）。<br>
-ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。<br>v4追記：物語の内容を増補しました（主題曲考核後の廊下、二創「如獅添翼」の稽古、第2回順位発表後の控室、決勝1週間の夜練、第3回発表で離営する夜の場面に会話を追加。第2回発表前夜の通話とトーク4件に往復を追加し、Weibo／Twitter／ニュースにも新規の投稿・記事を追加）。史実の背骨・数値設計・セーブデータの形式はv3から不変です。<br>v5追記：完結後の見返し面「思い出」を追加しました（各順位発表の結果とエンディングの記録、完結画面や各アプリへの導線）。あわせて各アプリの操作の挙動を2021年当時の実物寄りに整えました――Weiboのいいね（取り消し可）とコメントの開閉・投稿、Twitterのいいね・リツイート（件数の増減つき、取り消し可）、WeChatのスレッドごとの下書き保持（一覧に[草稿]と表示され、開き直すと復元されます。WeChatに既読表示がない仕様は当時の実物どおりです）。これらの操作状態はセーブデータには含まれず、再読み込みでリセットされます。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v6追記：アプリの挙動のリアル化を続けました――ニュースは報道アプリ寄りに（新しい記事が上に並び、既読は記事を開いた時点で記事ごとに残って見出しが落ち着いた色になります。開ける記事は同時に1件だけ）。「思い出」の各順位発表カードからは、該当回の順位表へ直接ジャンプできるようになりました。Weiboの「転送」は、件数データがないため数字は作らず、タップで「転送済み」の表示とトーストだけが返ります（再タップで取り消し。状態はセッション内のみでセーブには含まれません）。あわせて各アプリのアイコンを2021年当時の実物に合わせて棚卸ししました――WeChatは鮮やかな緑に白の二重吹き出し、微博は橙から赤のグラデーションに白い目のロゴ、Twitterは当時の青（#1DA1F2）に白い鳥（Xロゴではありません）。ニュース・設定など当時のままのものは据え置きです。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v7追記：表記と初期表示の細部を実物寄りに整えました――順位表は、ホームから開いたときは最新の到達回のタブで開くようになりました（「思い出」からのジャンプ時だけ、その回のタブで開きます）。Weiboの投稿元（来自）表記は投稿者の立場で出し分けるようにしました（公式やメディアの運用アカウントは微博网页版、ファン系の投稿は端末にばらつきを持たせています）。ニュースの出典表記も、媒体名の形式にそろえました。いずれも記事・投稿の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v8追記：アプリのリアル化を続けました――Weiboの認証バッジ（V）は、公式だけでなくメディア・まとめ系のアカウント（鹅厂追星日记、选秀显微镜）にも付くよう実物にそろえました（ファン系のアカウントには付けていません）。順位表は、開いたときに大翔の行が見える位置まで自動で寄るようになりました。トーク一覧の時刻ラベルは点検の結果、据え置きです――WeChat実物の「当日は時刻／昨日は『昨日』／それ以前は日付」という出し分けにはメッセージの送信日時のデータが必要ですが、本作にはそのデータがなく、日付を作らない方針のため空欄のままにしています。いずれも表示と挙動のみの変更で、記事・投稿の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v9追記：アプリのリアル化を続けました――トーク一覧は実物WeChatと同じく、最後にメッセージが届いたスレッドが上に来る並びになりました（並び順は進行状況から導出するため、セーブデータの形式は不変です）。Twitterの認証バッジは点検の結果、付けていません――表示されるアカウントはすべてファンの方のもので、2021年当時の認証バッジは公式・メディア等が対象だったためです（Weibo側でファン系に付けなかった判断と同じです）。順位発表シーンの順位リストも点検し、行が順に現れる発表の演出を優先して、順位表アプリのような自動スクロールは入れないことにしました。いずれも記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v10追記：アプリのリアル化を続けました――グループトークの一覧プレビューは、実物WeChatどおり「送信者名：メッセージ」の形になりました（自分の送信には名前は付きません。1対1は従来どおり）。順位表アプリでは行の遅延ずらし表示をなくし、開いたときに全行がすぐ表示されるようにしました（順位発表シーンの演出は従来どおりです）。チャット画面の日付区切りは点検の結果、入れていません――メッセージの日時データが本作になく、ステップの境目もセーブに残らないため、付けると日付の創作になってしまうためです（v8の時刻ラベルの判断と同じ考え方です）。いずれも表示と挙動のみの変更で、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v11追記：タイトル画面を新設しました――日プ編・ボイプラ編と作法をそろえ、起動するとまずタイトル（作品名・版数表示）が表示され、「はじめから」「つづきから（セーブがある場合）」からホームへ入ります。セーブデータの形式は不変で、タイトルを経由しても物語の始まり方や結果は従来どおりです。順位表アプリの行は、フェードインも切って開いた瞬間にそのまま表示されるようにしました（順位発表シーンの演出は従来どおりです）。トーク一覧の未読バッジと、Weibo・ニュースの「○分前」のような相対時刻の表記は、点検の結果入れていません――トークはメッセージが届くと同時にその画面が開く作りのため「届いたのに未読」という状態が発生せず、投稿・記事には日付だけがあって時刻のデータがなく、作中の「今日」も定まらないため、付けると日付・時刻の創作になってしまうためです（v8の時刻ラベルの判断と同じ考え方です）。いずれも表示と挙動のみの変更で、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v12追記：タイトル画面の「つづきから」に、いまの進行（第○部と現在の場面名、完結済みならエンディング名）が表示されるようになりました。表示はセーブデータの実データの言い換えだけで、新しい数字・日付は作っていません。ホームからタイトルへ戻る導線は点検の結果、作っていません――起動時は常にタイトルから入るためいつでも再読み込みで戻れ、「最初から」は設定のデータ消去で代替でき、姉妹作（ボイプラ編・日プ編）にも一般導線としては存在しない作法にそろえています。ステータスバーの時刻も点検の結果、実時刻のままです――姉妹作のステータスバーも実時刻で、作中の時刻を使うのはロック画面だけですが本作にロック画面はなく、場面に時刻のデータ自体がないため、作ると時刻の創作になってしまいます（v8・v11の判断と同じ考え方です）。あわせて表示デザインの棚卸しを行いました――明るい画面（トークやWeiboなど）は背景が画面いっぱいに届くようにし、ホームのアプリのアイコンは、作中オリジナルの6つ（ニュース／サポート室／順位表／メンバー／思い出／設定）を絵文字から白い描画アイコンに替えてタイルの色も澄んだ色合いにそろえました。タイトル画面には金の光だまりと罫を足し、ボタン類にも面の陰影を付けています。世界観（濃紺×金）と2021年当時の仕様はそのままに、作りの丁寧さだけを姉妹作の水準に寄せたもので、物語の文面や機能の挙動には触れていません。いずれも表示と判断のみで、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v13追記：メディア追加を始めました――音楽のなかった場面に、生成したオリジナルBGM2曲（日常・昼の場面に「三亜の風」、夜や静かな場面に「合宿の夜」。いずれも合成生成のみの24秒ループで、著作権のある楽曲そのものは使っていません）を割り当てました。あわせて短い効果音3種（送信・受信・確定）も生成し、トークの送信と返信の到着、新しい投稿・記事の到着、サポート配分の確定と順位発表の「結果を受け止める」にだけ鳴るようにしました（設定に「効果音」のオン・オフを追加し、音量は音楽の音量に連動します。効果音の設定は設定データ側に持ち、セーブデータの形式は不変です）。本人の許可写真5枚は点検の結果、本作では使っていません――本作には、なお本人が自分の写真を投稿する面がなく（Twitterはファンの声専用、Weiboはコメントのみ、トークは学員との連絡）、裏側スタッフという設定のうえでも置き場がないためです（本人のアカウントのトプ画に使わない原則も不変です）。ボイスの追加候補（成団夜の台詞など）は棚卸しだけに留めました――音声生成の共有枠の残量がごくわずかで、新規生成は見送っています。いずれも音と判断の層のみで、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v14追記：メディア追加の締めとして、通話開始時の着信音（生成した短い合成音）を追加しました――電話の場面（全3回）が始まる瞬間に1回だけ鳴り、設定の「効果音」オン・オフと音量連動の作法は他の効果音と同じです。あわせて音まわり全体を棚卸ししました：BGMはステージ曲6曲（公式プレビュー約30秒）・順位発表BGM（45秒）・生成BGM2曲（各24秒ループ）、効果音は全4種（送信・受信・確定・着信）、ボイスは全4本で、表示している尺と実際の音源の長さ、クレジット表記がすべて一致していることを確認しました（是正が必要な食い違いはありませんでした）。トーク画面やサポート場面への場面BGMの拡張は、場面の静けさをどう扱うかの判断待ちのため、今回は入れていません。いずれも音の層のみで、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v15追記：トーク（WeChat）の文章と、その選択肢の文案だけを大改稿しました――全12件のトークのメッセージと選択肢24件の文案、選択後に届く返信、トーク内の区切り文、自由送信への返信文案（通常分とデビュー後の分）を、言い回し・温度・間合いの面で新しく書き直しています。「誰が・何を伝えるか」という情報の中身と話の流れ・順序、選択肢の数と並び、効果（撑腰値や各種フラグへの影響）はすべて従来どおりです。音声が付いているメッセージの文面は、音声と一致させるため一字も変えていません。場面文・Weibo／Twitter／ニュースなどのトーク以外の文章、史実の背骨・数値設計・セーブデータの形式も不変です。<br>v16追記：画面の作り込みを姉妹作（Tinder版）の水準まで底上げしました（見た目と操作の質感のみ）――タイトル画面は金のグローのアニメーションと題字のグラデーション、ホームのストーリーバナーには光の帯が流れる演出を足しました。場面はページ送りで文面がスライドして切り替わり、場所表示にピンの印が付きます。WeChatは実物に寄せ、吹き出しの角を6pxにして横に小さなしっぽを付け、一覧の区切り線はアバターの右から引く形にし、入力欄は文字を入れたときだけ送信ボタンが出る実物の出し分けにしました（下書きの保持は従来どおり）。Weiboのアクション行は実物どおり3分割・中央寄せ・区切り線つきにし、Twitterとあわせて、いいね等の反応でアイコンが弾む動きと、いいねやコメントを押してもスクロール位置が飛ばない保持を入れました。順位表は1〜3位の数字が金・銀・銅の丸メダルになり、順位発表以外の見返しでは大翔の行が金色に柔らかく光ります。通話画面はキー列がアイコン＋ラベルの実物の組みになり、終了ボタンも電話の描画アイコンになりました。音楽バーには再生位置のプログレス（実際の再生位置そのもの）を追加しました。UI・装飾の絵文字は全て描画アイコン（SVG）に置き換えました――対象は通話終了・音楽バーの再生／停止／音符・ボイスの再生／一時停止・WeiboとTwitterとInstagramカードのアクション・トーク一覧のボイス表示・完結カードの印・WeChat入力欄の顔／プラスの各アイコンで、物語本文・投稿文・台詞の中の絵文字や記号は文章の一部として従来どおりです。あわせて画面ごとにスクロール位置を覚えるようにし、アプリを行き来しても見ていた場所に戻れます（トーク画面と場面は従来どおり専用のスクロールです）。いずれも表示と挙動の質の変更のみで、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v17追記：各アプリの部品を、姉妹作『現役アイドル、Tinderやってた件』の実装からそのまま移植して組み直しました（土台の作りはTinder版の実装を正とし、色とブランド要素だけ本作の2021年仕様に合わせています）――トークには、返信が届くまでの「入力中…」の3点表示（LINEの部品）を入れました。設定の「この作品について」は、Tinder版のボトムシート部品（下からせり上がる白いシート＋背景タップで閉じる）で開くようになりました。Weiboのコメント欄はInstagramのコメント部品（ピルの入力欄＋テキスト色の送信ボタン）の形に、Weiboと順位表のタブは横スクロール式のタブ部品の寸法に、トークの入力バーはLINEの入力バーの寸法と安全領域の付け方に、場面・トーク・通話の選択肢は縦積みコンテナの部品の寸法に、トーストはTinder版の寸法・ぼかし・角に、それぞれ置き換えています。手紙（Instagram風カード）には投稿部品のフェードアップも移植しました。WeChatに既読表示は付けていません（WeChatの実物仕様どおりで、付けると数字・状態の創作になるためです）。物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。</div>
+ボイスは大翔役の音声生成によるものです。<br>v3追記：音楽に「Therefore I Am／Billie Eilish」「衛星XL（纯享版）」「定義（纯享版）」を追加（いずれもiTunes公式プレビュー30秒）。学員90人のデータと各順位発表の順位・票数は、Wikipedia（日本語版・中国語版）『創造営2021』『创造营2021节目列表』の史実データに基づきます。写真はWeTV公式プロフィール写真（KProfiles掲載分）を使用。画面デザインは2021年当時のWeibo／WeChat／Twitter／テンセントビデオ／iOS 14の資料を参照して再現しています。<br>v4追記：物語の内容を増補しました（主題曲考核後の廊下、二創「如獅添翼」の稽古、第2回順位発表後の控室、決勝1週間の夜練、第3回発表で離営する夜の場面に会話を追加。第2回発表前夜の通話とトーク4件に往復を追加し、Weibo／Twitter／ニュースにも新規の投稿・記事を追加）。史実の背骨・数値設計・セーブデータの形式はv3から不変です。<br>v5追記：完結後の見返し面「思い出」を追加しました（各順位発表の結果とエンディングの記録、完結画面や各アプリへの導線）。あわせて各アプリの操作の挙動を2021年当時の実物寄りに整えました――Weiboのいいね（取り消し可）とコメントの開閉・投稿、Twitterのいいね・リツイート（件数の増減つき、取り消し可）、WeChatのスレッドごとの下書き保持（一覧に[草稿]と表示され、開き直すと復元されます。WeChatに既読表示がない仕様は当時の実物どおりです）。これらの操作状態はセーブデータには含まれず、再読み込みでリセットされます。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v6追記：アプリの挙動のリアル化を続けました――ニュースは報道アプリ寄りに（新しい記事が上に並び、既読は記事を開いた時点で記事ごとに残って見出しが落ち着いた色になります。開ける記事は同時に1件だけ）。「思い出」の各順位発表カードからは、該当回の順位表へ直接ジャンプできるようになりました。Weiboの「転送」は、件数データがないため数字は作らず、タップで「転送済み」の表示とトーストだけが返ります（再タップで取り消し。状態はセッション内のみでセーブには含まれません）。あわせて各アプリのアイコンを2021年当時の実物に合わせて棚卸ししました――WeChatは鮮やかな緑に白の二重吹き出し、微博は橙から赤のグラデーションに白い目のロゴ、Twitterは当時の青（#1DA1F2）に白い鳥（Xロゴではありません）。ニュース・設定など当時のままのものは据え置きです。史実の背骨・数値設計・セーブデータの形式は不変です。<br>v7追記：表記と初期表示の細部を実物寄りに整えました――順位表は、ホームから開いたときは最新の到達回のタブで開くようになりました（「思い出」からのジャンプ時だけ、その回のタブで開きます）。Weiboの投稿元（来自）表記は投稿者の立場で出し分けるようにしました（公式やメディアの運用アカウントは微博网页版、ファン系の投稿は端末にばらつきを持たせています）。ニュースの出典表記も、媒体名の形式にそろえました。いずれも記事・投稿の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v8追記：アプリのリアル化を続けました――Weiboの認証バッジ（V）は、公式だけでなくメディア・まとめ系のアカウント（鹅厂追星日记、选秀显微镜）にも付くよう実物にそろえました（ファン系のアカウントには付けていません）。順位表は、開いたときに大翔の行が見える位置まで自動で寄るようになりました。トーク一覧の時刻ラベルは点検の結果、据え置きです――WeChat実物の「当日は時刻／昨日は『昨日』／それ以前は日付」という出し分けにはメッセージの送信日時のデータが必要ですが、本作にはそのデータがなく、日付を作らない方針のため空欄のままにしています。いずれも表示と挙動のみの変更で、記事・投稿の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v9追記：アプリのリアル化を続けました――トーク一覧は実物WeChatと同じく、最後にメッセージが届いたスレッドが上に来る並びになりました（並び順は進行状況から導出するため、セーブデータの形式は不変です）。Twitterの認証バッジは点検の結果、付けていません――表示されるアカウントはすべてファンの方のもので、2021年当時の認証バッジは公式・メディア等が対象だったためです（Weibo側でファン系に付けなかった判断と同じです）。順位発表シーンの順位リストも点検し、行が順に現れる発表の演出を優先して、順位表アプリのような自動スクロールは入れないことにしました。いずれも記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v10追記：アプリのリアル化を続けました――グループトークの一覧プレビューは、実物WeChatどおり「送信者名：メッセージ」の形になりました（自分の送信には名前は付きません。1対1は従来どおり）。順位表アプリでは行の遅延ずらし表示をなくし、開いたときに全行がすぐ表示されるようにしました（順位発表シーンの演出は従来どおりです）。チャット画面の日付区切りは点検の結果、入れていません――メッセージの日時データが本作になく、ステップの境目もセーブに残らないため、付けると日付の創作になってしまうためです（v8の時刻ラベルの判断と同じ考え方です）。いずれも表示と挙動のみの変更で、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v11追記：タイトル画面を新設しました――日プ編・ボイプラ編と作法をそろえ、起動するとまずタイトル（作品名・版数表示）が表示され、「はじめから」「つづきから（セーブがある場合）」からホームへ入ります。セーブデータの形式は不変で、タイトルを経由しても物語の始まり方や結果は従来どおりです。順位表アプリの行は、フェードインも切って開いた瞬間にそのまま表示されるようにしました（順位発表シーンの演出は従来どおりです）。トーク一覧の未読バッジと、Weibo・ニュースの「○分前」のような相対時刻の表記は、点検の結果入れていません――トークはメッセージが届くと同時にその画面が開く作りのため「届いたのに未読」という状態が発生せず、投稿・記事には日付だけがあって時刻のデータがなく、作中の「今日」も定まらないため、付けると日付・時刻の創作になってしまうためです（v8の時刻ラベルの判断と同じ考え方です）。いずれも表示と挙動のみの変更で、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v12追記：タイトル画面の「つづきから」に、いまの進行（第○部と現在の場面名、完結済みならエンディング名）が表示されるようになりました。表示はセーブデータの実データの言い換えだけで、新しい数字・日付は作っていません。ホームからタイトルへ戻る導線は点検の結果、作っていません――起動時は常にタイトルから入るためいつでも再読み込みで戻れ、「最初から」は設定のデータ消去で代替でき、姉妹作（ボイプラ編・日プ編）にも一般導線としては存在しない作法にそろえています。ステータスバーの時刻も点検の結果、実時刻のままです――姉妹作のステータスバーも実時刻で、作中の時刻を使うのはロック画面だけですが本作にロック画面はなく、場面に時刻のデータ自体がないため、作ると時刻の創作になってしまいます（v8・v11の判断と同じ考え方です）。あわせて表示デザインの棚卸しを行いました――明るい画面（トークやWeiboなど）は背景が画面いっぱいに届くようにし、ホームのアプリのアイコンは、作中オリジナルの6つ（ニュース／サポート室／順位表／メンバー／思い出／設定）を絵文字から白い描画アイコンに替えてタイルの色も澄んだ色合いにそろえました。タイトル画面には金の光だまりと罫を足し、ボタン類にも面の陰影を付けています。世界観（濃紺×金）と2021年当時の仕様はそのままに、作りの丁寧さだけを姉妹作の水準に寄せたもので、物語の文面や機能の挙動には触れていません。いずれも表示と判断のみで、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v13追記：メディア追加を始めました――音楽のなかった場面に、生成したオリジナルBGM2曲（日常・昼の場面に「三亜の風」、夜や静かな場面に「合宿の夜」。いずれも合成生成のみの24秒ループで、著作権のある楽曲そのものは使っていません）を割り当てました。あわせて短い効果音3種（送信・受信・確定）も生成し、トークの送信と返信の到着、新しい投稿・記事の到着、サポート配分の確定と順位発表の「結果を受け止める」にだけ鳴るようにしました（設定に「効果音」のオン・オフを追加し、音量は音楽の音量に連動します。効果音の設定は設定データ側に持ち、セーブデータの形式は不変です）。本人の許可写真5枚は点検の結果、本作では使っていません――本作には、なお本人が自分の写真を投稿する面がなく（Twitterはファンの声専用、Weiboはコメントのみ、トークは学員との連絡）、裏側スタッフという設定のうえでも置き場がないためです（本人のアカウントのトプ画に使わない原則も不変です）。ボイスの追加候補（成団夜の台詞など）は棚卸しだけに留めました――音声生成の共有枠の残量がごくわずかで、新規生成は見送っています。いずれも音と判断の層のみで、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v14追記：メディア追加の締めとして、通話開始時の着信音（生成した短い合成音）を追加しました――電話の場面（全3回）が始まる瞬間に1回だけ鳴り、設定の「効果音」オン・オフと音量連動の作法は他の効果音と同じです。あわせて音まわり全体を棚卸ししました：BGMはステージ曲6曲（公式プレビュー約30秒）・順位発表BGM（45秒）・生成BGM2曲（各24秒ループ）、効果音は全4種（送信・受信・確定・着信）、ボイスは全4本で、表示している尺と実際の音源の長さ、クレジット表記がすべて一致していることを確認しました（是正が必要な食い違いはありませんでした）。トーク画面やサポート場面への場面BGMの拡張は、場面の静けさをどう扱うかの判断待ちのため、今回は入れていません。いずれも音の層のみで、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v15追記：トーク（WeChat）の文章と、その選択肢の文案だけを大改稿しました――全12件のトークのメッセージと選択肢24件の文案、選択後に届く返信、トーク内の区切り文、自由送信への返信文案（通常分とデビュー後の分）を、言い回し・温度・間合いの面で新しく書き直しています。「誰が・何を伝えるか」という情報の中身と話の流れ・順序、選択肢の数と並び、効果（撑腰値や各種フラグへの影響）はすべて従来どおりです。音声が付いているメッセージの文面は、音声と一致させるため一字も変えていません。場面文・Weibo／Twitter／ニュースなどのトーク以外の文章、史実の背骨・数値設計・セーブデータの形式も不変です。<br>v16追記：画面の作り込みを姉妹作（Tinder版）の水準まで底上げしました（見た目と操作の質感のみ）――タイトル画面は金のグローのアニメーションと題字のグラデーション、ホームのストーリーバナーには光の帯が流れる演出を足しました。場面はページ送りで文面がスライドして切り替わり、場所表示にピンの印が付きます。WeChatは実物に寄せ、吹き出しの角を6pxにして横に小さなしっぽを付け、一覧の区切り線はアバターの右から引く形にし、入力欄は文字を入れたときだけ送信ボタンが出る実物の出し分けにしました（下書きの保持は従来どおり）。Weiboのアクション行は実物どおり3分割・中央寄せ・区切り線つきにし、Twitterとあわせて、いいね等の反応でアイコンが弾む動きと、いいねやコメントを押してもスクロール位置が飛ばない保持を入れました。順位表は1〜3位の数字が金・銀・銅の丸メダルになり、順位発表以外の見返しでは大翔の行が金色に柔らかく光ります。通話画面はキー列がアイコン＋ラベルの実物の組みになり、終了ボタンも電話の描画アイコンになりました。音楽バーには再生位置のプログレス（実際の再生位置そのもの）を追加しました。UI・装飾の絵文字は全て描画アイコン（SVG）に置き換えました――対象は通話終了・音楽バーの再生／停止／音符・ボイスの再生／一時停止・WeiboとTwitterとInstagramカードのアクション・トーク一覧のボイス表示・完結カードの印・WeChat入力欄の顔／プラスの各アイコンで、物語本文・投稿文・台詞の中の絵文字や記号は文章の一部として従来どおりです。あわせて画面ごとにスクロール位置を覚えるようにし、アプリを行き来しても見ていた場所に戻れます（トーク画面と場面は従来どおり専用のスクロールです）。いずれも表示と挙動の質の変更のみで、記事・投稿・物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v17追記：各アプリの部品を、姉妹作『現役アイドル、Tinderやってた件』の実装からそのまま移植して組み直しました（土台の作りはTinder版の実装を正とし、色とブランド要素だけ本作の2021年仕様に合わせています）――トークには、返信が届くまでの「入力中…」の3点表示（LINEの部品）を入れました。設定の「この作品について」は、Tinder版のボトムシート部品（下からせり上がる白いシート＋背景タップで閉じる）で開くようになりました。Weiboのコメント欄はInstagramのコメント部品（ピルの入力欄＋テキスト色の送信ボタン）の形に、Weiboと順位表のタブは横スクロール式のタブ部品の寸法に、トークの入力バーはLINEの入力バーの寸法と安全領域の付け方に、場面・トーク・通話の選択肢は縦積みコンテナの部品の寸法に、トーストはTinder版の寸法・ぼかし・角に、それぞれ置き換えています。手紙（Instagram風カード）には投稿部品のフェードアップも移植しました。WeChatに既読表示は付けていません（WeChatの実物仕様どおりで、付けると数字・状態の創作になるためです）。物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。<br>v18追記：アプリ画面の実装を、姉妹作『現役アイドル、Tinderやってた件』のビュー基盤へ載せ替えました――各画面が専用のスクロール領域を持つビュー構造（開いた画面だけがスライドインし、画面ごとにスクロール位置を保持）にし、トーク一覧は行部品（アバター＋名前＋プレビューの行構造）、Weiboのコメントはコメント部品（丸アバター＋名前＋本文の行構造）、プロフィールの頭はプロフィール部品（大きなアバター＋情報列＋実データの指標行）の構造に置き換えています。色とブランド要素（WeChatの吹き出しの形、Weiboの橙など）だけ本作の2021年仕様に合わせ、WeChatの時刻・既読は従来どおり付けていません。タイトル画面には、三亜の合宿所とステージを描いた生成イラスト（人物なし・濃紺×金）をキービジュアルとして追加しました。あわせて学員90人の写真を公式プロフィール（KProfiles掲載のWeTV公式写真）と全員照合し、全員が本人の公式写真と一致することを確認しました（差し替えは不要でした）。物語の文面、史実の背骨・数値設計・セーブデータの形式は不変です。</div>
 <button class="ghost-btn" id="set-reset" style="color:#ff8296">セーブデータを消して最初から</button>`;
 $("#set-sound").onclick=e=>{ settings.sound=!settings.sound; e.target.classList.toggle("on",settings.sound); saveSettings(); if(!settings.sound) stopMusic();};
 $("#set-se").onclick=e=>{ settings.se=!(settings.se!==false); e.target.classList.toggle("on",settings.se); saveSettings();};
@@ -1950,6 +1993,7 @@ function duck(on){ if(curTrack&&ma&&!ma.paused) ma.volume=on?settings.vol*0.25:s
 const SE_SRC={send:"assets/se/se-send.mp3",recv:"assets/se/se-recv.mp3",done:"assets/se/se-done.mp3",call:"assets/se/se-call.mp3"};
 const seCache={};
 function playSE(name){ if(settings.se===false) return; const src=SE_SRC[name]; if(!src) return; try{ let a=seCache[name]; if(!a){ a=new Audio(src); seCache[name]=a; } a.volume=Math.min(1,settings.vol*0.6); a.currentTime=0; a.play().catch(()=>{}); }catch(e){} }
+/* v18: Tinder版のビュー基盤（.view＝画面ごとに専用スクロール領域を持つ絶対配置ビュー＋viewin）へ土台ごと載せ替え、本人の号令「Tinderバージョンからガチで全体的に持ってきてうわがいて」に沿ってアプリ画面の構造を置き換えた。.screen を position:absolute の flex ビューにし、各画面の内側 div を .v-scroll（flex:1 の専用スクローラ）に、トーク画面は .chat-scroll 相当（#chat-body が flex:1 で自前スクロール）にした。スクロール保持は scEl()/scY()/scTo() が現画面のスクローラを読む形に一本化。あわせて一覧行を .talkrow（button化）、Weiboコメントを .cmt、プロフィール頭を .ig-prof の構造に置換。タイトルには生成キービジュアル（三亜の合宿所とステージ、人物なし）を追加。色・ブランド要素（WeChat吹き出し形・Weibo橙）と「データのない数字・日付・時刻は作らない」作法は従来どおり。物語・数値・セーブ形式は不変 */
 /* v17: Tinder版（hiroto-tinder）からの部品移植。本人の号令「Tinderバージョンから部品そのまま持ってきてつくって」を受け、対象部品の構造・CSS・動きを実コードから移植し、色とブランド要素だけ本作（2021年・濃紺×金・WeChat／Weibo等）に適合させた。移植した部品：(1) .typing（3点の入力中表示＋tyアニメーション）→ 自由送信への返信待ち（sendFree、到着時の renderChat で消える）。(2) .t-sheet（ボトムシート：overlay rgba(0,0,0,.48)／box は radius 20px 20px 0 0・max-height 88%・sheetUp／h3・sub・.sheet-close）→ openSheet/closeSheet を新設し、設定「この作品について」をシート表示に（本文は従来の #about-box の中身をそのまま流用）。(3) .cmt-input → Weiboコメント欄（ピル入力は既存のまま、送信は橙のテキストボタンに）。(4) .line-input → トーク入力バーの padding／safe-area／入力欄の角。(5) .t-choices／.choices → .choice-list を flex 縦積み gap 8px にし、チャット側は部品の padding に。(6) .toast → #toast の角13px・padding・blur・無枠に。(7) .xtabs → Weiboタブと順位表タブを横スクロール化。(8) .ig-post の fadeup → 手紙カード。(9) .talkrow の寸法 → トーク一覧行。適合の判断：WeChat吹き出しは v16 の実物形（角6px＋しっぽ）を維持し、LINE部品の .meta（時刻・既読）は本作に時刻データがなく WeChat 実物にも既読がないため移植しない（「データのない数字・日付・時刻は作らない」作法）。物語の文面・史実の背骨・数値設計・セーブ形式は不変 */
 /* v16: UI作り込み（本人の優先順位指定「TinderバージョンのUIと同じぐらい作り込み。余計な機能追加より最優先」を受け、見た目と操作の質感だけを底上げした便。システム系パッケージ＝配分の見える化・選択肢ログ・巻き戻し・既読スキップは次便 v17 に回した）。内容：(1) 全体＝タイトル画面の金のグローのアニメーション＋題字グラデーション、ホームのバナーに光の帯（bannerSheen）、場面のページ送りアニメーション（pageIn。renderScenePage でクラスを付け直して毎ページ再生）、場所チップのピンSVG。(2) WeChat＝吹き出し角6px＋しっぽ（::before。ボイス吹き出しは除外）、一覧の区切り線を .meta 側へ移してアバター右から引く実物形、入力欄は updSendBtn で「文字がある時だけ送信ボタン／無い時は＋アイコン」の実物出し分け（下書き保持は不変）。(3) Weibo＝アクション行を3分割・中央寄せ・区切り線つきに（CSS上書き）、いいねアイコンのポップ。Twitter＝アクションをSVGアイコン＋数字に、押下背景、ツイート押下背景。(4) 順位表＝data-rank 属性を rankRowHTML に追加し1〜3位を金銀銅の丸メダル化、見返し側（noanim）の大翔行だけ heroGlow。(5) 通話＝キー列をSVGアイコン＋ラベルに、終了ボタンは電話SVG、背景に teal の radial グロー。(6) 音楽バー＝#music-prog に ma の timeupdate で実再生位置を表示（データは音源そのものの再生位置で、数字の創作ではない）。(7) 絵文字のSVG化＝IC 定数に集約し、通話終了／音楽バーの音符・再生・一時停止・停止／ボイス再生・一時停止／Weibo のコメント・いいね／Twitter の返信・ハート（押下で実線）・共有／Instagramカードのアクション3種／トーク一覧のボイス表示マイク／完結カードのトロフィー／WeChat入力欄の顔・プラス、を置換。物語本文・投稿文・台詞中の絵文字と ♪（場面文）・▲（ロゴの文字グリフ）・›‹−＋（タイポグラフィ記号）は文章・記号として対象外。(8) スクロール保持＝show() で画面ごとに #main のスクロール位置を SES_SCROLL（セッション内のみ）へ保存・復元（chat／scene／title は専用挙動のため除外）、Weibo／Twitter は再描画（いいね等）でも位置を保持。物語の文面・史実の背骨・数値設計・セーブ形式（chuang-uragawa-save-v1）は不変 */
 /* v15: チャット文面の大改稿（本人の指示「チャットの文章だけ思いっきり変更。選択肢も（音声あるとこはそのまま）」を受けた便）。対象は WeChat トークの文章とその選択肢の文案のみ――talk ステップ全12件の msgs（発言者・順序・件数は不変）、choices の label と reply の文面、トーク内の SYS 区切り文（2件）、自由送信への返信文案（FREE_REPLIES 8件＋デビュー後プール5件）を、情報の中身（誰が何を伝えるか・事実関係の数字）と話の流れを保ったまま言い回し・温度・間合いを新しく書き直した。厳守した線：(1) 音声付きの文面は一字不変――VOICES の line1〜line4 の text は不変で、V() の配置も従来どおり。通話 script（call ステップ）の文面もチャットではないため対象外。(2) 選択肢は数・並び・fx（撑腰値や各種フラグへの影響）・note を完全に維持し、変えたのは label と reply の文案だけ。構造確認として、改稿前後で全ステップの fx マッピング・トークの発言者列・選択肢の reply 発言者を機械照合し、一致を確認した。(3) 大翔＝ISFP-T・素は柔らかい関西弁・感情は行動や短い素直な言葉で、の描写基準は書き換え後も維持。(4) 「データのない数字・日付・時刻は作らない」――書き換えた文面にも根拠のない数字・日付・時刻は足していない（文中の数字は従来文面にあった事実関係のみ）。場面文・Weibo／Twitter／ニュース等のチャット以外の文章、史実の背骨・数値設計・セーブ形式（chuang-uragawa-save-v1）は不変 */
