@@ -1,0 +1,8 @@
+{
+  "status": "ok",
+  "snapshot_id": "91106bd0-c8a2-4122-b8d0-d0f54df67f12:e42hln",
+  "file": "bg-practice-lion.jpg",
+  "prompt": "Painterly anime-style background illustration, wide panoramic shot: an empty dance practice studio in a tropical training camp in Sanya, China, daytime, with traditional Chinese lion dance props (two lion heads, a drum, folded costumes) along the wall, mirrors, ballet barre, palm trees outside tall windows. No people, no text, no logos.",
+  "version": "v39",
+  "note": "生成後に目視で整合確認（人物なし・文字/ロゴ/看板なし・2021年三亜の合宿設定と整合）済み。表示用にリサイズ/圧縮して収録。"
+}

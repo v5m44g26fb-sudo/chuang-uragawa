@@ -1,0 +1,8 @@
+{
+  "status": "ok",
+  "snapshot_id": "4c5198af-931b-42be-a0dd-6e21564d4708:9xanta",
+  "file": "wb-practice.jpg",
+  "prompt": "Photorealistic photo, casual smartphone feel: an empty dance practice room in a tropical training camp in Sanya, mirrors reflecting windows with palm trees, water bottles and a folded towel by the mirror. No people, no text, no logos.",
+  "version": "v39",
+  "note": "生成後に目視で整合確認（人物なし・文字/ロゴ/看板なし・2021年三亜の合宿設定と整合）済み。表示用にリサイズ/圧縮して収録。"
+}

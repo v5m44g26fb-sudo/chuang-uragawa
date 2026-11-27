@@ -1,0 +1,8 @@
+{
+  "status": "ok",
+  "snapshot_id": "d7f14f51-96a0-47f9-aad6-eeaef1207f75:lm35ov",
+  "file": "wb-stage1.jpg",
+  "prompt": "Photorealistic photo: an empty indoor idol survival show performance stage before the show, China 2021, blue and magenta lights, blank LED screen, empty audience seats. No people, no text, no logos.",
+  "version": "v39",
+  "note": "生成後に目視で整合確認（人物なし・文字/ロゴ/看板なし・2021年三亜の合宿設定と整合）済み。表示用にリサイズ/圧縮して収録。"
+}

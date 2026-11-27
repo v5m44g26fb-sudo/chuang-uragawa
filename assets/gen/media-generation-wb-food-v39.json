@@ -1,0 +1,8 @@
+{
+  "status": "ok",
+  "snapshot_id": "2e52a878-62e0-4136-947e-0a27bcead4b3:gvcg59",
+  "file": "wb-food.jpg",
+  "prompt": "Photorealistic photo, smartphone food photo: a canteen tray lunch in a training camp cafeteria in Sanya, Hainanese chicken rice, clear soup, stir-fried vegetables, coconut water. No people, no hands, no text, no logos.",
+  "version": "v39",
+  "note": "生成後に目視で整合確認（人物なし・文字/ロゴ/看板なし・2021年三亜の合宿設定と整合）済み。表示用にリサイズ/圧縮して収録。"
+}
